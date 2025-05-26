@@ -39,13 +39,13 @@ module Spi_slave_tb;
 
     // Generador de reloj de la FPGA
     always begin
-        clk_fpga_tb = 1'b0; 
+        clk_fpga_tb = 1'b0;
         #(CLK_PERIOD_FPGA/2);
-        clk_fpga_tb = 1'b1; 
+        clk_fpga_tb = 1'b1;
         #(CLK_PERIOD_FPGA/2);
     end
 
-    // Tarea de transferencia SPI (sin for)
+    // Tarea de transferencia SPI sin "for"
     task spi_transfer_byte(
         input  [7:0] data_to_send_master,
         output [7:0] data_received_master
@@ -53,12 +53,10 @@ module Spi_slave_tb;
         logic [7:0] shift_out;
         shift_out            = data_to_send_master;
         data_received_master = 8'b0;
-
         // repeat en lugar de for
         repeat (8) begin
             mosi_tb   = shift_out[7];
             shift_out = { shift_out[6:0], 1'b0 };
-
             sclk_spi_tb = 1'b0;
             #(SCLK_PERIOD_SPI/2);
             sclk_spi_tb = 1'b1;
@@ -66,31 +64,22 @@ module Spi_slave_tb;
             data_received_master = { data_received_master[6:0], miso_dut };
             #(SCLK_PERIOD_SPI/2 - 1);
         end
-
         sclk_spi_tb = 1'b0;
         mosi_tb     = 1'bz;
     endtask
 
-    // Tarea de verificación (solo compuertas lógicas + assert sin else)
+    // Tarea de verificación usando solo ecuaciones booleanas en las aserciones
     task check_spi_transaction(
         input [3:0] expected_data,
         input [7:0] expected_ack,
         input [7:0] actual_ack
     );
-        // Comparador de ACK con XOR y reducción OR
-        wire [7:0] ack_xor   = actual_ack ^ expected_ack;
-        wire       ack_error = |ack_xor;
-        wire       ack_ok    = ~ack_error;
-        assert (ack_ok);
-
-        // Dar tiempo para que el DUT convierta el pulso de validez
+        // Aserción ACK: ~( |(actual_ack ^ expected_ack) ) debe ser 1
+        assert ( ~( |(actual_ack ^ expected_ack)) );
+        // Dar tiempo para que el DUT procese el dato y genere el pulso
         #(CLK_PERIOD_FPGA * 5);
-
-        // Comparador de datos de 4 bits con XOR y reducción OR
-        wire [3:0] data_xor   = spi_data_out_dut ^ expected_data;
-        wire       data_error = |data_xor;
-        wire       data_ok    = ~data_error;
-        assert (data_ok);
+        // Aserción Data: ~( |(spi_data_out_dut ^ expected_data) ) debe ser 1
+        assert ( ~( |(spi_data_out_dut ^ expected_data)) );
     endtask
 
     // Secuencia principal de pruebas
@@ -112,9 +101,11 @@ module Spi_slave_tb;
         ss_n_tb                = 1'b0;
         #(CLK_PERIOD_FPGA);
         spi_transfer_byte(byte_to_send_tb, byte_received_from_fpga_tb);
-        ss_n_tb                = 1'b1;
+        ss_n_tb = 1'b1;
         #(CLK_PERIOD_FPGA * 2);
-        check_spi_transaction(speed_value_to_send_tb, ACK_EXPECTED_FROM_FPGA, byte_received_from_fpga_tb);
+        check_spi_transaction(speed_value_to_send_tb,
+                              ACK_EXPECTED_FROM_FPGA,
+                              byte_received_from_fpga_tb);
         #(SCLK_PERIOD_SPI * 2);
 
         // Test Case 2: velocidad = 10 (0xA)
@@ -124,9 +115,11 @@ module Spi_slave_tb;
         ss_n_tb                = 1'b0;
         #(CLK_PERIOD_FPGA);
         spi_transfer_byte(byte_to_send_tb, byte_received_from_fpga_tb);
-        ss_n_tb                = 1'b1;
+        ss_n_tb = 1'b1;
         #(CLK_PERIOD_FPGA * 2);
-        check_spi_transaction(speed_value_to_send_tb, ACK_EXPECTED_FROM_FPGA, byte_received_from_fpga_tb);
+        check_spi_transaction(speed_value_to_send_tb,
+                              ACK_EXPECTED_FROM_FPGA,
+                              byte_received_from_fpga_tb);
         #(SCLK_PERIOD_SPI * 2);
 
         // Test Case 3: velocidad = 0
@@ -136,9 +129,11 @@ module Spi_slave_tb;
         ss_n_tb                = 1'b0;
         #(CLK_PERIOD_FPGA);
         spi_transfer_byte(byte_to_send_tb, byte_received_from_fpga_tb);
-        ss_n_tb                = 1'b1;
+        ss_n_tb = 1'b1;
         #(CLK_PERIOD_FPGA * 2);
-        check_spi_transaction(speed_value_to_send_tb, ACK_EXPECTED_FROM_FPGA, byte_received_from_fpga_tb);
+        check_spi_transaction(speed_value_to_send_tb,
+                              ACK_EXPECTED_FROM_FPGA,
+                              byte_received_from_fpga_tb);
         #(SCLK_PERIOD_SPI * 2);
 
         $finish;
