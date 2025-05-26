@@ -31,6 +31,15 @@ module FpgaController (
         .spi_data_valid_out (data_is_valid),
         .miso_out           (fpga_physical_miso)
     );
+	 
+	     // --- PWM de motor 16 niveles ---
+    pwm_controller #(.PRESCALER_WIDTH(12)) pwm_unit (
+        .FPGA_clk   (FPGA_clk),
+        .FPGA_reset (FPGA_reset),
+        .speed      (data_from_spi_module), // o alu_result[3:0]
+        .pwm_out    (motor_pwm_signal)
+    );
+
 
     // --- Instancia del decodificador HEX→7SEG (sin cambios) ---
     hex_to_7seg hexdec (
