@@ -1,0 +1,61 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "fpga_physical_miso",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_display[0]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_display[1]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_display[2]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_display[3]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_display[4]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_display[5]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_display[6]",
+					"strict" : false
+				},
+				{
+					"name" : "FPGA_reset",
+					"strict" : false
+				},
+				{
+					"name" : "FPGA_clk",
+					"strict" : false
+				},
+				{
+					"name" : "arduino_ss_n",
+					"strict" : false
+				},
+				{
+					"name" : "arduino_sclk",
+					"strict" : false
+				},
+				{
+					"name" : "arduino_mosi",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
