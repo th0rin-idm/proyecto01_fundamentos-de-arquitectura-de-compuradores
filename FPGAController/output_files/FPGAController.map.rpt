@@ -1,5 +1,5 @@
 Analysis & Synthesis report for FPGAController
-Sun May 25 19:14:07 2025
+Sun May 25 19:20:30 2025
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -10,7 +10,15 @@ Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis Messages
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Registers Removed During Synthesis
+  9. Removed Registers Triggering Further Register Optimizations
+ 10. General Register Statistics
+ 11. Post-Synthesis Netlist Statistics for Top Partition
+ 12. Elapsed Time Per Partition
+ 13. Analysis & Synthesis Messages
 
 
 
@@ -34,22 +42,27 @@ https://fpgasoftware.intel.com/eula.
 
 
 
-+------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                 ;
-+-----------------------------+------------------------------------------------+
-; Analysis & Synthesis Status ; Failed - Sun May 25 19:14:07 2025              ;
-; Quartus Prime Version       ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
-; Revision Name               ; FPGAController                                 ;
-; Top-level Entity Name       ; FpgaController                                 ;
-; Family                      ; Cyclone V                                      ;
-; Logic utilization (in ALMs) ; N/A until Partition Merge                      ;
-; Total registers             ; N/A until Partition Merge                      ;
-; Total pins                  ; N/A until Partition Merge                      ;
-; Total virtual pins          ; N/A until Partition Merge                      ;
-; Total block memory bits     ; N/A until Partition Merge                      ;
-; Total PLLs                  ; N/A until Partition Merge                      ;
-; Total DLLs                  ; N/A until Partition Merge                      ;
-+-----------------------------+------------------------------------------------+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++---------------------------------+------------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Sun May 25 19:20:30 2025          ;
+; Quartus Prime Version           ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
+; Revision Name                   ; FPGAController                                 ;
+; Top-level Entity Name           ; FpgaController                                 ;
+; Family                          ; Cyclone V                                      ;
+; Logic utilization (in ALMs)     ; N/A                                            ;
+; Total registers                 ; 29                                             ;
+; Total pins                      ; 14                                             ;
+; Total virtual pins              ; 0                                              ;
+; Total block memory bits         ; 0                                              ;
+; Total DSP Blocks                ; 0                                              ;
+; Total HSSI RX PCSs              ; 0                                              ;
+; Total HSSI PMA RX Deserializers ; 0                                              ;
+; Total HSSI TX PCSs              ; 0                                              ;
+; Total HSSI PMA TX Serializers   ; 0                                              ;
+; Total PLLs                      ; 0                                              ;
+; Total DLLs                      ; 0                                              ;
++---------------------------------+------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
@@ -148,11 +161,129 @@ https://fpgasoftware.intel.com/eula.
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+;     Processors 2-16        ;   0.0%      ;
 +----------------------------+-------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                           ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                       ; Library ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
+; Spi_slave_module.sv              ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_module.sv ;         ;
+; FpgaController.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv   ;         ;
+; hex_to_7seg.sv                   ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv      ;         ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
+
+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimate of Logic utilization (ALMs needed) ; 17             ;
+;                                             ;                ;
+; Combinational ALUT usage for logic          ; 24             ;
+;     -- 7 input functions                    ; 0              ;
+;     -- 6 input functions                    ; 8              ;
+;     -- 5 input functions                    ; 9              ;
+;     -- 4 input functions                    ; 4              ;
+;     -- <=3 input functions                  ; 3              ;
+;                                             ;                ;
+; Dedicated logic registers                   ; 29             ;
+;                                             ;                ;
+; I/O pins                                    ; 14             ;
+;                                             ;                ;
+; Total DSP Blocks                            ; 0              ;
+;                                             ;                ;
+; Maximum fan-out node                        ; FPGA_clk~input ;
+; Maximum fan-out                             ; 29             ;
+; Total fan-out                               ; 211            ;
+; Average fan-out                             ; 2.60           ;
++---------------------------------------------+----------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                   ;
++--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------+------------------+--------------+
+; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                       ; Entity Name      ; Library Name ;
++--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------+------------------+--------------+
+; |FpgaController                ; 24 (8)              ; 29 (7)                    ; 0                 ; 0          ; 14   ; 0            ; |FpgaController                           ; FpgaController   ; work         ;
+;    |Spi_slave_module:spi_unit| ; 16 (16)             ; 22 (22)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Spi_slave_module:spi_unit ; Spi_slave_module ; work         ;
++--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------+------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++-----------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                      ;
++------------------------------------------------+----------------------------------------+
+; Register name                                  ; Reason for Removal                     ;
++------------------------------------------------+----------------------------------------+
+; Spi_slave_module:spi_unit|shift_reg_miso[0..3] ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 4          ;                                        ;
++------------------------------------------------+----------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                            ;
++---------------------------------------------+---------------------------+----------------------------------------------+
+; Register name                               ; Reason for Removal        ; Registers Removed due to This Register       ;
++---------------------------------------------+---------------------------+----------------------------------------------+
+; Spi_slave_module:spi_unit|shift_reg_miso[0] ; Stuck at GND              ; Spi_slave_module:spi_unit|shift_reg_miso[1], ;
+;                                             ; due to stuck port data_in ; Spi_slave_module:spi_unit|shift_reg_miso[2], ;
+;                                             ;                           ; Spi_slave_module:spi_unit|shift_reg_miso[3]  ;
++---------------------------------------------+---------------------------+----------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 29    ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 15    ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; arriav_ff             ; 29                          ;
+;     ENA               ; 15                          ;
+;     plain             ; 14                          ;
+; arriav_lcell_comb     ; 25                          ;
+;     normal            ; 25                          ;
+;         0 data inputs ; 1                           ;
+;         2 data inputs ; 2                           ;
+;         3 data inputs ; 1                           ;
+;         4 data inputs ; 4                           ;
+;         5 data inputs ; 9                           ;
+;         6 data inputs ; 8                           ;
+; boundary_port         ; 14                          ;
+;                       ;                             ;
+; Max LUT depth         ; 2.00                        ;
+; Average LUT depth     ; 1.05                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
 
 
 +-------------------------------+
@@ -161,7 +292,7 @@ https://fpgasoftware.intel.com/eula.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Sun May 25 19:14:01 2025
+    Info: Processing started: Sun May 25 19:20:24 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
@@ -172,14 +303,23 @@ Info (12021): Found 1 design units, including 1 entities, in source file fpgacon
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_tb.sv
     Info (12023): Found entity 1: Spi_slave_tb File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_tb.sv Line: 3
 Info (12021): Found 1 design units, including 1 entities, in source file hex_to_7seg.sv
-    Info (12023): Found entity 1: hex_to_7seg_structural File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv Line: 5
+    Info (12023): Found entity 1: hex_to_7seg File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv Line: 5
 Info (12127): Elaborating entity "FpgaController" for the top level hierarchy
 Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 33
-Error (12006): Node instance "hexdec" instantiates undefined entity "hex_to_7seg". Ensure that required library paths are specified correctly, define the specified entity, or change the instantiation. If this entity represents Intel FPGA or third-party IP, generate the synthesis files for the IP. File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 39
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 1 error, 1 warning
-    Error: Peak virtual memory: 4792 megabytes
-    Error: Processing ended: Sun May 25 19:14:07 2025
-    Error: Elapsed time: 00:00:06
-    Error: Total CPU time (on all processors): 00:00:14
+Info (12128): Elaborating entity "hex_to_7seg" for hierarchy "hex_to_7seg:hexdec" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 39
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "motor_pwm_signal" is stuck at GND File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 12
+Info (286030): Timing-Driven Synthesis is running
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 53 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 5 input pins
+    Info (21059): Implemented 9 output pins
+    Info (21061): Implemented 39 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
+    Info: Peak virtual memory: 4890 megabytes
+    Info: Processing ended: Sun May 25 19:20:30 2025
+    Info: Elapsed time: 00:00:06
+    Info: Total CPU time (on all processors): 00:00:15
 
 

@@ -17,7 +17,7 @@
 // PROGRAM "Quartus Prime"
 // VERSION "Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition"
 
-// DATE "05/22/2025 04:09:18"
+// DATE "05/25/2025 19:21:28"
 
 // 
 // Device: Altera 5CSXFC6D6F31C6 Package FBGA896
@@ -38,14 +38,14 @@ module FpgaController (
 	fpga_physical_miso,
 	motor_pwm_signal,
 	seven_segment_display);
-input 	logic FPGA_clk ;
-input 	logic FPGA_reset ;
-input 	logic arduino_sclk ;
-input 	logic arduino_mosi ;
-input 	logic arduino_ss_n ;
-output 	logic fpga_physical_miso ;
-output 	logic motor_pwm_signal ;
-output 	logic [6:0] seven_segment_display ;
+input 	FPGA_clk;
+input 	FPGA_reset;
+input 	arduino_sclk;
+input 	arduino_mosi;
+input 	arduino_ss_n;
+output 	fpga_physical_miso;
+output 	motor_pwm_signal;
+output 	[6:0] seven_segment_display;
 
 // Design Ports Information
 // fpga_physical_miso	=>  Location: PIN_AE11,	 I/O Standard: 2.5 V,	 Current Strength: Default
@@ -82,6 +82,7 @@ wire \FPGA_reset~input_o ;
 wire \arduino_ss_n~input_o ;
 wire \spi_unit|ss_n_sync1~q ;
 wire \spi_unit|ss_n_sync2~q ;
+wire \spi_unit|ss_n_sync2~DUPLICATE_q ;
 wire \spi_unit|d_has_loaded_mosi_data_this_frame~0_combout ;
 wire \arduino_sclk~input_o ;
 wire \spi_unit|sclk_sync1~q ;
@@ -90,32 +91,31 @@ wire \spi_unit|d_shift_reg_miso[4]~1_combout ;
 wire \spi_unit|d_shift_reg_miso[5]~3_combout ;
 wire \spi_unit|d_shift_reg_miso[6]~2_combout ;
 wire \spi_unit|d_shift_reg_miso[7]~0_combout ;
-wire \spi_unit|ss_n_sync2~DUPLICATE_q ;
-wire \spi_unit|shift_enable~0_combout ;
 wire \arduino_mosi~input_o ;
-wire \spi_unit|mosi_sync1~feeder_combout ;
 wire \spi_unit|mosi_sync1~q ;
 wire \spi_unit|mosi_sync2~q ;
-wire \spi_unit|d_shift_reg_mosi[0]~0_combout ;
+wire \spi_unit|sclk_sync2~DUPLICATE_q ;
+wire \spi_unit|shift_enable~0_combout ;
+wire \spi_unit|d_shift_reg_mosi[0]~2_combout ;
 wire \spi_unit|d_shift_reg_mosi[1]~1_combout ;
-wire \spi_unit|d_shift_reg_mosi[2]~2_combout ;
-wire \spi_unit|d_shift_reg_mosi[3]~3_combout ;
 wire \spi_unit|d_bit_count[1]~0_combout ;
 wire \spi_unit|d_bit_count[0]~1_combout ;
-wire \spi_unit|sclk_sync2~DUPLICATE_q ;
 wire \spi_unit|shift_enable~1_combout ;
 wire \spi_unit|d_has_loaded_mosi_data_this_frame~1_combout ;
 wire \spi_unit|has_loaded_mosi_data_this_frame_reg~q ;
 wire \spi_unit|d_data_buffer[0]~0_combout ;
-wire \hexdec|WideOr6~0_combout ;
+wire \spi_unit|d_shift_reg_mosi[2]~0_combout ;
+wire \spi_unit|d_shift_reg_mosi[3]~3_combout ;
+wire \next_display_reg[0]~0_combout ;
 wire \spi_unit|d_data_valid_pulse~0_combout ;
 wire \spi_unit|data_valid_pulse_reg~q ;
-wire \hexdec|WideOr5~0_combout ;
-wire \hexdec|WideOr4~0_combout ;
-wire \hexdec|WideOr3~0_combout ;
-wire \hexdec|WideOr2~0_combout ;
-wire \hexdec|WideOr1~0_combout ;
-wire \hexdec|WideOr0~0_combout ;
+wire \next_display_reg[0]~1_combout ;
+wire \next_display_reg[1]~2_combout ;
+wire \next_display_reg[2]~3_combout ;
+wire \next_display_reg[3]~4_combout ;
+wire \next_display_reg[4]~5_combout ;
+wire \next_display_reg[5]~6_combout ;
+wire \next_display_reg[6]~7_combout ;
 wire [7:0] \spi_unit|shift_reg_miso ;
 wire [6:0] display_reg;
 wire [3:0] \spi_unit|data_buffer_reg ;
@@ -157,7 +157,7 @@ defparam \motor_pwm_signal~output .shift_series_termination_control = "false";
 
 // Location: IOOBUF_X60_Y0_N19
 cyclonev_io_obuf \seven_segment_display[0]~output (
-	.i(!display_reg[0]),
+	.i(display_reg[0]),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -173,7 +173,7 @@ defparam \seven_segment_display[0]~output .shift_series_termination_control = "f
 
 // Location: IOOBUF_X80_Y0_N2
 cyclonev_io_obuf \seven_segment_display[1]~output (
-	.i(!display_reg[1]),
+	.i(display_reg[1]),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -189,7 +189,7 @@ defparam \seven_segment_display[1]~output .shift_series_termination_control = "f
 
 // Location: IOOBUF_X50_Y0_N93
 cyclonev_io_obuf \seven_segment_display[2]~output (
-	.i(!display_reg[2]),
+	.i(display_reg[2]),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -205,7 +205,7 @@ defparam \seven_segment_display[2]~output .shift_series_termination_control = "f
 
 // Location: IOOBUF_X50_Y0_N76
 cyclonev_io_obuf \seven_segment_display[3]~output (
-	.i(!display_reg[3]),
+	.i(display_reg[3]),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -221,7 +221,7 @@ defparam \seven_segment_display[3]~output .shift_series_termination_control = "f
 
 // Location: IOOBUF_X56_Y0_N36
 cyclonev_io_obuf \seven_segment_display[4]~output (
-	.i(!display_reg[4]),
+	.i(display_reg[4]),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -237,7 +237,7 @@ defparam \seven_segment_display[4]~output .shift_series_termination_control = "f
 
 // Location: IOOBUF_X58_Y0_N76
 cyclonev_io_obuf \seven_segment_display[5]~output (
-	.i(!display_reg[5]),
+	.i(display_reg[5]),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -253,7 +253,7 @@ defparam \seven_segment_display[5]~output .shift_series_termination_control = "f
 
 // Location: IOOBUF_X56_Y0_N53
 cyclonev_io_obuf \seven_segment_display[6]~output (
-	.i(!display_reg[6]),
+	.i(display_reg[6]),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -314,7 +314,7 @@ defparam \arduino_ss_n~input .bus_hold = "false";
 defparam \arduino_ss_n~input .simulate_z_as = "z";
 // synopsys translate_on
 
-// Location: FF_X57_Y4_N29
+// Location: FF_X56_Y1_N26
 dffeas \spi_unit|ss_n_sync1 (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
 	.d(gnd),
@@ -333,7 +333,7 @@ defparam \spi_unit|ss_n_sync1 .is_wysiwyg = "true";
 defparam \spi_unit|ss_n_sync1 .power_up = "low";
 // synopsys translate_on
 
-// Location: FF_X56_Y4_N44
+// Location: FF_X57_Y1_N26
 dffeas \spi_unit|ss_n_sync2 (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
 	.d(gnd),
@@ -352,253 +352,7 @@ defparam \spi_unit|ss_n_sync2 .is_wysiwyg = "true";
 defparam \spi_unit|ss_n_sync2 .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X56_Y4_N57
-cyclonev_lcell_comb \spi_unit|d_has_loaded_mosi_data_this_frame~0 (
-// Equation(s):
-// \spi_unit|d_has_loaded_mosi_data_this_frame~0_combout  = ( \spi_unit|ss_n_sync2~q  & ( (!\spi_unit|ss_n_sync1~q ) # (\FPGA_reset~input_o ) ) ) # ( !\spi_unit|ss_n_sync2~q  & ( \FPGA_reset~input_o  ) )
-
-	.dataa(gnd),
-	.datab(!\FPGA_reset~input_o ),
-	.datac(gnd),
-	.datad(!\spi_unit|ss_n_sync1~q ),
-	.datae(gnd),
-	.dataf(!\spi_unit|ss_n_sync2~q ),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|d_has_loaded_mosi_data_this_frame~0_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|d_has_loaded_mosi_data_this_frame~0 .extended_lut = "off";
-defparam \spi_unit|d_has_loaded_mosi_data_this_frame~0 .lut_mask = 64'h33333333FF33FF33;
-defparam \spi_unit|d_has_loaded_mosi_data_this_frame~0 .shared_arith = "off";
-// synopsys translate_on
-
-// Location: IOIBUF_X6_Y0_N18
-cyclonev_io_ibuf \arduino_sclk~input (
-	.i(arduino_sclk),
-	.ibar(gnd),
-	.dynamicterminationcontrol(gnd),
-	.o(\arduino_sclk~input_o ));
-// synopsys translate_off
-defparam \arduino_sclk~input .bus_hold = "false";
-defparam \arduino_sclk~input .simulate_z_as = "z";
-// synopsys translate_on
-
-// Location: FF_X57_Y4_N32
-dffeas \spi_unit|sclk_sync1 (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(gnd),
-	.asdata(\arduino_sclk~input_o ),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(vcc),
-	.ena(vcc),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|sclk_sync1~q ),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|sclk_sync1 .is_wysiwyg = "true";
-defparam \spi_unit|sclk_sync1 .power_up = "low";
-// synopsys translate_on
-
-// Location: FF_X57_Y4_N17
-dffeas \spi_unit|sclk_sync2 (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(gnd),
-	.asdata(\spi_unit|sclk_sync1~q ),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(vcc),
-	.ena(vcc),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|sclk_sync2~q ),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|sclk_sync2 .is_wysiwyg = "true";
-defparam \spi_unit|sclk_sync2 .power_up = "low";
-// synopsys translate_on
-
-// Location: LABCELL_X56_Y4_N51
-cyclonev_lcell_comb \spi_unit|d_shift_reg_miso[4]~1 (
-// Equation(s):
-// \spi_unit|d_shift_reg_miso[4]~1_combout  = ( \spi_unit|ss_n_sync1~q  & ( \spi_unit|sclk_sync1~q  & ( \FPGA_reset~input_o  ) ) ) # ( !\spi_unit|ss_n_sync1~q  & ( \spi_unit|sclk_sync1~q  & ( ((!\spi_unit|sclk_sync2~q ) # (\spi_unit|ss_n_sync2~q )) # 
-// (\FPGA_reset~input_o ) ) ) ) # ( \spi_unit|ss_n_sync1~q  & ( !\spi_unit|sclk_sync1~q  & ( \FPGA_reset~input_o  ) ) ) # ( !\spi_unit|ss_n_sync1~q  & ( !\spi_unit|sclk_sync1~q  & ( (\spi_unit|ss_n_sync2~q ) # (\FPGA_reset~input_o ) ) ) )
-
-	.dataa(gnd),
-	.datab(!\FPGA_reset~input_o ),
-	.datac(!\spi_unit|ss_n_sync2~q ),
-	.datad(!\spi_unit|sclk_sync2~q ),
-	.datae(!\spi_unit|ss_n_sync1~q ),
-	.dataf(!\spi_unit|sclk_sync1~q ),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|d_shift_reg_miso[4]~1_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|d_shift_reg_miso[4]~1 .extended_lut = "off";
-defparam \spi_unit|d_shift_reg_miso[4]~1 .lut_mask = 64'h3F3F3333FF3F3333;
-defparam \spi_unit|d_shift_reg_miso[4]~1 .shared_arith = "off";
-// synopsys translate_on
-
-// Location: FF_X56_Y4_N59
-dffeas \spi_unit|shift_reg_miso[4] (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\spi_unit|d_has_loaded_mosi_data_this_frame~0_combout ),
-	.asdata(vcc),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(gnd),
-	.ena(\spi_unit|d_shift_reg_miso[4]~1_combout ),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|shift_reg_miso [4]),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|shift_reg_miso[4] .is_wysiwyg = "true";
-defparam \spi_unit|shift_reg_miso[4] .power_up = "low";
-// synopsys translate_on
-
-// Location: LABCELL_X56_Y4_N54
-cyclonev_lcell_comb \spi_unit|d_shift_reg_miso[5]~3 (
-// Equation(s):
-// \spi_unit|d_shift_reg_miso[5]~3_combout  = ( \spi_unit|ss_n_sync2~q  & ( (!\FPGA_reset~input_o  & (\spi_unit|ss_n_sync1~q  & \spi_unit|shift_reg_miso [4])) ) ) # ( !\spi_unit|ss_n_sync2~q  & ( (!\FPGA_reset~input_o  & \spi_unit|shift_reg_miso [4]) ) )
-
-	.dataa(gnd),
-	.datab(!\FPGA_reset~input_o ),
-	.datac(!\spi_unit|ss_n_sync1~q ),
-	.datad(!\spi_unit|shift_reg_miso [4]),
-	.datae(gnd),
-	.dataf(!\spi_unit|ss_n_sync2~q ),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|d_shift_reg_miso[5]~3_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|d_shift_reg_miso[5]~3 .extended_lut = "off";
-defparam \spi_unit|d_shift_reg_miso[5]~3 .lut_mask = 64'h00CC00CC000C000C;
-defparam \spi_unit|d_shift_reg_miso[5]~3 .shared_arith = "off";
-// synopsys translate_on
-
-// Location: FF_X56_Y4_N56
-dffeas \spi_unit|shift_reg_miso[5] (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\spi_unit|d_shift_reg_miso[5]~3_combout ),
-	.asdata(vcc),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(gnd),
-	.ena(\spi_unit|d_shift_reg_miso[4]~1_combout ),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|shift_reg_miso [5]),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|shift_reg_miso[5] .is_wysiwyg = "true";
-defparam \spi_unit|shift_reg_miso[5] .power_up = "low";
-// synopsys translate_on
-
-// Location: LABCELL_X56_Y4_N12
-cyclonev_lcell_comb \spi_unit|d_shift_reg_miso[6]~2 (
-// Equation(s):
-// \spi_unit|d_shift_reg_miso[6]~2_combout  = (!\FPGA_reset~input_o  & (\spi_unit|shift_reg_miso [5] & ((!\spi_unit|ss_n_sync2~q ) # (\spi_unit|ss_n_sync1~q ))))
-
-	.dataa(!\FPGA_reset~input_o ),
-	.datab(!\spi_unit|ss_n_sync2~q ),
-	.datac(!\spi_unit|shift_reg_miso [5]),
-	.datad(!\spi_unit|ss_n_sync1~q ),
-	.datae(gnd),
-	.dataf(gnd),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|d_shift_reg_miso[6]~2_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|d_shift_reg_miso[6]~2 .extended_lut = "off";
-defparam \spi_unit|d_shift_reg_miso[6]~2 .lut_mask = 64'h080A080A080A080A;
-defparam \spi_unit|d_shift_reg_miso[6]~2 .shared_arith = "off";
-// synopsys translate_on
-
-// Location: FF_X56_Y4_N13
-dffeas \spi_unit|shift_reg_miso[6] (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\spi_unit|d_shift_reg_miso[6]~2_combout ),
-	.asdata(vcc),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(gnd),
-	.ena(\spi_unit|d_shift_reg_miso[4]~1_combout ),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|shift_reg_miso [6]),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|shift_reg_miso[6] .is_wysiwyg = "true";
-defparam \spi_unit|shift_reg_miso[6] .power_up = "low";
-// synopsys translate_on
-
-// Location: LABCELL_X56_Y4_N15
-cyclonev_lcell_comb \spi_unit|d_shift_reg_miso[7]~0 (
-// Equation(s):
-// \spi_unit|d_shift_reg_miso[7]~0_combout  = ( \spi_unit|shift_reg_miso [6] & ( (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync2~q ) # (\spi_unit|ss_n_sync1~q ))) ) )
-
-	.dataa(!\FPGA_reset~input_o ),
-	.datab(gnd),
-	.datac(!\spi_unit|ss_n_sync2~q ),
-	.datad(!\spi_unit|ss_n_sync1~q ),
-	.datae(gnd),
-	.dataf(!\spi_unit|shift_reg_miso [6]),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|d_shift_reg_miso[7]~0_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|d_shift_reg_miso[7]~0 .extended_lut = "off";
-defparam \spi_unit|d_shift_reg_miso[7]~0 .lut_mask = 64'h00000000A0AAA0AA;
-defparam \spi_unit|d_shift_reg_miso[7]~0 .shared_arith = "off";
-// synopsys translate_on
-
-// Location: FF_X56_Y4_N16
-dffeas \spi_unit|shift_reg_miso[7] (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\spi_unit|d_shift_reg_miso[7]~0_combout ),
-	.asdata(vcc),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(gnd),
-	.ena(\spi_unit|d_shift_reg_miso[4]~1_combout ),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|shift_reg_miso [7]),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|shift_reg_miso[7] .is_wysiwyg = "true";
-defparam \spi_unit|shift_reg_miso[7] .power_up = "low";
-// synopsys translate_on
-
-// Location: FF_X56_Y4_N43
+// Location: FF_X57_Y1_N25
 dffeas \spi_unit|ss_n_sync2~DUPLICATE (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
 	.d(gnd),
@@ -617,47 +371,252 @@ defparam \spi_unit|ss_n_sync2~DUPLICATE .is_wysiwyg = "true";
 defparam \spi_unit|ss_n_sync2~DUPLICATE .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X57_Y4_N9
-cyclonev_lcell_comb \spi_unit|shift_enable~0 (
+// Location: LABCELL_X57_Y1_N33
+cyclonev_lcell_comb \spi_unit|d_has_loaded_mosi_data_this_frame~0 (
 // Equation(s):
-// \spi_unit|shift_enable~0_combout  = ( \spi_unit|sclk_sync1~q  & ( !\spi_unit|sclk_sync2~q  ) )
+// \spi_unit|d_has_loaded_mosi_data_this_frame~0_combout  = ( \spi_unit|ss_n_sync2~DUPLICATE_q  & ( (!\spi_unit|ss_n_sync1~q ) # (\FPGA_reset~input_o ) ) ) # ( !\spi_unit|ss_n_sync2~DUPLICATE_q  & ( \FPGA_reset~input_o  ) )
 
-	.dataa(gnd),
+	.dataa(!\FPGA_reset~input_o ),
 	.datab(gnd),
-	.datac(!\spi_unit|sclk_sync2~q ),
-	.datad(gnd),
+	.datac(gnd),
+	.datad(!\spi_unit|ss_n_sync1~q ),
 	.datae(gnd),
-	.dataf(!\spi_unit|sclk_sync1~q ),
+	.dataf(!\spi_unit|ss_n_sync2~DUPLICATE_q ),
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\spi_unit|shift_enable~0_combout ),
+	.combout(\spi_unit|d_has_loaded_mosi_data_this_frame~0_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \spi_unit|shift_enable~0 .extended_lut = "off";
-defparam \spi_unit|shift_enable~0 .lut_mask = 64'h00000000F0F0F0F0;
-defparam \spi_unit|shift_enable~0 .shared_arith = "off";
+defparam \spi_unit|d_has_loaded_mosi_data_this_frame~0 .extended_lut = "off";
+defparam \spi_unit|d_has_loaded_mosi_data_this_frame~0 .lut_mask = 64'h55555555FF55FF55;
+defparam \spi_unit|d_has_loaded_mosi_data_this_frame~0 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: FF_X57_Y4_N56
-dffeas \spi_unit|shift_reg_mosi[3] (
+// Location: IOIBUF_X6_Y0_N18
+cyclonev_io_ibuf \arduino_sclk~input (
+	.i(arduino_sclk),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\arduino_sclk~input_o ));
+// synopsys translate_off
+defparam \arduino_sclk~input .bus_hold = "false";
+defparam \arduino_sclk~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: FF_X56_Y1_N47
+dffeas \spi_unit|sclk_sync1 (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\spi_unit|d_shift_reg_mosi[3]~3_combout ),
+	.d(gnd),
+	.asdata(\arduino_sclk~input_o ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|sclk_sync1~q ),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|sclk_sync1 .is_wysiwyg = "true";
+defparam \spi_unit|sclk_sync1 .power_up = "low";
+// synopsys translate_on
+
+// Location: FF_X56_Y1_N7
+dffeas \spi_unit|sclk_sync2 (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(gnd),
+	.asdata(\spi_unit|sclk_sync1~q ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|sclk_sync2~q ),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|sclk_sync2 .is_wysiwyg = "true";
+defparam \spi_unit|sclk_sync2 .power_up = "low";
+// synopsys translate_on
+
+// Location: LABCELL_X57_Y1_N51
+cyclonev_lcell_comb \spi_unit|d_shift_reg_miso[4]~1 (
+// Equation(s):
+// \spi_unit|d_shift_reg_miso[4]~1_combout  = ( \spi_unit|ss_n_sync1~q  & ( \spi_unit|sclk_sync1~q  & ( \FPGA_reset~input_o  ) ) ) # ( !\spi_unit|ss_n_sync1~q  & ( \spi_unit|sclk_sync1~q  & ( ((!\spi_unit|sclk_sync2~q ) # (\FPGA_reset~input_o )) # 
+// (\spi_unit|ss_n_sync2~q ) ) ) ) # ( \spi_unit|ss_n_sync1~q  & ( !\spi_unit|sclk_sync1~q  & ( \FPGA_reset~input_o  ) ) ) # ( !\spi_unit|ss_n_sync1~q  & ( !\spi_unit|sclk_sync1~q  & ( (\FPGA_reset~input_o ) # (\spi_unit|ss_n_sync2~q ) ) ) )
+
+	.dataa(!\spi_unit|ss_n_sync2~q ),
+	.datab(gnd),
+	.datac(!\FPGA_reset~input_o ),
+	.datad(!\spi_unit|sclk_sync2~q ),
+	.datae(!\spi_unit|ss_n_sync1~q ),
+	.dataf(!\spi_unit|sclk_sync1~q ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\spi_unit|d_shift_reg_miso[4]~1_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \spi_unit|d_shift_reg_miso[4]~1 .extended_lut = "off";
+defparam \spi_unit|d_shift_reg_miso[4]~1 .lut_mask = 64'h5F5F0F0FFF5F0F0F;
+defparam \spi_unit|d_shift_reg_miso[4]~1 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: FF_X57_Y1_N34
+dffeas \spi_unit|shift_reg_miso[4] (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(\spi_unit|d_has_loaded_mosi_data_this_frame~0_combout ),
 	.asdata(vcc),
 	.clrn(vcc),
 	.aload(gnd),
 	.sclr(gnd),
 	.sload(gnd),
-	.ena(vcc),
+	.ena(\spi_unit|d_shift_reg_miso[4]~1_combout ),
 	.devclrn(devclrn),
 	.devpor(devpor),
-	.q(\spi_unit|shift_reg_mosi [3]),
+	.q(\spi_unit|shift_reg_miso [4]),
 	.prn(vcc));
 // synopsys translate_off
-defparam \spi_unit|shift_reg_mosi[3] .is_wysiwyg = "true";
-defparam \spi_unit|shift_reg_mosi[3] .power_up = "low";
+defparam \spi_unit|shift_reg_miso[4] .is_wysiwyg = "true";
+defparam \spi_unit|shift_reg_miso[4] .power_up = "low";
+// synopsys translate_on
+
+// Location: LABCELL_X57_Y1_N21
+cyclonev_lcell_comb \spi_unit|d_shift_reg_miso[5]~3 (
+// Equation(s):
+// \spi_unit|d_shift_reg_miso[5]~3_combout  = ( \spi_unit|ss_n_sync2~DUPLICATE_q  & ( (!\FPGA_reset~input_o  & (\spi_unit|ss_n_sync1~q  & \spi_unit|shift_reg_miso [4])) ) ) # ( !\spi_unit|ss_n_sync2~DUPLICATE_q  & ( (!\FPGA_reset~input_o  & 
+// \spi_unit|shift_reg_miso [4]) ) )
+
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(!\spi_unit|ss_n_sync1~q ),
+	.datac(!\spi_unit|shift_reg_miso [4]),
+	.datad(gnd),
+	.datae(gnd),
+	.dataf(!\spi_unit|ss_n_sync2~DUPLICATE_q ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\spi_unit|d_shift_reg_miso[5]~3_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \spi_unit|d_shift_reg_miso[5]~3 .extended_lut = "off";
+defparam \spi_unit|d_shift_reg_miso[5]~3 .lut_mask = 64'h0A0A0A0A02020202;
+defparam \spi_unit|d_shift_reg_miso[5]~3 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: FF_X57_Y1_N23
+dffeas \spi_unit|shift_reg_miso[5] (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(\spi_unit|d_shift_reg_miso[5]~3_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\spi_unit|d_shift_reg_miso[4]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|shift_reg_miso [5]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|shift_reg_miso[5] .is_wysiwyg = "true";
+defparam \spi_unit|shift_reg_miso[5] .power_up = "low";
+// synopsys translate_on
+
+// Location: LABCELL_X57_Y1_N18
+cyclonev_lcell_comb \spi_unit|d_shift_reg_miso[6]~2 (
+// Equation(s):
+// \spi_unit|d_shift_reg_miso[6]~2_combout  = ( \spi_unit|ss_n_sync2~DUPLICATE_q  & ( (\spi_unit|ss_n_sync1~q  & (!\FPGA_reset~input_o  & \spi_unit|shift_reg_miso [5])) ) ) # ( !\spi_unit|ss_n_sync2~DUPLICATE_q  & ( (!\FPGA_reset~input_o  & 
+// \spi_unit|shift_reg_miso [5]) ) )
+
+	.dataa(gnd),
+	.datab(!\spi_unit|ss_n_sync1~q ),
+	.datac(!\FPGA_reset~input_o ),
+	.datad(!\spi_unit|shift_reg_miso [5]),
+	.datae(gnd),
+	.dataf(!\spi_unit|ss_n_sync2~DUPLICATE_q ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\spi_unit|d_shift_reg_miso[6]~2_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \spi_unit|d_shift_reg_miso[6]~2 .extended_lut = "off";
+defparam \spi_unit|d_shift_reg_miso[6]~2 .lut_mask = 64'h00F000F000300030;
+defparam \spi_unit|d_shift_reg_miso[6]~2 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: FF_X57_Y1_N19
+dffeas \spi_unit|shift_reg_miso[6] (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(\spi_unit|d_shift_reg_miso[6]~2_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\spi_unit|d_shift_reg_miso[4]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|shift_reg_miso [6]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|shift_reg_miso[6] .is_wysiwyg = "true";
+defparam \spi_unit|shift_reg_miso[6] .power_up = "low";
+// synopsys translate_on
+
+// Location: LABCELL_X57_Y1_N30
+cyclonev_lcell_comb \spi_unit|d_shift_reg_miso[7]~0 (
+// Equation(s):
+// \spi_unit|d_shift_reg_miso[7]~0_combout  = ( \spi_unit|shift_reg_miso [6] & ( (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync2~q ) # (\spi_unit|ss_n_sync1~q ))) ) )
+
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(!\spi_unit|ss_n_sync1~q ),
+	.datac(!\spi_unit|ss_n_sync2~q ),
+	.datad(gnd),
+	.datae(gnd),
+	.dataf(!\spi_unit|shift_reg_miso [6]),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\spi_unit|d_shift_reg_miso[7]~0_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \spi_unit|d_shift_reg_miso[7]~0 .extended_lut = "off";
+defparam \spi_unit|d_shift_reg_miso[7]~0 .lut_mask = 64'h00000000A2A2A2A2;
+defparam \spi_unit|d_shift_reg_miso[7]~0 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: FF_X57_Y1_N31
+dffeas \spi_unit|shift_reg_miso[7] (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(\spi_unit|d_shift_reg_miso[7]~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\spi_unit|d_shift_reg_miso[4]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|shift_reg_miso [7]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|shift_reg_miso[7] .is_wysiwyg = "true";
+defparam \spi_unit|shift_reg_miso[7] .power_up = "low";
 // synopsys translate_on
 
 // Location: IOIBUF_X6_Y0_N1
@@ -671,39 +630,15 @@ defparam \arduino_mosi~input .bus_hold = "false";
 defparam \arduino_mosi~input .simulate_z_as = "z";
 // synopsys translate_on
 
-// Location: MLABCELL_X52_Y4_N48
-cyclonev_lcell_comb \spi_unit|mosi_sync1~feeder (
-// Equation(s):
-// \spi_unit|mosi_sync1~feeder_combout  = ( \arduino_mosi~input_o  )
-
-	.dataa(gnd),
-	.datab(gnd),
-	.datac(gnd),
-	.datad(gnd),
-	.datae(gnd),
-	.dataf(!\arduino_mosi~input_o ),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|mosi_sync1~feeder_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|mosi_sync1~feeder .extended_lut = "off";
-defparam \spi_unit|mosi_sync1~feeder .lut_mask = 64'h00000000FFFFFFFF;
-defparam \spi_unit|mosi_sync1~feeder .shared_arith = "off";
-// synopsys translate_on
-
-// Location: FF_X52_Y4_N49
+// Location: FF_X56_Y1_N52
 dffeas \spi_unit|mosi_sync1 (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\spi_unit|mosi_sync1~feeder_combout ),
-	.asdata(vcc),
+	.d(gnd),
+	.asdata(\arduino_mosi~input_o ),
 	.clrn(vcc),
 	.aload(gnd),
 	.sclr(gnd),
-	.sload(gnd),
+	.sload(vcc),
 	.ena(vcc),
 	.devclrn(devclrn),
 	.devpor(devpor),
@@ -714,7 +649,7 @@ defparam \spi_unit|mosi_sync1 .is_wysiwyg = "true";
 defparam \spi_unit|mosi_sync1 .power_up = "low";
 // synopsys translate_on
 
-// Location: FF_X57_Y4_N23
+// Location: FF_X56_Y1_N44
 dffeas \spi_unit|mosi_sync2 (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
 	.d(gnd),
@@ -733,258 +668,7 @@ defparam \spi_unit|mosi_sync2 .is_wysiwyg = "true";
 defparam \spi_unit|mosi_sync2 .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X57_Y4_N18
-cyclonev_lcell_comb \spi_unit|d_shift_reg_mosi[0]~0 (
-// Equation(s):
-// \spi_unit|d_shift_reg_mosi[0]~0_combout  = ( \spi_unit|shift_reg_mosi [0] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (((\spi_unit|mosi_sync2~q  & !\spi_unit|ss_n_sync2~DUPLICATE_q )) # (\spi_unit|ss_n_sync1~q ))) ) ) ) # ( 
-// !\spi_unit|shift_reg_mosi [0] & ( \spi_unit|shift_enable~0_combout  & ( (\spi_unit|mosi_sync2~q  & (!\FPGA_reset~input_o  & (!\spi_unit|ss_n_sync1~q  & !\spi_unit|ss_n_sync2~DUPLICATE_q ))) ) ) ) # ( \spi_unit|shift_reg_mosi [0] & ( 
-// !\spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync2~DUPLICATE_q ) # (\spi_unit|ss_n_sync1~q ))) ) ) )
-
-	.dataa(!\spi_unit|mosi_sync2~q ),
-	.datab(!\FPGA_reset~input_o ),
-	.datac(!\spi_unit|ss_n_sync1~q ),
-	.datad(!\spi_unit|ss_n_sync2~DUPLICATE_q ),
-	.datae(!\spi_unit|shift_reg_mosi [0]),
-	.dataf(!\spi_unit|shift_enable~0_combout ),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|d_shift_reg_mosi[0]~0_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|d_shift_reg_mosi[0]~0 .extended_lut = "off";
-defparam \spi_unit|d_shift_reg_mosi[0]~0 .lut_mask = 64'h0000CC0C40004C0C;
-defparam \spi_unit|d_shift_reg_mosi[0]~0 .shared_arith = "off";
-// synopsys translate_on
-
-// Location: FF_X57_Y4_N19
-dffeas \spi_unit|shift_reg_mosi[0] (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\spi_unit|d_shift_reg_mosi[0]~0_combout ),
-	.asdata(vcc),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(gnd),
-	.ena(vcc),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|shift_reg_mosi [0]),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|shift_reg_mosi[0] .is_wysiwyg = "true";
-defparam \spi_unit|shift_reg_mosi[0] .power_up = "low";
-// synopsys translate_on
-
-// Location: LABCELL_X57_Y4_N42
-cyclonev_lcell_comb \spi_unit|d_shift_reg_mosi[1]~1 (
-// Equation(s):
-// \spi_unit|d_shift_reg_mosi[1]~1_combout  = ( \spi_unit|ss_n_sync2~q  & ( \spi_unit|shift_enable~0_combout  & ( (\spi_unit|shift_reg_mosi [1] & (!\FPGA_reset~input_o  & \spi_unit|ss_n_sync1~q )) ) ) ) # ( !\spi_unit|ss_n_sync2~q  & ( 
-// \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync1~q  & ((\spi_unit|shift_reg_mosi [0]))) # (\spi_unit|ss_n_sync1~q  & (\spi_unit|shift_reg_mosi [1])))) ) ) ) # ( \spi_unit|ss_n_sync2~q  & ( 
-// !\spi_unit|shift_enable~0_combout  & ( (\spi_unit|shift_reg_mosi [1] & (!\FPGA_reset~input_o  & \spi_unit|ss_n_sync1~q )) ) ) ) # ( !\spi_unit|ss_n_sync2~q  & ( !\spi_unit|shift_enable~0_combout  & ( (\spi_unit|shift_reg_mosi [1] & !\FPGA_reset~input_o ) 
-// ) ) )
-
-	.dataa(!\spi_unit|shift_reg_mosi [1]),
-	.datab(!\FPGA_reset~input_o ),
-	.datac(!\spi_unit|ss_n_sync1~q ),
-	.datad(!\spi_unit|shift_reg_mosi [0]),
-	.datae(!\spi_unit|ss_n_sync2~q ),
-	.dataf(!\spi_unit|shift_enable~0_combout ),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|d_shift_reg_mosi[1]~1_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|d_shift_reg_mosi[1]~1 .extended_lut = "off";
-defparam \spi_unit|d_shift_reg_mosi[1]~1 .lut_mask = 64'h4444040404C40404;
-defparam \spi_unit|d_shift_reg_mosi[1]~1 .shared_arith = "off";
-// synopsys translate_on
-
-// Location: FF_X57_Y4_N50
-dffeas \spi_unit|shift_reg_mosi[1] (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(gnd),
-	.asdata(\spi_unit|d_shift_reg_mosi[1]~1_combout ),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(vcc),
-	.ena(vcc),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|shift_reg_mosi [1]),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|shift_reg_mosi[1] .is_wysiwyg = "true";
-defparam \spi_unit|shift_reg_mosi[1] .power_up = "low";
-// synopsys translate_on
-
-// Location: LABCELL_X57_Y4_N57
-cyclonev_lcell_comb \spi_unit|d_shift_reg_mosi[2]~2 (
-// Equation(s):
-// \spi_unit|d_shift_reg_mosi[2]~2_combout  = ( \spi_unit|shift_reg_mosi [2] & ( \spi_unit|shift_reg_mosi [1] & ( (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync2~DUPLICATE_q ) # (\spi_unit|ss_n_sync1~q ))) ) ) ) # ( !\spi_unit|shift_reg_mosi [2] & ( 
-// \spi_unit|shift_reg_mosi [1] & ( (!\spi_unit|ss_n_sync1~q  & (!\spi_unit|ss_n_sync2~DUPLICATE_q  & (\spi_unit|shift_enable~0_combout  & !\FPGA_reset~input_o ))) ) ) ) # ( \spi_unit|shift_reg_mosi [2] & ( !\spi_unit|shift_reg_mosi [1] & ( 
-// (!\FPGA_reset~input_o  & (((!\spi_unit|ss_n_sync2~DUPLICATE_q  & !\spi_unit|shift_enable~0_combout )) # (\spi_unit|ss_n_sync1~q ))) ) ) )
-
-	.dataa(!\spi_unit|ss_n_sync1~q ),
-	.datab(!\spi_unit|ss_n_sync2~DUPLICATE_q ),
-	.datac(!\spi_unit|shift_enable~0_combout ),
-	.datad(!\FPGA_reset~input_o ),
-	.datae(!\spi_unit|shift_reg_mosi [2]),
-	.dataf(!\spi_unit|shift_reg_mosi [1]),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|d_shift_reg_mosi[2]~2_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|d_shift_reg_mosi[2]~2 .extended_lut = "off";
-defparam \spi_unit|d_shift_reg_mosi[2]~2 .lut_mask = 64'h0000D5000800DD00;
-defparam \spi_unit|d_shift_reg_mosi[2]~2 .shared_arith = "off";
-// synopsys translate_on
-
-// Location: FF_X57_Y4_N35
-dffeas \spi_unit|shift_reg_mosi[2] (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(gnd),
-	.asdata(\spi_unit|d_shift_reg_mosi[2]~2_combout ),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(vcc),
-	.ena(vcc),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|shift_reg_mosi [2]),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|shift_reg_mosi[2] .is_wysiwyg = "true";
-defparam \spi_unit|shift_reg_mosi[2] .power_up = "low";
-// synopsys translate_on
-
-// Location: LABCELL_X57_Y4_N54
-cyclonev_lcell_comb \spi_unit|d_shift_reg_mosi[3]~3 (
-// Equation(s):
-// \spi_unit|d_shift_reg_mosi[3]~3_combout  = ( \spi_unit|shift_reg_mosi [3] & ( \spi_unit|shift_reg_mosi [2] & ( (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync2~DUPLICATE_q ) # (\spi_unit|ss_n_sync1~q ))) ) ) ) # ( !\spi_unit|shift_reg_mosi [3] & ( 
-// \spi_unit|shift_reg_mosi [2] & ( (!\spi_unit|ss_n_sync1~q  & (!\spi_unit|ss_n_sync2~DUPLICATE_q  & (!\FPGA_reset~input_o  & \spi_unit|shift_enable~0_combout ))) ) ) ) # ( \spi_unit|shift_reg_mosi [3] & ( !\spi_unit|shift_reg_mosi [2] & ( 
-// (!\FPGA_reset~input_o  & (((!\spi_unit|ss_n_sync2~DUPLICATE_q  & !\spi_unit|shift_enable~0_combout )) # (\spi_unit|ss_n_sync1~q ))) ) ) )
-
-	.dataa(!\spi_unit|ss_n_sync1~q ),
-	.datab(!\spi_unit|ss_n_sync2~DUPLICATE_q ),
-	.datac(!\FPGA_reset~input_o ),
-	.datad(!\spi_unit|shift_enable~0_combout ),
-	.datae(!\spi_unit|shift_reg_mosi [3]),
-	.dataf(!\spi_unit|shift_reg_mosi [2]),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|d_shift_reg_mosi[3]~3_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|d_shift_reg_mosi[3]~3 .extended_lut = "off";
-defparam \spi_unit|d_shift_reg_mosi[3]~3 .lut_mask = 64'h0000D0500080D0D0;
-defparam \spi_unit|d_shift_reg_mosi[3]~3 .shared_arith = "off";
-// synopsys translate_on
-
-// Location: LABCELL_X57_Y4_N51
-cyclonev_lcell_comb \spi_unit|d_bit_count[1]~0 (
-// Equation(s):
-// \spi_unit|d_bit_count[1]~0_combout  = ( \spi_unit|bit_count_reg [1] & ( \spi_unit|ss_n_sync2~DUPLICATE_q  & ( (!\FPGA_reset~input_o  & \spi_unit|ss_n_sync1~q ) ) ) ) # ( \spi_unit|bit_count_reg [1] & ( !\spi_unit|ss_n_sync2~DUPLICATE_q  & ( 
-// !\FPGA_reset~input_o  ) ) ) # ( !\spi_unit|bit_count_reg [1] & ( !\spi_unit|ss_n_sync2~DUPLICATE_q  & ( (!\FPGA_reset~input_o  & (\spi_unit|shift_enable~0_combout  & (\spi_unit|bit_count_reg [0] & !\spi_unit|ss_n_sync1~q ))) ) ) )
-
-	.dataa(!\FPGA_reset~input_o ),
-	.datab(!\spi_unit|shift_enable~0_combout ),
-	.datac(!\spi_unit|bit_count_reg [0]),
-	.datad(!\spi_unit|ss_n_sync1~q ),
-	.datae(!\spi_unit|bit_count_reg [1]),
-	.dataf(!\spi_unit|ss_n_sync2~DUPLICATE_q ),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|d_bit_count[1]~0_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|d_bit_count[1]~0 .extended_lut = "off";
-defparam \spi_unit|d_bit_count[1]~0 .lut_mask = 64'h0200AAAA000000AA;
-defparam \spi_unit|d_bit_count[1]~0 .shared_arith = "off";
-// synopsys translate_on
-
-// Location: FF_X57_Y4_N53
-dffeas \spi_unit|bit_count_reg[1] (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\spi_unit|d_bit_count[1]~0_combout ),
-	.asdata(vcc),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(gnd),
-	.ena(vcc),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|bit_count_reg [1]),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|bit_count_reg[1] .is_wysiwyg = "true";
-defparam \spi_unit|bit_count_reg[1] .power_up = "low";
-// synopsys translate_on
-
-// Location: LABCELL_X57_Y4_N12
-cyclonev_lcell_comb \spi_unit|d_bit_count[0]~1 (
-// Equation(s):
-// \spi_unit|d_bit_count[0]~1_combout  = ( \spi_unit|bit_count_reg [0] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (((\spi_unit|bit_count_reg [1] & !\spi_unit|ss_n_sync2~DUPLICATE_q )) # (\spi_unit|ss_n_sync1~q ))) ) ) ) # ( 
-// !\spi_unit|bit_count_reg [0] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (!\spi_unit|ss_n_sync1~q  & !\spi_unit|ss_n_sync2~DUPLICATE_q )) ) ) ) # ( \spi_unit|bit_count_reg [0] & ( !\spi_unit|shift_enable~0_combout  & ( 
-// (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync2~DUPLICATE_q ) # (\spi_unit|ss_n_sync1~q ))) ) ) )
-
-	.dataa(!\spi_unit|bit_count_reg [1]),
-	.datab(!\FPGA_reset~input_o ),
-	.datac(!\spi_unit|ss_n_sync1~q ),
-	.datad(!\spi_unit|ss_n_sync2~DUPLICATE_q ),
-	.datae(!\spi_unit|bit_count_reg [0]),
-	.dataf(!\spi_unit|shift_enable~0_combout ),
-	.datag(gnd),
-	.cin(gnd),
-	.sharein(gnd),
-	.combout(\spi_unit|d_bit_count[0]~1_combout ),
-	.sumout(),
-	.cout(),
-	.shareout());
-// synopsys translate_off
-defparam \spi_unit|d_bit_count[0]~1 .extended_lut = "off";
-defparam \spi_unit|d_bit_count[0]~1 .lut_mask = 64'h0000CC0CC0004C0C;
-defparam \spi_unit|d_bit_count[0]~1 .shared_arith = "off";
-// synopsys translate_on
-
-// Location: FF_X57_Y4_N14
-dffeas \spi_unit|bit_count_reg[0] (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\spi_unit|d_bit_count[0]~1_combout ),
-	.asdata(vcc),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(gnd),
-	.ena(vcc),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|bit_count_reg [0]),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|bit_count_reg[0] .is_wysiwyg = "true";
-defparam \spi_unit|bit_count_reg[0] .power_up = "low";
-// synopsys translate_on
-
-// Location: FF_X57_Y4_N16
+// Location: FF_X56_Y1_N8
 dffeas \spi_unit|sclk_sync2~DUPLICATE (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
 	.d(gnd),
@@ -1003,17 +687,222 @@ defparam \spi_unit|sclk_sync2~DUPLICATE .is_wysiwyg = "true";
 defparam \spi_unit|sclk_sync2~DUPLICATE .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X57_Y4_N30
-cyclonev_lcell_comb \spi_unit|shift_enable~1 (
+// Location: LABCELL_X56_Y1_N51
+cyclonev_lcell_comb \spi_unit|shift_enable~0 (
 // Equation(s):
-// \spi_unit|shift_enable~1_combout  = ( \spi_unit|sclk_sync1~q  & ( !\spi_unit|sclk_sync2~DUPLICATE_q  & ( (!\FPGA_reset~input_o  & !\spi_unit|ss_n_sync1~q ) ) ) )
+// \spi_unit|shift_enable~0_combout  = ( \spi_unit|sclk_sync1~q  & ( !\spi_unit|sclk_sync2~DUPLICATE_q  ) )
 
 	.dataa(gnd),
-	.datab(!\FPGA_reset~input_o ),
-	.datac(!\spi_unit|ss_n_sync1~q ),
+	.datab(gnd),
+	.datac(gnd),
 	.datad(gnd),
 	.datae(!\spi_unit|sclk_sync1~q ),
 	.dataf(!\spi_unit|sclk_sync2~DUPLICATE_q ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\spi_unit|shift_enable~0_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \spi_unit|shift_enable~0 .extended_lut = "off";
+defparam \spi_unit|shift_enable~0 .lut_mask = 64'h0000FFFF00000000;
+defparam \spi_unit|shift_enable~0 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: LABCELL_X56_Y1_N57
+cyclonev_lcell_comb \spi_unit|d_shift_reg_mosi[0]~2 (
+// Equation(s):
+// \spi_unit|d_shift_reg_mosi[0]~2_combout  = ( \spi_unit|shift_reg_mosi [0] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (((\spi_unit|mosi_sync2~q  & !\spi_unit|ss_n_sync2~q )) # (\spi_unit|ss_n_sync1~q ))) ) ) ) # ( 
+// !\spi_unit|shift_reg_mosi [0] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (\spi_unit|mosi_sync2~q  & (!\spi_unit|ss_n_sync2~q  & !\spi_unit|ss_n_sync1~q ))) ) ) ) # ( \spi_unit|shift_reg_mosi [0] & ( 
+// !\spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync2~q ) # (\spi_unit|ss_n_sync1~q ))) ) ) )
+
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(!\spi_unit|mosi_sync2~q ),
+	.datac(!\spi_unit|ss_n_sync2~q ),
+	.datad(!\spi_unit|ss_n_sync1~q ),
+	.datae(!\spi_unit|shift_reg_mosi [0]),
+	.dataf(!\spi_unit|shift_enable~0_combout ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\spi_unit|d_shift_reg_mosi[0]~2_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \spi_unit|d_shift_reg_mosi[0]~2 .extended_lut = "off";
+defparam \spi_unit|d_shift_reg_mosi[0]~2 .lut_mask = 64'h0000A0AA200020AA;
+defparam \spi_unit|d_shift_reg_mosi[0]~2 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: FF_X56_Y1_N58
+dffeas \spi_unit|shift_reg_mosi[0] (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(\spi_unit|d_shift_reg_mosi[0]~2_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|shift_reg_mosi [0]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|shift_reg_mosi[0] .is_wysiwyg = "true";
+defparam \spi_unit|shift_reg_mosi[0] .power_up = "low";
+// synopsys translate_on
+
+// Location: FF_X56_Y1_N56
+dffeas \spi_unit|shift_reg_mosi[1] (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(gnd),
+	.asdata(\spi_unit|d_shift_reg_mosi[1]~1_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|shift_reg_mosi [1]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|shift_reg_mosi[1] .is_wysiwyg = "true";
+defparam \spi_unit|shift_reg_mosi[1] .power_up = "low";
+// synopsys translate_on
+
+// Location: LABCELL_X56_Y1_N0
+cyclonev_lcell_comb \spi_unit|d_shift_reg_mosi[1]~1 (
+// Equation(s):
+// \spi_unit|d_shift_reg_mosi[1]~1_combout  = ( \spi_unit|ss_n_sync2~DUPLICATE_q  & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (\spi_unit|ss_n_sync1~q  & \spi_unit|shift_reg_mosi [1])) ) ) ) # ( !\spi_unit|ss_n_sync2~DUPLICATE_q  & ( 
+// \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync1~q  & (\spi_unit|shift_reg_mosi [0])) # (\spi_unit|ss_n_sync1~q  & ((\spi_unit|shift_reg_mosi [1]))))) ) ) ) # ( \spi_unit|ss_n_sync2~DUPLICATE_q  & ( 
+// !\spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (\spi_unit|ss_n_sync1~q  & \spi_unit|shift_reg_mosi [1])) ) ) ) # ( !\spi_unit|ss_n_sync2~DUPLICATE_q  & ( !\spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & 
+// \spi_unit|shift_reg_mosi [1]) ) ) )
+
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(!\spi_unit|shift_reg_mosi [0]),
+	.datac(!\spi_unit|ss_n_sync1~q ),
+	.datad(!\spi_unit|shift_reg_mosi [1]),
+	.datae(!\spi_unit|ss_n_sync2~DUPLICATE_q ),
+	.dataf(!\spi_unit|shift_enable~0_combout ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\spi_unit|d_shift_reg_mosi[1]~1_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \spi_unit|d_shift_reg_mosi[1]~1 .extended_lut = "off";
+defparam \spi_unit|d_shift_reg_mosi[1]~1 .lut_mask = 64'h00AA000A202A000A;
+defparam \spi_unit|d_shift_reg_mosi[1]~1 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: LABCELL_X56_Y1_N9
+cyclonev_lcell_comb \spi_unit|d_bit_count[1]~0 (
+// Equation(s):
+// \spi_unit|d_bit_count[1]~0_combout  = ( \spi_unit|bit_count_reg [1] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync2~q ) # (\spi_unit|ss_n_sync1~q ))) ) ) ) # ( !\spi_unit|bit_count_reg [1] & ( 
+// \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (\spi_unit|bit_count_reg [0] & (!\spi_unit|ss_n_sync2~q  & !\spi_unit|ss_n_sync1~q ))) ) ) ) # ( \spi_unit|bit_count_reg [1] & ( !\spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & 
+// ((!\spi_unit|ss_n_sync2~q ) # (\spi_unit|ss_n_sync1~q ))) ) ) )
+
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(!\spi_unit|bit_count_reg [0]),
+	.datac(!\spi_unit|ss_n_sync2~q ),
+	.datad(!\spi_unit|ss_n_sync1~q ),
+	.datae(!\spi_unit|bit_count_reg [1]),
+	.dataf(!\spi_unit|shift_enable~0_combout ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\spi_unit|d_bit_count[1]~0_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \spi_unit|d_bit_count[1]~0 .extended_lut = "off";
+defparam \spi_unit|d_bit_count[1]~0 .lut_mask = 64'h0000A0AA2000A0AA;
+defparam \spi_unit|d_bit_count[1]~0 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: FF_X56_Y1_N11
+dffeas \spi_unit|bit_count_reg[1] (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(\spi_unit|d_bit_count[1]~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|bit_count_reg [1]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|bit_count_reg[1] .is_wysiwyg = "true";
+defparam \spi_unit|bit_count_reg[1] .power_up = "low";
+// synopsys translate_on
+
+// Location: LABCELL_X56_Y1_N18
+cyclonev_lcell_comb \spi_unit|d_bit_count[0]~1 (
+// Equation(s):
+// \spi_unit|d_bit_count[0]~1_combout  = ( \spi_unit|bit_count_reg [0] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (((\spi_unit|bit_count_reg [1] & !\spi_unit|ss_n_sync2~q )) # (\spi_unit|ss_n_sync1~q ))) ) ) ) # ( 
+// !\spi_unit|bit_count_reg [0] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (!\spi_unit|ss_n_sync1~q  & !\spi_unit|ss_n_sync2~q )) ) ) ) # ( \spi_unit|bit_count_reg [0] & ( !\spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  
+// & ((!\spi_unit|ss_n_sync2~q ) # (\spi_unit|ss_n_sync1~q ))) ) ) )
+
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(!\spi_unit|bit_count_reg [1]),
+	.datac(!\spi_unit|ss_n_sync1~q ),
+	.datad(!\spi_unit|ss_n_sync2~q ),
+	.datae(!\spi_unit|bit_count_reg [0]),
+	.dataf(!\spi_unit|shift_enable~0_combout ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\spi_unit|d_bit_count[0]~1_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \spi_unit|d_bit_count[0]~1 .extended_lut = "off";
+defparam \spi_unit|d_bit_count[0]~1 .lut_mask = 64'h0000AA0AA0002A0A;
+defparam \spi_unit|d_bit_count[0]~1 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: FF_X56_Y1_N20
+dffeas \spi_unit|bit_count_reg[0] (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(\spi_unit|d_bit_count[0]~1_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|bit_count_reg [0]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|bit_count_reg[0] .is_wysiwyg = "true";
+defparam \spi_unit|bit_count_reg[0] .power_up = "low";
+// synopsys translate_on
+
+// Location: LABCELL_X56_Y1_N45
+cyclonev_lcell_comb \spi_unit|shift_enable~1 (
+// Equation(s):
+// \spi_unit|shift_enable~1_combout  = ( \spi_unit|sclk_sync1~q  & ( !\spi_unit|ss_n_sync1~q  & ( (!\FPGA_reset~input_o  & !\spi_unit|sclk_sync2~q ) ) ) )
+
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(!\spi_unit|sclk_sync2~q ),
+	.datae(!\spi_unit|sclk_sync1~q ),
+	.dataf(!\spi_unit|ss_n_sync1~q ),
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
@@ -1023,21 +912,21 @@ cyclonev_lcell_comb \spi_unit|shift_enable~1 (
 	.shareout());
 // synopsys translate_off
 defparam \spi_unit|shift_enable~1 .extended_lut = "off";
-defparam \spi_unit|shift_enable~1 .lut_mask = 64'h0000C0C000000000;
+defparam \spi_unit|shift_enable~1 .lut_mask = 64'h0000AA0000000000;
 defparam \spi_unit|shift_enable~1 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: LABCELL_X56_Y4_N36
+// Location: LABCELL_X56_Y1_N12
 cyclonev_lcell_comb \spi_unit|d_has_loaded_mosi_data_this_frame~1 (
 // Equation(s):
 // \spi_unit|d_has_loaded_mosi_data_this_frame~1_combout  = ( \spi_unit|has_loaded_mosi_data_this_frame_reg~q  & ( \spi_unit|shift_enable~1_combout  & ( !\spi_unit|d_has_loaded_mosi_data_this_frame~0_combout  ) ) ) # ( 
-// !\spi_unit|has_loaded_mosi_data_this_frame_reg~q  & ( \spi_unit|shift_enable~1_combout  & ( (!\spi_unit|d_has_loaded_mosi_data_this_frame~0_combout  & (\spi_unit|bit_count_reg [0] & \spi_unit|bit_count_reg [1])) ) ) ) # ( 
+// !\spi_unit|has_loaded_mosi_data_this_frame_reg~q  & ( \spi_unit|shift_enable~1_combout  & ( (\spi_unit|bit_count_reg [0] & (!\spi_unit|d_has_loaded_mosi_data_this_frame~0_combout  & \spi_unit|bit_count_reg [1])) ) ) ) # ( 
 // \spi_unit|has_loaded_mosi_data_this_frame_reg~q  & ( !\spi_unit|shift_enable~1_combout  & ( !\spi_unit|d_has_loaded_mosi_data_this_frame~0_combout  ) ) )
 
-	.dataa(!\spi_unit|d_has_loaded_mosi_data_this_frame~0_combout ),
-	.datab(!\spi_unit|bit_count_reg [0]),
-	.datac(!\spi_unit|bit_count_reg [1]),
-	.datad(gnd),
+	.dataa(!\spi_unit|bit_count_reg [0]),
+	.datab(gnd),
+	.datac(!\spi_unit|d_has_loaded_mosi_data_this_frame~0_combout ),
+	.datad(!\spi_unit|bit_count_reg [1]),
 	.datae(!\spi_unit|has_loaded_mosi_data_this_frame_reg~q ),
 	.dataf(!\spi_unit|shift_enable~1_combout ),
 	.datag(gnd),
@@ -1049,11 +938,11 @@ cyclonev_lcell_comb \spi_unit|d_has_loaded_mosi_data_this_frame~1 (
 	.shareout());
 // synopsys translate_off
 defparam \spi_unit|d_has_loaded_mosi_data_this_frame~1 .extended_lut = "off";
-defparam \spi_unit|d_has_loaded_mosi_data_this_frame~1 .lut_mask = 64'h0000AAAA0202AAAA;
+defparam \spi_unit|d_has_loaded_mosi_data_this_frame~1 .lut_mask = 64'h0000F0F00050F0F0;
 defparam \spi_unit|d_has_loaded_mosi_data_this_frame~1 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: FF_X56_Y4_N38
+// Location: FF_X56_Y1_N14
 dffeas \spi_unit|has_loaded_mosi_data_this_frame_reg (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
 	.d(\spi_unit|d_has_loaded_mosi_data_this_frame~1_combout ),
@@ -1072,18 +961,17 @@ defparam \spi_unit|has_loaded_mosi_data_this_frame_reg .is_wysiwyg = "true";
 defparam \spi_unit|has_loaded_mosi_data_this_frame_reg .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X57_Y4_N36
+// Location: LABCELL_X56_Y1_N27
 cyclonev_lcell_comb \spi_unit|d_data_buffer[0]~0 (
 // Equation(s):
-// \spi_unit|d_data_buffer[0]~0_combout  = ( \spi_unit|has_loaded_mosi_data_this_frame_reg~q  & ( \spi_unit|shift_enable~0_combout  & ( \FPGA_reset~input_o  ) ) ) # ( !\spi_unit|has_loaded_mosi_data_this_frame_reg~q  & ( \spi_unit|shift_enable~0_combout  & ( 
-// ((!\spi_unit|ss_n_sync1~q  & (\spi_unit|bit_count_reg [0] & \spi_unit|bit_count_reg [1]))) # (\FPGA_reset~input_o ) ) ) ) # ( \spi_unit|has_loaded_mosi_data_this_frame_reg~q  & ( !\spi_unit|shift_enable~0_combout  & ( \FPGA_reset~input_o  ) ) ) # ( 
-// !\spi_unit|has_loaded_mosi_data_this_frame_reg~q  & ( !\spi_unit|shift_enable~0_combout  & ( \FPGA_reset~input_o  ) ) )
+// \spi_unit|d_data_buffer[0]~0_combout  = ( \FPGA_reset~input_o  & ( \spi_unit|shift_enable~0_combout  ) ) # ( !\FPGA_reset~input_o  & ( \spi_unit|shift_enable~0_combout  & ( (\spi_unit|bit_count_reg [0] & (\spi_unit|bit_count_reg [1] & 
+// (!\spi_unit|has_loaded_mosi_data_this_frame_reg~q  & !\spi_unit|ss_n_sync1~q ))) ) ) ) # ( \FPGA_reset~input_o  & ( !\spi_unit|shift_enable~0_combout  ) )
 
-	.dataa(!\spi_unit|ss_n_sync1~q ),
-	.datab(!\spi_unit|bit_count_reg [0]),
-	.datac(!\spi_unit|bit_count_reg [1]),
-	.datad(!\FPGA_reset~input_o ),
-	.datae(!\spi_unit|has_loaded_mosi_data_this_frame_reg~q ),
+	.dataa(!\spi_unit|bit_count_reg [0]),
+	.datab(!\spi_unit|bit_count_reg [1]),
+	.datac(!\spi_unit|has_loaded_mosi_data_this_frame_reg~q ),
+	.datad(!\spi_unit|ss_n_sync1~q ),
+	.datae(!\FPGA_reset~input_o ),
 	.dataf(!\spi_unit|shift_enable~0_combout ),
 	.datag(gnd),
 	.cin(gnd),
@@ -1094,11 +982,121 @@ cyclonev_lcell_comb \spi_unit|d_data_buffer[0]~0 (
 	.shareout());
 // synopsys translate_off
 defparam \spi_unit|d_data_buffer[0]~0 .extended_lut = "off";
-defparam \spi_unit|d_data_buffer[0]~0 .lut_mask = 64'h00FF00FF02FF00FF;
+defparam \spi_unit|d_data_buffer[0]~0 .lut_mask = 64'h0000FFFF1000FFFF;
 defparam \spi_unit|d_data_buffer[0]~0 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: FF_X57_Y4_N41
+// Location: FF_X56_Y1_N2
+dffeas \spi_unit|data_buffer_reg[1] (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(\spi_unit|d_shift_reg_mosi[1]~1_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\spi_unit|d_data_buffer[0]~0_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|data_buffer_reg [1]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|data_buffer_reg[1] .is_wysiwyg = "true";
+defparam \spi_unit|data_buffer_reg[1] .power_up = "low";
+// synopsys translate_on
+
+// Location: LABCELL_X56_Y1_N36
+cyclonev_lcell_comb \spi_unit|d_shift_reg_mosi[2]~0 (
+// Equation(s):
+// \spi_unit|d_shift_reg_mosi[2]~0_combout  = ( \spi_unit|shift_reg_mosi [1] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync1~q  & (!\spi_unit|ss_n_sync2~q )) # (\spi_unit|ss_n_sync1~q  & ((\spi_unit|shift_reg_mosi 
+// [2]))))) ) ) ) # ( !\spi_unit|shift_reg_mosi [1] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (\spi_unit|ss_n_sync1~q  & \spi_unit|shift_reg_mosi [2])) ) ) ) # ( \spi_unit|shift_reg_mosi [1] & ( !\spi_unit|shift_enable~0_combout  & ( 
+// (!\FPGA_reset~input_o  & (\spi_unit|shift_reg_mosi [2] & ((!\spi_unit|ss_n_sync2~q ) # (\spi_unit|ss_n_sync1~q )))) ) ) ) # ( !\spi_unit|shift_reg_mosi [1] & ( !\spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (\spi_unit|shift_reg_mosi [2] & 
+// ((!\spi_unit|ss_n_sync2~q ) # (\spi_unit|ss_n_sync1~q )))) ) ) )
+
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(!\spi_unit|ss_n_sync2~q ),
+	.datac(!\spi_unit|ss_n_sync1~q ),
+	.datad(!\spi_unit|shift_reg_mosi [2]),
+	.datae(!\spi_unit|shift_reg_mosi [1]),
+	.dataf(!\spi_unit|shift_enable~0_combout ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\spi_unit|d_shift_reg_mosi[2]~0_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \spi_unit|d_shift_reg_mosi[2]~0 .extended_lut = "off";
+defparam \spi_unit|d_shift_reg_mosi[2]~0 .lut_mask = 64'h008A008A000A808A;
+defparam \spi_unit|d_shift_reg_mosi[2]~0 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: FF_X56_Y1_N32
+dffeas \spi_unit|shift_reg_mosi[2] (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(gnd),
+	.asdata(\spi_unit|d_shift_reg_mosi[2]~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|shift_reg_mosi [2]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|shift_reg_mosi[2] .is_wysiwyg = "true";
+defparam \spi_unit|shift_reg_mosi[2] .power_up = "low";
+// synopsys translate_on
+
+// Location: FF_X56_Y1_N35
+dffeas \spi_unit|shift_reg_mosi[3] (
+	.clk(\FPGA_clk~inputCLKENA0_outclk ),
+	.d(\spi_unit|d_shift_reg_mosi[3]~3_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\spi_unit|shift_reg_mosi [3]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \spi_unit|shift_reg_mosi[3] .is_wysiwyg = "true";
+defparam \spi_unit|shift_reg_mosi[3] .power_up = "low";
+// synopsys translate_on
+
+// Location: LABCELL_X56_Y1_N33
+cyclonev_lcell_comb \spi_unit|d_shift_reg_mosi[3]~3 (
+// Equation(s):
+// \spi_unit|d_shift_reg_mosi[3]~3_combout  = ( \spi_unit|shift_reg_mosi [3] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (((\spi_unit|shift_reg_mosi [2] & !\spi_unit|ss_n_sync2~q )) # (\spi_unit|ss_n_sync1~q ))) ) ) ) # ( 
+// !\spi_unit|shift_reg_mosi [3] & ( \spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & (\spi_unit|shift_reg_mosi [2] & (!\spi_unit|ss_n_sync2~q  & !\spi_unit|ss_n_sync1~q ))) ) ) ) # ( \spi_unit|shift_reg_mosi [3] & ( 
+// !\spi_unit|shift_enable~0_combout  & ( (!\FPGA_reset~input_o  & ((!\spi_unit|ss_n_sync2~q ) # (\spi_unit|ss_n_sync1~q ))) ) ) )
+
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(!\spi_unit|shift_reg_mosi [2]),
+	.datac(!\spi_unit|ss_n_sync2~q ),
+	.datad(!\spi_unit|ss_n_sync1~q ),
+	.datae(!\spi_unit|shift_reg_mosi [3]),
+	.dataf(!\spi_unit|shift_enable~0_combout ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\spi_unit|d_shift_reg_mosi[3]~3_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \spi_unit|d_shift_reg_mosi[3]~3 .extended_lut = "off";
+defparam \spi_unit|d_shift_reg_mosi[3]~3 .lut_mask = 64'h0000A0AA200020AA;
+defparam \spi_unit|d_shift_reg_mosi[3]~3 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: FF_X56_Y1_N38
 dffeas \spi_unit|data_buffer_reg[3] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
 	.d(gnd),
@@ -1117,11 +1115,11 @@ defparam \spi_unit|data_buffer_reg[3] .is_wysiwyg = "true";
 defparam \spi_unit|data_buffer_reg[3] .power_up = "low";
 // synopsys translate_on
 
-// Location: FF_X57_Y4_N44
+// Location: FF_X56_Y1_N5
 dffeas \spi_unit|data_buffer_reg[0] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
 	.d(gnd),
-	.asdata(\spi_unit|d_shift_reg_mosi[0]~0_combout ),
+	.asdata(\spi_unit|d_shift_reg_mosi[0]~2_combout ),
 	.clrn(vcc),
 	.aload(gnd),
 	.sclr(gnd),
@@ -1136,30 +1134,11 @@ defparam \spi_unit|data_buffer_reg[0] .is_wysiwyg = "true";
 defparam \spi_unit|data_buffer_reg[0] .power_up = "low";
 // synopsys translate_on
 
-// Location: FF_X57_Y4_N47
-dffeas \spi_unit|data_buffer_reg[1] (
-	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(gnd),
-	.asdata(\spi_unit|d_shift_reg_mosi[1]~1_combout ),
-	.clrn(vcc),
-	.aload(gnd),
-	.sclr(gnd),
-	.sload(vcc),
-	.ena(\spi_unit|d_data_buffer[0]~0_combout ),
-	.devclrn(devclrn),
-	.devpor(devpor),
-	.q(\spi_unit|data_buffer_reg [1]),
-	.prn(vcc));
-// synopsys translate_off
-defparam \spi_unit|data_buffer_reg[1] .is_wysiwyg = "true";
-defparam \spi_unit|data_buffer_reg[1] .power_up = "low";
-// synopsys translate_on
-
-// Location: FF_X57_Y4_N38
+// Location: FF_X56_Y1_N41
 dffeas \spi_unit|data_buffer_reg[2] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
 	.d(gnd),
-	.asdata(\spi_unit|d_shift_reg_mosi[2]~2_combout ),
+	.asdata(\spi_unit|d_shift_reg_mosi[2]~0_combout ),
 	.clrn(vcc),
 	.aload(gnd),
 	.sclr(gnd),
@@ -1174,43 +1153,43 @@ defparam \spi_unit|data_buffer_reg[2] .is_wysiwyg = "true";
 defparam \spi_unit|data_buffer_reg[2] .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X57_Y4_N3
-cyclonev_lcell_comb \hexdec|WideOr6~0 (
+// Location: LABCELL_X57_Y1_N45
+cyclonev_lcell_comb \next_display_reg[0]~0 (
 // Equation(s):
-// \hexdec|WideOr6~0_combout  = ( \spi_unit|data_buffer_reg [2] & ( (!\spi_unit|data_buffer_reg [3] $ (!\spi_unit|data_buffer_reg [0])) # (\spi_unit|data_buffer_reg [1]) ) ) # ( !\spi_unit|data_buffer_reg [2] & ( (!\spi_unit|data_buffer_reg [0]) # 
-// (!\spi_unit|data_buffer_reg [3] $ (!\spi_unit|data_buffer_reg [1])) ) )
+// \next_display_reg[0]~0_combout  = ( \spi_unit|data_buffer_reg [2] & ( ((!\spi_unit|data_buffer_reg [1] & (!\spi_unit|data_buffer_reg [3] $ (\spi_unit|data_buffer_reg [0])))) # (\FPGA_reset~input_o ) ) ) # ( !\spi_unit|data_buffer_reg [2] & ( 
+// ((\spi_unit|data_buffer_reg [0] & (!\spi_unit|data_buffer_reg [1] $ (\spi_unit|data_buffer_reg [3])))) # (\FPGA_reset~input_o ) ) )
 
-	.dataa(!\spi_unit|data_buffer_reg [3]),
-	.datab(gnd),
-	.datac(!\spi_unit|data_buffer_reg [0]),
-	.datad(!\spi_unit|data_buffer_reg [1]),
+	.dataa(!\spi_unit|data_buffer_reg [1]),
+	.datab(!\spi_unit|data_buffer_reg [3]),
+	.datac(!\FPGA_reset~input_o ),
+	.datad(!\spi_unit|data_buffer_reg [0]),
 	.datae(gnd),
 	.dataf(!\spi_unit|data_buffer_reg [2]),
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\hexdec|WideOr6~0_combout ),
+	.combout(\next_display_reg[0]~0_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \hexdec|WideOr6~0 .extended_lut = "off";
-defparam \hexdec|WideOr6~0 .lut_mask = 64'hF5FAF5FA5AFF5AFF;
-defparam \hexdec|WideOr6~0 .shared_arith = "off";
+defparam \next_display_reg[0]~0 .extended_lut = "off";
+defparam \next_display_reg[0]~0 .lut_mask = 64'h0F9F0F9F8F2F8F2F;
+defparam \next_display_reg[0]~0 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: LABCELL_X57_Y4_N24
+// Location: LABCELL_X57_Y1_N12
 cyclonev_lcell_comb \spi_unit|d_data_valid_pulse~0 (
 // Equation(s):
-// \spi_unit|d_data_valid_pulse~0_combout  = ( !\spi_unit|ss_n_sync1~q  & ( \spi_unit|shift_enable~0_combout  & ( (\spi_unit|bit_count_reg [1] & (!\FPGA_reset~input_o  & (!\spi_unit|has_loaded_mosi_data_this_frame_reg~q  & \spi_unit|bit_count_reg [0]))) ) ) 
+// \spi_unit|d_data_valid_pulse~0_combout  = ( \spi_unit|bit_count_reg [1] & ( !\spi_unit|ss_n_sync1~q  & ( (!\FPGA_reset~input_o  & (!\spi_unit|has_loaded_mosi_data_this_frame_reg~q  & (\spi_unit|bit_count_reg [0] & \spi_unit|shift_enable~0_combout ))) ) ) 
 // )
 
-	.dataa(!\spi_unit|bit_count_reg [1]),
-	.datab(!\FPGA_reset~input_o ),
-	.datac(!\spi_unit|has_loaded_mosi_data_this_frame_reg~q ),
-	.datad(!\spi_unit|bit_count_reg [0]),
-	.datae(!\spi_unit|ss_n_sync1~q ),
-	.dataf(!\spi_unit|shift_enable~0_combout ),
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(!\spi_unit|has_loaded_mosi_data_this_frame_reg~q ),
+	.datac(!\spi_unit|bit_count_reg [0]),
+	.datad(!\spi_unit|shift_enable~0_combout ),
+	.datae(!\spi_unit|bit_count_reg [1]),
+	.dataf(!\spi_unit|ss_n_sync1~q ),
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
@@ -1220,11 +1199,11 @@ cyclonev_lcell_comb \spi_unit|d_data_valid_pulse~0 (
 	.shareout());
 // synopsys translate_off
 defparam \spi_unit|d_data_valid_pulse~0 .extended_lut = "off";
-defparam \spi_unit|d_data_valid_pulse~0 .lut_mask = 64'h0000000000400000;
+defparam \spi_unit|d_data_valid_pulse~0 .lut_mask = 64'h0000000800000000;
 defparam \spi_unit|d_data_valid_pulse~0 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: FF_X57_Y4_N26
+// Location: FF_X57_Y1_N14
 dffeas \spi_unit|data_valid_pulse_reg (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
 	.d(\spi_unit|d_data_valid_pulse~0_combout ),
@@ -1243,16 +1222,40 @@ defparam \spi_unit|data_valid_pulse_reg .is_wysiwyg = "true";
 defparam \spi_unit|data_valid_pulse_reg .power_up = "low";
 // synopsys translate_on
 
-// Location: FF_X57_Y4_N4
+// Location: LABCELL_X57_Y1_N9
+cyclonev_lcell_comb \next_display_reg[0]~1 (
+// Equation(s):
+// \next_display_reg[0]~1_combout  = ( \spi_unit|data_valid_pulse_reg~q  ) # ( !\spi_unit|data_valid_pulse_reg~q  & ( \FPGA_reset~input_o  ) )
+
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(gnd),
+	.datae(gnd),
+	.dataf(!\spi_unit|data_valid_pulse_reg~q ),
+	.datag(gnd),
+	.cin(gnd),
+	.sharein(gnd),
+	.combout(\next_display_reg[0]~1_combout ),
+	.sumout(),
+	.cout(),
+	.shareout());
+// synopsys translate_off
+defparam \next_display_reg[0]~1 .extended_lut = "off";
+defparam \next_display_reg[0]~1 .lut_mask = 64'h55555555FFFFFFFF;
+defparam \next_display_reg[0]~1 .shared_arith = "off";
+// synopsys translate_on
+
+// Location: FF_X57_Y1_N46
 dffeas \display_reg[0] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\hexdec|WideOr6~0_combout ),
+	.d(\next_display_reg[0]~0_combout ),
 	.asdata(vcc),
-	.clrn(!\FPGA_reset~input_o ),
+	.clrn(vcc),
 	.aload(gnd),
 	.sclr(gnd),
 	.sload(gnd),
-	.ena(\spi_unit|data_valid_pulse_reg~q ),
+	.ena(\next_display_reg[0]~1_combout ),
 	.devclrn(devclrn),
 	.devpor(devpor),
 	.q(display_reg[0]),
@@ -1262,41 +1265,41 @@ defparam \display_reg[0] .is_wysiwyg = "true";
 defparam \display_reg[0] .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X57_Y4_N0
-cyclonev_lcell_comb \hexdec|WideOr5~0 (
+// Location: LABCELL_X57_Y1_N3
+cyclonev_lcell_comb \next_display_reg[1]~2 (
 // Equation(s):
-// \hexdec|WideOr5~0_combout  = ( \spi_unit|data_buffer_reg [3] & ( (!\spi_unit|data_buffer_reg [0] & (!\spi_unit|data_buffer_reg [2])) # (\spi_unit|data_buffer_reg [0] & ((!\spi_unit|data_buffer_reg [1]))) ) ) # ( !\spi_unit|data_buffer_reg [3] & ( 
-// (!\spi_unit|data_buffer_reg [2]) # (!\spi_unit|data_buffer_reg [0] $ (\spi_unit|data_buffer_reg [1])) ) )
+// \next_display_reg[1]~2_combout  = ( \spi_unit|data_buffer_reg [2] & ( ((!\spi_unit|data_buffer_reg [1] & (!\spi_unit|data_buffer_reg [3] $ (!\spi_unit|data_buffer_reg [0]))) # (\spi_unit|data_buffer_reg [1] & ((!\spi_unit|data_buffer_reg [0]) # 
+// (\spi_unit|data_buffer_reg [3])))) # (\FPGA_reset~input_o ) ) ) # ( !\spi_unit|data_buffer_reg [2] & ( ((\spi_unit|data_buffer_reg [1] & (\spi_unit|data_buffer_reg [3] & \spi_unit|data_buffer_reg [0]))) # (\FPGA_reset~input_o ) ) )
 
-	.dataa(gnd),
-	.datab(!\spi_unit|data_buffer_reg [0]),
-	.datac(!\spi_unit|data_buffer_reg [2]),
-	.datad(!\spi_unit|data_buffer_reg [1]),
+	.dataa(!\spi_unit|data_buffer_reg [1]),
+	.datab(!\spi_unit|data_buffer_reg [3]),
+	.datac(!\FPGA_reset~input_o ),
+	.datad(!\spi_unit|data_buffer_reg [0]),
 	.datae(gnd),
-	.dataf(!\spi_unit|data_buffer_reg [3]),
+	.dataf(!\spi_unit|data_buffer_reg [2]),
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\hexdec|WideOr5~0_combout ),
+	.combout(\next_display_reg[1]~2_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \hexdec|WideOr5~0 .extended_lut = "off";
-defparam \hexdec|WideOr5~0 .lut_mask = 64'hFCF3FCF3F3C0F3C0;
-defparam \hexdec|WideOr5~0 .shared_arith = "off";
+defparam \next_display_reg[1]~2 .extended_lut = "off";
+defparam \next_display_reg[1]~2 .lut_mask = 64'h0F1F0F1F7F9F7F9F;
+defparam \next_display_reg[1]~2 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: FF_X57_Y4_N1
+// Location: FF_X57_Y1_N4
 dffeas \display_reg[1] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\hexdec|WideOr5~0_combout ),
+	.d(\next_display_reg[1]~2_combout ),
 	.asdata(vcc),
-	.clrn(!\FPGA_reset~input_o ),
+	.clrn(vcc),
 	.aload(gnd),
 	.sclr(gnd),
 	.sload(gnd),
-	.ena(\spi_unit|data_valid_pulse_reg~q ),
+	.ena(\next_display_reg[0]~1_combout ),
 	.devclrn(devclrn),
 	.devpor(devpor),
 	.q(display_reg[1]),
@@ -1306,42 +1309,41 @@ defparam \display_reg[1] .is_wysiwyg = "true";
 defparam \display_reg[1] .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X56_Y4_N30
-cyclonev_lcell_comb \hexdec|WideOr4~0 (
+// Location: LABCELL_X57_Y1_N6
+cyclonev_lcell_comb \next_display_reg[2]~3 (
 // Equation(s):
-// \hexdec|WideOr4~0_combout  = ( \spi_unit|data_buffer_reg [0] & ( \spi_unit|data_buffer_reg [1] & ( (!\spi_unit|data_buffer_reg [3]) # (!\spi_unit|data_buffer_reg [2]) ) ) ) # ( !\spi_unit|data_buffer_reg [0] & ( \spi_unit|data_buffer_reg [1] & ( 
-// !\spi_unit|data_buffer_reg [3] $ (!\spi_unit|data_buffer_reg [2]) ) ) ) # ( \spi_unit|data_buffer_reg [0] & ( !\spi_unit|data_buffer_reg [1] ) ) # ( !\spi_unit|data_buffer_reg [0] & ( !\spi_unit|data_buffer_reg [1] & ( (!\spi_unit|data_buffer_reg [3]) # 
-// (!\spi_unit|data_buffer_reg [2]) ) ) )
+// \next_display_reg[2]~3_combout  = ( \spi_unit|data_buffer_reg [2] & ( ((\spi_unit|data_buffer_reg [3] & ((!\spi_unit|data_buffer_reg [0]) # (\spi_unit|data_buffer_reg [1])))) # (\FPGA_reset~input_o ) ) ) # ( !\spi_unit|data_buffer_reg [2] & ( 
+// ((!\spi_unit|data_buffer_reg [3] & (\spi_unit|data_buffer_reg [1] & !\spi_unit|data_buffer_reg [0]))) # (\FPGA_reset~input_o ) ) )
 
-	.dataa(gnd),
-	.datab(gnd),
-	.datac(!\spi_unit|data_buffer_reg [3]),
-	.datad(!\spi_unit|data_buffer_reg [2]),
-	.datae(!\spi_unit|data_buffer_reg [0]),
-	.dataf(!\spi_unit|data_buffer_reg [1]),
+	.dataa(!\FPGA_reset~input_o ),
+	.datab(!\spi_unit|data_buffer_reg [3]),
+	.datac(!\spi_unit|data_buffer_reg [1]),
+	.datad(!\spi_unit|data_buffer_reg [0]),
+	.datae(gnd),
+	.dataf(!\spi_unit|data_buffer_reg [2]),
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\hexdec|WideOr4~0_combout ),
+	.combout(\next_display_reg[2]~3_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \hexdec|WideOr4~0 .extended_lut = "off";
-defparam \hexdec|WideOr4~0 .lut_mask = 64'hFFF0FFFF0FF0FFF0;
-defparam \hexdec|WideOr4~0 .shared_arith = "off";
+defparam \next_display_reg[2]~3 .extended_lut = "off";
+defparam \next_display_reg[2]~3 .lut_mask = 64'h5D555D5577577757;
+defparam \next_display_reg[2]~3 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: FF_X56_Y4_N31
+// Location: FF_X57_Y1_N7
 dffeas \display_reg[2] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\hexdec|WideOr4~0_combout ),
+	.d(\next_display_reg[2]~3_combout ),
 	.asdata(vcc),
-	.clrn(!\FPGA_reset~input_o ),
+	.clrn(vcc),
 	.aload(gnd),
 	.sclr(gnd),
 	.sload(gnd),
-	.ena(\spi_unit|data_valid_pulse_reg~q ),
+	.ena(\next_display_reg[0]~1_combout ),
 	.devclrn(devclrn),
 	.devpor(devpor),
 	.q(display_reg[2]),
@@ -1351,42 +1353,42 @@ defparam \display_reg[2] .is_wysiwyg = "true";
 defparam \display_reg[2] .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X56_Y4_N3
-cyclonev_lcell_comb \hexdec|WideOr3~0 (
+// Location: LABCELL_X57_Y1_N54
+cyclonev_lcell_comb \next_display_reg[3]~4 (
 // Equation(s):
-// \hexdec|WideOr3~0_combout  = ( \spi_unit|data_buffer_reg [0] & ( \spi_unit|data_buffer_reg [1] & ( !\spi_unit|data_buffer_reg [2] ) ) ) # ( !\spi_unit|data_buffer_reg [0] & ( \spi_unit|data_buffer_reg [1] & ( (!\spi_unit|data_buffer_reg [3]) # 
-// (\spi_unit|data_buffer_reg [2]) ) ) ) # ( \spi_unit|data_buffer_reg [0] & ( !\spi_unit|data_buffer_reg [1] & ( (\spi_unit|data_buffer_reg [2]) # (\spi_unit|data_buffer_reg [3]) ) ) ) # ( !\spi_unit|data_buffer_reg [0] & ( !\spi_unit|data_buffer_reg [1] & 
-// ( (!\spi_unit|data_buffer_reg [2]) # (\spi_unit|data_buffer_reg [3]) ) ) )
+// \next_display_reg[3]~4_combout  = ( \spi_unit|data_buffer_reg [2] & ( ((!\spi_unit|data_buffer_reg [1] & (!\spi_unit|data_buffer_reg [3] & !\spi_unit|data_buffer_reg [0])) # (\spi_unit|data_buffer_reg [1] & ((\spi_unit|data_buffer_reg [0])))) # 
+// (\FPGA_reset~input_o ) ) ) # ( !\spi_unit|data_buffer_reg [2] & ( ((!\spi_unit|data_buffer_reg [1] & (!\spi_unit|data_buffer_reg [3] & \spi_unit|data_buffer_reg [0])) # (\spi_unit|data_buffer_reg [1] & (\spi_unit|data_buffer_reg [3] & 
+// !\spi_unit|data_buffer_reg [0]))) # (\FPGA_reset~input_o ) ) )
 
-	.dataa(!\spi_unit|data_buffer_reg [3]),
-	.datab(gnd),
-	.datac(!\spi_unit|data_buffer_reg [2]),
-	.datad(gnd),
-	.datae(!\spi_unit|data_buffer_reg [0]),
-	.dataf(!\spi_unit|data_buffer_reg [1]),
+	.dataa(!\spi_unit|data_buffer_reg [1]),
+	.datab(!\spi_unit|data_buffer_reg [3]),
+	.datac(!\FPGA_reset~input_o ),
+	.datad(!\spi_unit|data_buffer_reg [0]),
+	.datae(gnd),
+	.dataf(!\spi_unit|data_buffer_reg [2]),
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\hexdec|WideOr3~0_combout ),
+	.combout(\next_display_reg[3]~4_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \hexdec|WideOr3~0 .extended_lut = "off";
-defparam \hexdec|WideOr3~0 .lut_mask = 64'hF5F55F5FAFAFF0F0;
-defparam \hexdec|WideOr3~0 .shared_arith = "off";
+defparam \next_display_reg[3]~4 .extended_lut = "off";
+defparam \next_display_reg[3]~4 .lut_mask = 64'h1F8F1F8F8F5F8F5F;
+defparam \next_display_reg[3]~4 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: FF_X56_Y4_N4
+// Location: FF_X57_Y1_N55
 dffeas \display_reg[3] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\hexdec|WideOr3~0_combout ),
+	.d(\next_display_reg[3]~4_combout ),
 	.asdata(vcc),
-	.clrn(!\FPGA_reset~input_o ),
+	.clrn(vcc),
 	.aload(gnd),
 	.sclr(gnd),
 	.sload(gnd),
-	.ena(\spi_unit|data_valid_pulse_reg~q ),
+	.ena(\next_display_reg[0]~1_combout ),
 	.devclrn(devclrn),
 	.devpor(devpor),
 	.q(display_reg[3]),
@@ -1396,41 +1398,41 @@ defparam \display_reg[3] .is_wysiwyg = "true";
 defparam \display_reg[3] .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X56_Y4_N9
-cyclonev_lcell_comb \hexdec|WideOr2~0 (
+// Location: LABCELL_X57_Y1_N42
+cyclonev_lcell_comb \next_display_reg[4]~5 (
 // Equation(s):
-// \hexdec|WideOr2~0_combout  = ( \spi_unit|data_buffer_reg [0] & ( \spi_unit|data_buffer_reg [1] & ( \spi_unit|data_buffer_reg [3] ) ) ) # ( !\spi_unit|data_buffer_reg [0] & ( \spi_unit|data_buffer_reg [1] ) ) # ( \spi_unit|data_buffer_reg [0] & ( 
-// !\spi_unit|data_buffer_reg [1] & ( (\spi_unit|data_buffer_reg [3] & \spi_unit|data_buffer_reg [2]) ) ) ) # ( !\spi_unit|data_buffer_reg [0] & ( !\spi_unit|data_buffer_reg [1] & ( (!\spi_unit|data_buffer_reg [2]) # (\spi_unit|data_buffer_reg [3]) ) ) )
+// \next_display_reg[4]~5_combout  = ( \spi_unit|data_buffer_reg [2] & ( ((!\spi_unit|data_buffer_reg [3] & ((!\spi_unit|data_buffer_reg [1]) # (\spi_unit|data_buffer_reg [0])))) # (\FPGA_reset~input_o ) ) ) # ( !\spi_unit|data_buffer_reg [2] & ( 
+// ((\spi_unit|data_buffer_reg [0] & ((!\spi_unit|data_buffer_reg [1]) # (!\spi_unit|data_buffer_reg [3])))) # (\FPGA_reset~input_o ) ) )
 
-	.dataa(!\spi_unit|data_buffer_reg [3]),
-	.datab(gnd),
-	.datac(!\spi_unit|data_buffer_reg [2]),
-	.datad(gnd),
-	.datae(!\spi_unit|data_buffer_reg [0]),
-	.dataf(!\spi_unit|data_buffer_reg [1]),
+	.dataa(!\spi_unit|data_buffer_reg [1]),
+	.datab(!\spi_unit|data_buffer_reg [3]),
+	.datac(!\FPGA_reset~input_o ),
+	.datad(!\spi_unit|data_buffer_reg [0]),
+	.datae(gnd),
+	.dataf(!\spi_unit|data_buffer_reg [2]),
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\hexdec|WideOr2~0_combout ),
+	.combout(\next_display_reg[4]~5_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \hexdec|WideOr2~0 .extended_lut = "off";
-defparam \hexdec|WideOr2~0 .lut_mask = 64'hF5F50505FFFF5555;
-defparam \hexdec|WideOr2~0 .shared_arith = "off";
+defparam \next_display_reg[4]~5 .extended_lut = "off";
+defparam \next_display_reg[4]~5 .lut_mask = 64'h0FEF0FEF8FCF8FCF;
+defparam \next_display_reg[4]~5 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: FF_X56_Y4_N11
+// Location: FF_X57_Y1_N43
 dffeas \display_reg[4] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\hexdec|WideOr2~0_combout ),
+	.d(\next_display_reg[4]~5_combout ),
 	.asdata(vcc),
-	.clrn(!\FPGA_reset~input_o ),
+	.clrn(vcc),
 	.aload(gnd),
 	.sclr(gnd),
 	.sload(gnd),
-	.ena(\spi_unit|data_valid_pulse_reg~q ),
+	.ena(\next_display_reg[0]~1_combout ),
 	.devclrn(devclrn),
 	.devpor(devpor),
 	.q(display_reg[4]),
@@ -1440,41 +1442,41 @@ defparam \display_reg[4] .is_wysiwyg = "true";
 defparam \display_reg[4] .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X57_Y4_N6
-cyclonev_lcell_comb \hexdec|WideOr1~0 (
+// Location: LABCELL_X57_Y1_N0
+cyclonev_lcell_comb \next_display_reg[5]~6 (
 // Equation(s):
-// \hexdec|WideOr1~0_combout  = ( \spi_unit|data_buffer_reg [0] & ( !\spi_unit|data_buffer_reg [3] $ (((!\spi_unit|data_buffer_reg [2]) # (\spi_unit|data_buffer_reg [1]))) ) ) # ( !\spi_unit|data_buffer_reg [0] & ( ((!\spi_unit|data_buffer_reg [1]) # 
-// (\spi_unit|data_buffer_reg [2])) # (\spi_unit|data_buffer_reg [3]) ) )
+// \next_display_reg[5]~6_combout  = ( \spi_unit|data_buffer_reg [2] & ( ((\spi_unit|data_buffer_reg [0] & (!\spi_unit|data_buffer_reg [1] $ (!\spi_unit|data_buffer_reg [3])))) # (\FPGA_reset~input_o ) ) ) # ( !\spi_unit|data_buffer_reg [2] & ( 
+// ((!\spi_unit|data_buffer_reg [3] & ((\spi_unit|data_buffer_reg [0]) # (\spi_unit|data_buffer_reg [1])))) # (\FPGA_reset~input_o ) ) )
 
-	.dataa(gnd),
+	.dataa(!\spi_unit|data_buffer_reg [1]),
 	.datab(!\spi_unit|data_buffer_reg [3]),
-	.datac(!\spi_unit|data_buffer_reg [2]),
-	.datad(!\spi_unit|data_buffer_reg [1]),
+	.datac(!\FPGA_reset~input_o ),
+	.datad(!\spi_unit|data_buffer_reg [0]),
 	.datae(gnd),
-	.dataf(!\spi_unit|data_buffer_reg [0]),
+	.dataf(!\spi_unit|data_buffer_reg [2]),
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\hexdec|WideOr1~0_combout ),
+	.combout(\next_display_reg[5]~6_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \hexdec|WideOr1~0 .extended_lut = "off";
-defparam \hexdec|WideOr1~0 .lut_mask = 64'hFF3FFF3F3C333C33;
-defparam \hexdec|WideOr1~0 .shared_arith = "off";
+defparam \next_display_reg[5]~6 .extended_lut = "off";
+defparam \next_display_reg[5]~6 .lut_mask = 64'h4FCF4FCF0F6F0F6F;
+defparam \next_display_reg[5]~6 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: FF_X57_Y4_N8
+// Location: FF_X57_Y1_N2
 dffeas \display_reg[5] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\hexdec|WideOr1~0_combout ),
+	.d(\next_display_reg[5]~6_combout ),
 	.asdata(vcc),
-	.clrn(!\FPGA_reset~input_o ),
+	.clrn(vcc),
 	.aload(gnd),
 	.sclr(gnd),
 	.sload(gnd),
-	.ena(\spi_unit|data_valid_pulse_reg~q ),
+	.ena(\next_display_reg[0]~1_combout ),
 	.devclrn(devclrn),
 	.devpor(devpor),
 	.q(display_reg[5]),
@@ -1484,42 +1486,41 @@ defparam \display_reg[5] .is_wysiwyg = "true";
 defparam \display_reg[5] .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X56_Y4_N24
-cyclonev_lcell_comb \hexdec|WideOr0~0 (
+// Location: LABCELL_X57_Y1_N57
+cyclonev_lcell_comb \next_display_reg[6]~7 (
 // Equation(s):
-// \hexdec|WideOr0~0_combout  = ( \spi_unit|data_buffer_reg [0] & ( \spi_unit|data_buffer_reg [1] & ( (!\spi_unit|data_buffer_reg [2]) # (\spi_unit|data_buffer_reg [3]) ) ) ) # ( !\spi_unit|data_buffer_reg [0] & ( \spi_unit|data_buffer_reg [1] ) ) # ( 
-// \spi_unit|data_buffer_reg [0] & ( !\spi_unit|data_buffer_reg [1] & ( (\spi_unit|data_buffer_reg [2]) # (\spi_unit|data_buffer_reg [3]) ) ) ) # ( !\spi_unit|data_buffer_reg [0] & ( !\spi_unit|data_buffer_reg [1] & ( !\spi_unit|data_buffer_reg [3] $ 
-// (!\spi_unit|data_buffer_reg [2]) ) ) )
+// \next_display_reg[6]~7_combout  = ( \spi_unit|data_buffer_reg [2] & ( ((!\spi_unit|data_buffer_reg [1] & (\spi_unit|data_buffer_reg [3] & !\spi_unit|data_buffer_reg [0])) # (\spi_unit|data_buffer_reg [1] & (!\spi_unit|data_buffer_reg [3] & 
+// \spi_unit|data_buffer_reg [0]))) # (\FPGA_reset~input_o ) ) ) # ( !\spi_unit|data_buffer_reg [2] & ( ((!\spi_unit|data_buffer_reg [1] & !\spi_unit|data_buffer_reg [3])) # (\FPGA_reset~input_o ) ) )
 
-	.dataa(gnd),
-	.datab(gnd),
-	.datac(!\spi_unit|data_buffer_reg [3]),
-	.datad(!\spi_unit|data_buffer_reg [2]),
-	.datae(!\spi_unit|data_buffer_reg [0]),
-	.dataf(!\spi_unit|data_buffer_reg [1]),
+	.dataa(!\spi_unit|data_buffer_reg [1]),
+	.datab(!\spi_unit|data_buffer_reg [3]),
+	.datac(!\FPGA_reset~input_o ),
+	.datad(!\spi_unit|data_buffer_reg [0]),
+	.datae(gnd),
+	.dataf(!\spi_unit|data_buffer_reg [2]),
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\hexdec|WideOr0~0_combout ),
+	.combout(\next_display_reg[6]~7_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \hexdec|WideOr0~0 .extended_lut = "off";
-defparam \hexdec|WideOr0~0 .lut_mask = 64'h0FF00FFFFFFFFF0F;
-defparam \hexdec|WideOr0~0 .shared_arith = "off";
+defparam \next_display_reg[6]~7 .extended_lut = "off";
+defparam \next_display_reg[6]~7 .lut_mask = 64'h8F8F8F8F2F4F2F4F;
+defparam \next_display_reg[6]~7 .shared_arith = "off";
 // synopsys translate_on
 
-// Location: FF_X56_Y4_N26
+// Location: FF_X57_Y1_N59
 dffeas \display_reg[6] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\hexdec|WideOr0~0_combout ),
+	.d(\next_display_reg[6]~7_combout ),
 	.asdata(vcc),
-	.clrn(!\FPGA_reset~input_o ),
+	.clrn(vcc),
 	.aload(gnd),
 	.sclr(gnd),
 	.sload(gnd),
-	.ena(\spi_unit|data_valid_pulse_reg~q ),
+	.ena(\next_display_reg[0]~1_combout ),
 	.devclrn(devclrn),
 	.devpor(devpor),
 	.q(display_reg[6]),
@@ -1529,7 +1530,7 @@ defparam \display_reg[6] .is_wysiwyg = "true";
 defparam \display_reg[6] .power_up = "low";
 // synopsys translate_on
 
-// Location: LABCELL_X43_Y10_N3
+// Location: LABCELL_X23_Y1_N3
 cyclonev_lcell_comb \~QUARTUS_CREATED_GND~I (
 // Equation(s):
 

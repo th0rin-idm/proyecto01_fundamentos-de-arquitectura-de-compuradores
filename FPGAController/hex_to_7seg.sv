@@ -2,7 +2,7 @@
 // Decodificador de 4-bit hex a 7-segmentos totalmente estructural,
 // sin case, if o operador ternario.
 
-module hex_to_7seg_structural (
+module hex_to_7seg (
     input  logic [3:0] hex,  // valor 0–15
     output logic [6:0] seg   // {g,f,e,d,c,b,a}, activo bajo
 );

@@ -4,15 +4,15 @@ FPGA_reset => FPGA_reset.IN1
 arduino_sclk => arduino_sclk.IN1
 arduino_mosi => arduino_mosi.IN1
 arduino_ss_n => arduino_ss_n.IN1
-fpga_physical_miso <= Spi_slave_module:spi_unit.miso_out
-motor_pwm_signal <= <GND>
-seven_segment_display[0] <= display_reg[0].DB_MAX_OUTPUT_PORT_TYPE
-seven_segment_display[1] <= display_reg[1].DB_MAX_OUTPUT_PORT_TYPE
-seven_segment_display[2] <= display_reg[2].DB_MAX_OUTPUT_PORT_TYPE
-seven_segment_display[3] <= display_reg[3].DB_MAX_OUTPUT_PORT_TYPE
-seven_segment_display[4] <= display_reg[4].DB_MAX_OUTPUT_PORT_TYPE
-seven_segment_display[5] <= display_reg[5].DB_MAX_OUTPUT_PORT_TYPE
-seven_segment_display[6] <= display_reg[6].DB_MAX_OUTPUT_PORT_TYPE
+fpga_physical_miso << Spi_slave_module:spi_unit.miso_out
+motor_pwm_signal << <GND>
+seven_segment_display[0] << display_reg[0].DB_MAX_OUTPUT_PORT_TYPE
+seven_segment_display[1] << display_reg[1].DB_MAX_OUTPUT_PORT_TYPE
+seven_segment_display[2] << display_reg[2].DB_MAX_OUTPUT_PORT_TYPE
+seven_segment_display[3] << display_reg[3].DB_MAX_OUTPUT_PORT_TYPE
+seven_segment_display[4] << display_reg[4].DB_MAX_OUTPUT_PORT_TYPE
+seven_segment_display[5] << display_reg[5].DB_MAX_OUTPUT_PORT_TYPE
+seven_segment_display[6] << display_reg[6].DB_MAX_OUTPUT_PORT_TYPE
 
 
 |FpgaController|Spi_slave_module:spi_unit
@@ -65,16 +65,16 @@ miso_out <= shift_reg_miso[7].DB_MAX_OUTPUT_PORT_TYPE
 
 
 |FpgaController|hex_to_7seg:hexdec
-hex[0] => Decoder0.IN3
-hex[1] => Decoder0.IN2
-hex[2] => Decoder0.IN1
-hex[3] => Decoder0.IN0
-seg[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
-seg[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
-seg[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
-seg[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
-seg[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
-seg[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
-seg[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+hex[0] => ShiftLeft0.IN20
+hex[1] => ShiftLeft0.IN19
+hex[2] => ShiftLeft0.IN18
+hex[3] => ShiftLeft0.IN17
+seg[0] <= seg.DB_MAX_OUTPUT_PORT_TYPE
+seg[1] <= seg.DB_MAX_OUTPUT_PORT_TYPE
+seg[2] <= seg.DB_MAX_OUTPUT_PORT_TYPE
+seg[3] <= seg.DB_MAX_OUTPUT_PORT_TYPE
+seg[4] <= seg.DB_MAX_OUTPUT_PORT_TYPE
+seg[5] <= seg.DB_MAX_OUTPUT_PORT_TYPE
+seg[6] <= seg.DB_MAX_OUTPUT_PORT_TYPE
 
 
