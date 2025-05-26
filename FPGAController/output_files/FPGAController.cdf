@@ -6,7 +6,7 @@ JedecChain;
 	P ActionCode(Ign)
 		Device PartName(SOCVHPS) MfrSpec(OpMask(0));
 	P ActionCode(Cfg)
-		Device PartName(5CSXFC6D6F31) Path("C:/Users/Xpc/Downloads/CRodriguez_compu_archi_found_2G1_2025-main/CRodriguez_compu_archi_found_2G1_2025-main/FPGAController/output_files/") File("FPGAController.sof") MfrSpec(OpMask(1));
+		Device PartName(5CSXFC6D6F31) Path("C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/output_files/") File("FPGAController.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

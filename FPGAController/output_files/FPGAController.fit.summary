@@ -1,11 +1,11 @@
-Fitter Status : Successful - Thu May 22 04:09:06 2025
+Fitter Status : Successful - Sun May 25 19:21:14 2025
 Quartus Prime Version : 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 Revision Name : FPGAController
 Top-level Entity Name : FpgaController
 Family : Cyclone V
 Device : 5CSXFC6D6F31C6
 Timing Models : Final
-Logic utilization (in ALMs) : 16 / 41,910 ( < 1 % )
+Logic utilization (in ALMs) : 17 / 41,910 ( < 1 % )
 Total registers : 31
 Total pins : 14 / 499 ( 3 % )
 Total virtual pins : 0

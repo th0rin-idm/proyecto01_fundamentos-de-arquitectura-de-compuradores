@@ -1,5 +1,5 @@
 Analysis & Synthesis report for FPGAController
-Thu May 22 04:08:25 2025
+Sun May 25 19:20:30 2025
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -16,10 +16,9 @@ Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
   8. Registers Removed During Synthesis
   9. Removed Registers Triggering Further Register Optimizations
  10. General Register Statistics
- 11. Inverted Register Statistics
- 12. Post-Synthesis Netlist Statistics for Top Partition
- 13. Elapsed Time Per Partition
- 14. Analysis & Synthesis Messages
+ 11. Post-Synthesis Netlist Statistics for Top Partition
+ 12. Elapsed Time Per Partition
+ 13. Analysis & Synthesis Messages
 
 
 
@@ -46,7 +45,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +---------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu May 22 04:08:25 2025          ;
+; Analysis & Synthesis Status     ; Successful - Sun May 25 19:20:30 2025          ;
 ; Quartus Prime Version           ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                   ; FPGAController                                 ;
 ; Top-level Entity Name           ; FpgaController                                 ;
@@ -170,15 +169,15 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                                                                        ;
-+----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                                                                    ; Library ;
-+----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+---------+
-; Spi_slave_module.sv              ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Downloads/CRodriguez_compu_archi_found_2G1_2025-main/CRodriguez_compu_archi_found_2G1_2025-main/FPGAController/Spi_slave_module.sv ;         ;
-; FpgaController.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Downloads/CRodriguez_compu_archi_found_2G1_2025-main/CRodriguez_compu_archi_found_2G1_2025-main/FPGAController/FpgaController.sv   ;         ;
-; hex_to_7seg.sv                   ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Downloads/CRodriguez_compu_archi_found_2G1_2025-main/CRodriguez_compu_archi_found_2G1_2025-main/FPGAController/hex_to_7seg.sv      ;         ;
-+----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+---------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                           ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                       ; Library ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
+; Spi_slave_module.sv              ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_module.sv ;         ;
+; FpgaController.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv   ;         ;
+; hex_to_7seg.sv                   ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv      ;         ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------+
@@ -188,12 +187,12 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+----------------+
 ; Estimate of Logic utilization (ALMs needed) ; 17             ;
 ;                                             ;                ;
-; Combinational ALUT usage for logic          ; 23             ;
+; Combinational ALUT usage for logic          ; 24             ;
 ;     -- 7 input functions                    ; 0              ;
 ;     -- 6 input functions                    ; 8              ;
-;     -- 5 input functions                    ; 2              ;
-;     -- 4 input functions                    ; 11             ;
-;     -- <=3 input functions                  ; 2              ;
+;     -- 5 input functions                    ; 9              ;
+;     -- 4 input functions                    ; 4              ;
+;     -- <=3 input functions                  ; 3              ;
 ;                                             ;                ;
 ; Dedicated logic registers                   ; 29             ;
 ;                                             ;                ;
@@ -203,8 +202,8 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;                ;
 ; Maximum fan-out node                        ; FPGA_clk~input ;
 ; Maximum fan-out                             ; 29             ;
-; Total fan-out                               ; 209            ;
-; Average fan-out                             ; 2.61           ;
+; Total fan-out                               ; 211            ;
+; Average fan-out                             ; 2.60           ;
 +---------------------------------------------+----------------+
 
 
@@ -213,9 +212,8 @@ https://fpgasoftware.intel.com/eula.
 +--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------+------------------+--------------+
 ; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                       ; Entity Name      ; Library Name ;
 +--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------+------------------+--------------+
-; |FpgaController                ; 23 (0)              ; 29 (7)                    ; 0                 ; 0          ; 14   ; 0            ; |FpgaController                           ; FpgaController   ; work         ;
+; |FpgaController                ; 24 (8)              ; 29 (7)                    ; 0                 ; 0          ; 14   ; 0            ; |FpgaController                           ; FpgaController   ; work         ;
 ;    |Spi_slave_module:spi_unit| ; 16 (16)             ; 22 (22)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Spi_slave_module:spi_unit ; Spi_slave_module ; work         ;
-;    |hex_to_7seg:hexdec|        ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|hex_to_7seg:hexdec        ; hex_to_7seg      ; work         ;
 +--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------+------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -249,27 +247,11 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Total registers                              ; 29    ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 7     ;
+; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 15    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
-
-
-+--------------------------------------------------+
-; Inverted Register Statistics                     ;
-+----------------------------------------+---------+
-; Inverted Register                      ; Fan out ;
-+----------------------------------------+---------+
-; display_reg[0]                         ; 1       ;
-; display_reg[1]                         ; 1       ;
-; display_reg[2]                         ; 1       ;
-; display_reg[3]                         ; 1       ;
-; display_reg[4]                         ; 1       ;
-; display_reg[5]                         ; 1       ;
-; display_reg[6]                         ; 1       ;
-; Total number of inverted registers = 7 ;         ;
-+----------------------------------------+---------+
 
 
 +-----------------------------------------------------+
@@ -278,22 +260,20 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; arriav_ff             ; 29                          ;
-;     ENA               ; 8                           ;
-;     ENA CLR           ; 7                           ;
+;     ENA               ; 15                          ;
 ;     plain             ; 14                          ;
-; arriav_lcell_comb     ; 31                          ;
-;     normal            ; 31                          ;
+; arriav_lcell_comb     ; 25                          ;
+;     normal            ; 25                          ;
 ;         0 data inputs ; 1                           ;
-;         1 data inputs ; 7                           ;
-;         2 data inputs ; 1                           ;
+;         2 data inputs ; 2                           ;
 ;         3 data inputs ; 1                           ;
-;         4 data inputs ; 11                          ;
-;         5 data inputs ; 2                           ;
+;         4 data inputs ; 4                           ;
+;         5 data inputs ; 9                           ;
 ;         6 data inputs ; 8                           ;
 ; boundary_port         ; 14                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 2.00                        ;
-; Average LUT depth     ; 1.14                        ;
+; Average LUT depth     ; 1.05                        ;
 +-----------------------+-----------------------------+
 
 
@@ -312,33 +292,33 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Thu May 22 04:08:19 2025
+    Info: Processing started: Sun May 25 19:20:24 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_module.sv
-    Info (12023): Found entity 1: Spi_slave_module File: C:/Users/Xpc/Downloads/CRodriguez_compu_archi_found_2G1_2025-main/CRodriguez_compu_archi_found_2G1_2025-main/FPGAController/Spi_slave_module.sv Line: 9
+    Info (12023): Found entity 1: Spi_slave_module File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_module.sv Line: 9
 Info (12021): Found 1 design units, including 1 entities, in source file fpgacontroller.sv
-    Info (12023): Found entity 1: FpgaController File: C:/Users/Xpc/Downloads/CRodriguez_compu_archi_found_2G1_2025-main/CRodriguez_compu_archi_found_2G1_2025-main/FPGAController/FpgaController.sv Line: 2
+    Info (12023): Found entity 1: FpgaController File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_tb.sv
-    Info (12023): Found entity 1: Spi_slave_tb File: C:/Users/Xpc/Downloads/CRodriguez_compu_archi_found_2G1_2025-main/CRodriguez_compu_archi_found_2G1_2025-main/FPGAController/Spi_slave_tb.sv Line: 4
+    Info (12023): Found entity 1: Spi_slave_tb File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_tb.sv Line: 3
 Info (12021): Found 1 design units, including 1 entities, in source file hex_to_7seg.sv
-    Info (12023): Found entity 1: hex_to_7seg File: C:/Users/Xpc/Downloads/CRodriguez_compu_archi_found_2G1_2025-main/CRodriguez_compu_archi_found_2G1_2025-main/FPGAController/hex_to_7seg.sv Line: 1
+    Info (12023): Found entity 1: hex_to_7seg File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv Line: 5
 Info (12127): Elaborating entity "FpgaController" for the top level hierarchy
-Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: C:/Users/Xpc/Downloads/CRodriguez_compu_archi_found_2G1_2025-main/CRodriguez_compu_archi_found_2G1_2025-main/FPGAController/FpgaController.sv Line: 32
-Info (12128): Elaborating entity "hex_to_7seg" for hierarchy "hex_to_7seg:hexdec" File: C:/Users/Xpc/Downloads/CRodriguez_compu_archi_found_2G1_2025-main/CRodriguez_compu_archi_found_2G1_2025-main/FPGAController/FpgaController.sv Line: 38
+Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 33
+Info (12128): Elaborating entity "hex_to_7seg" for hierarchy "hex_to_7seg:hexdec" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 39
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "motor_pwm_signal" is stuck at GND File: C:/Users/Xpc/Downloads/CRodriguez_compu_archi_found_2G1_2025-main/CRodriguez_compu_archi_found_2G1_2025-main/FPGAController/FpgaController.sv Line: 12
+    Warning (13410): Pin "motor_pwm_signal" is stuck at GND File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 12
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 52 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 53 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 5 input pins
     Info (21059): Implemented 9 output pins
-    Info (21061): Implemented 38 logic cells
+    Info (21061): Implemented 39 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
-    Info: Peak virtual memory: 4882 megabytes
-    Info: Processing ended: Thu May 22 04:08:25 2025
+    Info: Peak virtual memory: 4890 megabytes
+    Info: Processing ended: Sun May 25 19:20:30 2025
     Info: Elapsed time: 00:00:06
     Info: Total CPU time (on all processors): 00:00:15
 
