@@ -16,22 +16,33 @@ module FpgaController (
     input  logic Xor,
 
     output logic fpga_physical_miso,
-    output logic [3:0] led_outputs,
+    output logic [3:0] led_outputs,         // {Z, C, V, N}
     output logic [6:0] seven_segment_pins,
     output logic [6:0] seven_segment_pins2,
     output logic motor_pwm
 );
 
+    // --- Datos SPI y display ---
     logic [3:0] data_from_spi_to_fpga;
     logic       data_is_valid_from_spi;
     logic [6:0] segments_from_bcd_units;
     logic [6:0] segments_from_bcd_units_2;
+
+    // --- Operando B ---
     logic [1:0] dec_result;
     logic [3:0] dec_4bits;
-    logic [3:0] alu_sel;
+
+    // --- Selección ALU ---
+    logic [1:0] alu_sel;
+
+    // --- Resultado ALU y flags ---
     logic [3:0] alu_result;
+    logic       flag_Z, flag_N, flag_C, flag_V;
+
+    // --- Registro del resultado ---
     logic [3:0] reg_out;
 
+    // --- Señales de botón limpias ---
     logic btn0_clean, btn1_clean, btn2_clean, btn3_clean;
     logic Mult_clean, Sub_clean, And_clean, Xor_clean;
 
@@ -63,7 +74,7 @@ module FpgaController (
         .clk(FPGA_clk), .rst(FPGA_reset), .btn_in(Xor), .btn_out(Xor_clean)
     );
 
-    // Decodificador botones operandos
+    // Decodificador de operandos (botones 0–3)
     deco_4_2bits decoder_inst (
         .A(~btn0_clean),
         .B(~btn1_clean),
@@ -74,7 +85,7 @@ module FpgaController (
     );
     assign dec_4bits = {2'b00, dec_result};
 
-    // Decodificador selección ALU (operaciones)
+    // Decodificador de operación ALU
     deco_4_2bits alu_controller (
         .A(Mult_clean),
         .B(Sub_clean),
@@ -84,15 +95,19 @@ module FpgaController (
         .Y0(alu_sel[0])
     );
 
-    // Instancia ALU estructural
+    // Instancia ALU estructural con banderas
     alu_structural alu_inst (
         .A(data_from_spi_to_fpga),
         .B(dec_4bits),
         .Op(alu_sel),
-        .R(alu_result)
+        .R(alu_result),
+        .Z(flag_Z),
+        .N(flag_N),
+        .C(flag_C),
+        .V(flag_V)
     );
 
-    // Registro para resultado ALU
+    // Registro de 4 bits para resultado ALU
     Register4Bits reg_inst (
         .clk(FPGA_clk),
         .rst(FPGA_reset),
@@ -100,8 +115,8 @@ module FpgaController (
         .q(reg_out)
     );
 
-    // LEDs apagados (puedes asignar flags si los implementas)
-    assign led_outputs = 4'b0000;
+    // Mostrar banderas en LEDs: {Z, C, V, N}
+    assign led_outputs = { flag_Z, flag_C, flag_V, flag_N };
 
     // PWM usando resultado de ALU
     pwm_controller pwm_inst (
@@ -128,13 +143,12 @@ module FpgaController (
         .hex(data_from_spi_to_fpga),
         .seg(segments_from_bcd_units)
     );
-
     hex_to_7seg hex7seg_reg_inst (
         .hex(reg_out),
         .seg(segments_from_bcd_units_2)
     );
 
-    // Salidas para displays (activo bajo)
+    // Salidas a displays (anodo común: activo bajo)
     assign seven_segment_pins  = ~segments_from_bcd_units;
     assign seven_segment_pins2 = ~segments_from_bcd_units_2;
 

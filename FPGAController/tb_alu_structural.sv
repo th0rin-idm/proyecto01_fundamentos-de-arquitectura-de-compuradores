@@ -2,42 +2,53 @@
 
 module tb_alu_structural;
 
-    // Entradas
     logic [3:0] A, B;
     logic [1:0] Op;
-
-    // Salida
     logic [3:0] R;
+    logic Z, N, C, V;
 
-    // Instancia del módulo ALU
     alu_structural dut (
         .A(A),
         .B(B),
         .Op(Op),
-        .R(R)
+        .R(R),
+        .Z(Z),
+        .N(N),
+        .C(C),
+        .V(V)
     );
 
     initial begin
-        $display("Tiempo |  Op |   A   |   B   |   R (resultado)");
-        $monitor("%4t   |  %b  | %b | %b | %b", $time, Op, A, B, R);
+        $display("Tiempo | Op |   A   |   B   |   R  | Z N C V | Hex | Operación");
+        $monitor("%4t   | %b  | %4b | %4b | %4b | %b %b %b %b | %1h   | %s",
+                 $time, Op, A, B, R, Z, N, C, V, R, (Op == 2'b00) ? "AND " :
+                                                   (Op == 2'b01) ? "XOR " :
+                                                   (Op == 2'b10) ? "RESTA" :
+                                                                   "MULT ");
 
-        // Prueba operación AND (Op = 00)
-        Op = 2'b00; A = 4'b1100; B = 4'b1010; #10;  // Esperado: 1000
+        // Operación AND
+        Op = 2'b00; A = 4'b1100; B = 4'b1010; #10;
 
-        // Prueba operación XOR (Op = 01)
-        Op = 2'b01; A = 4'b1100; B = 4'b1010; #10;  // Esperado: 0110
+        // Operación XOR
+        Op = 2'b01; A = 4'b1100; B = 4'b1010; #10;
 
-        // Prueba operación RESTA (Op = 10)
-        Op = 2'b10; A = 4'b0101; B = 4'b0011; #10;  // 5 - 3 = 2 → 0010
+        // RESTA sin préstamo: 5 - 3 = 2
+        Op = 2'b10; A = 4'b0101; B = 4'b0011; #10;
 
-        // Prueba operación MULTI (Op = 11)
-        Op = 2'b11; A = 4'b0011; B = 4'b0010; #10;  // 3 * 2 = 6 → 0110 (circular)
+        // MULTI: 3 * 2 = 6
+        Op = 2'b11; A = 4'b0011; B = 4'b0010; #10;
 
-        // Otro caso RESTA (con acarreo negativo)
-        Op = 2'b10; A = 4'b0010; B = 4'b0100; #10;  // 2 - 4 = -2 → complemento: 1110
+        // RESTA con préstamo: 2 - 4 = -2
+        Op = 2'b10; A = 4'b0010; B = 4'b0100; #10;
 
-        // Otro caso MULTI
-        Op = 2'b11; A = 4'b1111; B = 4'b0001; #10;  // 15 * 1 = 15 → 1111
+        // MULTI: 15 * 1 = 15
+        Op = 2'b11; A = 4'b1111; B = 4'b0001; #10;
+
+        // RESTA con resultado cero: 4 - 4 = 0
+        Op = 2'b10; A = 4'b0100; B = 4'b0100; #10;
+
+        // AND que da cero
+        Op = 2'b00; A = 4'b1010; B = 4'b0101; #10;
 
         $finish;
     end

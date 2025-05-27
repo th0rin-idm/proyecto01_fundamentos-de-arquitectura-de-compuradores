@@ -98,6 +98,7 @@ set_location_assignment PIN_AH17 -to seven_segment_pins2[4]
 set_location_assignment PIN_AG18 -to seven_segment_pins2[5]
 set_location_assignment PIN_AH18 -to seven_segment_pins2[6]
 set_location_assignment PIN_AA12 -to motor_pwm
+set_global_assignment -name SYSTEMVERILOG_FILE mux4_1.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Register4Bits.sv
 set_global_assignment -name SYSTEMVERILOG_FILE tb_alu_structural.sv
 set_global_assignment -name SYSTEMVERILOG_FILE mux2_1_4bits.sv
@@ -121,4 +122,5 @@ set_global_assignment -name SYSTEMVERILOG_FILE pwm_controller.sv
 set_global_assignment -name SYSTEMVERILOG_FILE FlipFlop.sv
 set_global_assignment -name SYSTEMVERILOG_FILE deco_4_2bits.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ButtonDebounce.sv
+set_global_assignment -name SYSTEMVERILOG_FILE mux4_1_4bits.sv
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

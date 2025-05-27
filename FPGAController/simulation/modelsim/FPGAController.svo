@@ -17,7 +17,7 @@
 // PROGRAM "Quartus Prime"
 // VERSION "Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition"
 
-// DATE "05/27/2025 07:50:10"
+// DATE "05/27/2025 08:23:11"
 
 // 
 // Device: Altera 5CSXFC6D6F31C6 Package FBGA896
@@ -48,24 +48,24 @@ module FpgaController (
 	seven_segment_pins,
 	seven_segment_pins2,
 	motor_pwm);
-input 	logic FPGA_clk ;
-input 	logic FPGA_reset ;
-input 	logic arduino_sclk ;
-input 	logic arduino_mosi ;
-input 	logic arduino_ss_n ;
-input 	logic btn0 ;
-input 	logic btn1 ;
-input 	logic btn2 ;
-input 	logic btn3 ;
-input 	logic Mult ;
-input 	logic Sub ;
+input 	FPGA_clk;
+input 	FPGA_reset;
+input 	arduino_sclk;
+input 	arduino_mosi;
+input 	arduino_ss_n;
+input 	btn0;
+input 	btn1;
+input 	btn2;
+input 	btn3;
+input 	Mult;
+input 	Sub;
 input 	\And ;
 input 	\Xor ;
-output 	logic fpga_physical_miso ;
-output 	logic [3:0] led_outputs ;
-output 	logic [6:0] seven_segment_pins ;
-output 	logic [6:0] seven_segment_pins2 ;
-output 	logic motor_pwm ;
+output 	fpga_physical_miso;
+output 	[3:0] led_outputs;
+output 	[6:0] seven_segment_pins;
+output 	[6:0] seven_segment_pins2;
+output 	motor_pwm;
 
 // Design Ports Information
 // btn0	=>  Location: PIN_AJ4,	 I/O Standard: 2.5 V,	 Current Strength: Default
@@ -297,7 +297,7 @@ wire \db_btn3|cnt[1]~DUPLICATE_q ;
 wire \db_btn3|Equal0~0_combout ;
 wire \db_btn3|filtered~0_combout ;
 wire \db_btn3|filtered~q ;
-wire \alu_inst|u_sub|inst_adder3|Cout~combout ;
+wire \alu_inst|u_sub|fa2|Cout~combout ;
 wire \alu_inst|u_mul|fa2b|Cout~0_combout ;
 wire \db_Xor|Add0~17_sumout ;
 wire \Xor~input_o ;
@@ -442,15 +442,15 @@ wire \db_And|Equal0~0_combout ;
 wire \db_And|filtered~0_combout ;
 wire \db_And|filtered~DUPLICATE_q ;
 wire \alu_controller|Y1~combout ;
-wire \alu_inst|mux_final|m3|g4~0_combout ;
-wire \alu_inst|u_sub|inst_adder2|Cout~0_combout ;
+wire \alu_inst|muxR|m3|m2|g3~0_combout ;
+wire \alu_inst|u_sub|fa1|Cout~0_combout ;
 wire \alu_inst|u_mul|fa2b|S~combout ;
-wire \alu_inst|mux_final|m2|g4~0_combout ;
+wire \alu_inst|muxR|m2|m2|g3~0_combout ;
 wire \db_Xor|filtered~DUPLICATE_q ;
-wire \alu_inst|mux_final|m0|g4~0_combout ;
+wire \alu_inst|muxR|m0|m2|g3~0_combout ;
 wire \decoder_inst|Y0~combout ;
 wire \decoder_inst|Y1~combout ;
-wire \alu_inst|mux_final|m1|g4~0_combout ;
+wire \alu_inst|muxR|m1|m2|g3~0_combout ;
 wire \hex7seg_reg_inst|seg[0]~0_combout ;
 wire \hex7seg_reg_inst|seg[1]~1_combout ;
 wire \hex7seg_reg_inst|seg[2]~2_combout ;
@@ -5018,11 +5018,11 @@ defparam \db_btn3|filtered .power_up = "low";
 // synopsys translate_on
 
 // Location: LABCELL_X61_Y3_N0
-cyclonev_lcell_comb \alu_inst|u_sub|inst_adder3|Cout (
+cyclonev_lcell_comb \alu_inst|u_sub|fa2|Cout (
 // Equation(s):
-// \alu_inst|u_sub|inst_adder3|Cout~combout  = ( \db_btn3|filtered~q  & ( \spi_inst|data_buffer_reg [1] & ( (!\spi_inst|data_buffer_reg [0] & (!\spi_inst|data_buffer_reg [2] & (!\db_btn1|filtered~q  & !\db_btn2|filtered~DUPLICATE_q ))) ) ) ) # ( 
-// !\db_btn3|filtered~q  & ( \spi_inst|data_buffer_reg [1] & ( (!\spi_inst|data_buffer_reg [0] & !\spi_inst|data_buffer_reg [2]) ) ) ) # ( \db_btn3|filtered~q  & ( !\spi_inst|data_buffer_reg [1] & ( (!\spi_inst|data_buffer_reg [2] & 
-// ((!\db_btn2|filtered~DUPLICATE_q ) # ((!\spi_inst|data_buffer_reg [0] & !\db_btn1|filtered~q )))) ) ) ) # ( !\db_btn3|filtered~q  & ( !\spi_inst|data_buffer_reg [1] & ( !\spi_inst|data_buffer_reg [2] ) ) )
+// \alu_inst|u_sub|fa2|Cout~combout  = ( \db_btn3|filtered~q  & ( \spi_inst|data_buffer_reg [1] & ( (!\spi_inst|data_buffer_reg [0] & (!\spi_inst|data_buffer_reg [2] & (!\db_btn1|filtered~q  & !\db_btn2|filtered~DUPLICATE_q ))) ) ) ) # ( !\db_btn3|filtered~q 
+//  & ( \spi_inst|data_buffer_reg [1] & ( (!\spi_inst|data_buffer_reg [0] & !\spi_inst|data_buffer_reg [2]) ) ) ) # ( \db_btn3|filtered~q  & ( !\spi_inst|data_buffer_reg [1] & ( (!\spi_inst|data_buffer_reg [2] & ((!\db_btn2|filtered~DUPLICATE_q ) # 
+// ((!\spi_inst|data_buffer_reg [0] & !\db_btn1|filtered~q )))) ) ) ) # ( !\db_btn3|filtered~q  & ( !\spi_inst|data_buffer_reg [1] & ( !\spi_inst|data_buffer_reg [2] ) ) )
 
 	.dataa(!\spi_inst|data_buffer_reg [0]),
 	.datab(!\spi_inst|data_buffer_reg [2]),
@@ -5033,14 +5033,14 @@ cyclonev_lcell_comb \alu_inst|u_sub|inst_adder3|Cout (
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\alu_inst|u_sub|inst_adder3|Cout~combout ),
+	.combout(\alu_inst|u_sub|fa2|Cout~combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \alu_inst|u_sub|inst_adder3|Cout .extended_lut = "off";
-defparam \alu_inst|u_sub|inst_adder3|Cout .lut_mask = 64'hCCCCCC8088888000;
-defparam \alu_inst|u_sub|inst_adder3|Cout .shared_arith = "off";
+defparam \alu_inst|u_sub|fa2|Cout .extended_lut = "off";
+defparam \alu_inst|u_sub|fa2|Cout .lut_mask = 64'hCCCCCC8088888000;
+defparam \alu_inst|u_sub|fa2|Cout .shared_arith = "off";
 // synopsys translate_on
 
 // Location: LABCELL_X61_Y3_N33
@@ -8215,13 +8215,13 @@ defparam \alu_controller|Y1 .shared_arith = "off";
 // synopsys translate_on
 
 // Location: LABCELL_X61_Y3_N24
-cyclonev_lcell_comb \alu_inst|mux_final|m3|g4~0 (
+cyclonev_lcell_comb \alu_inst|muxR|m3|m2|g3~0 (
 // Equation(s):
-// \alu_inst|mux_final|m3|g4~0_combout  = ( \spi_inst|data_buffer_reg [3] & ( \alu_controller|Y1~combout  & ( !\alu_controller|Y0~combout  ) ) ) # ( \spi_inst|data_buffer_reg [3] & ( !\alu_controller|Y1~combout  & ( (!\alu_controller|Y0~combout  & 
-// ((!\alu_inst|u_mul|fa2b|Cout~0_combout  $ (!\alu_inst|u_mul|fa3c|S~0_combout )))) # (\alu_controller|Y0~combout  & (!\alu_inst|u_sub|inst_adder3|Cout~combout )) ) ) ) # ( !\spi_inst|data_buffer_reg [3] & ( !\alu_controller|Y1~combout  & ( 
-// (!\alu_controller|Y0~combout  & ((!\alu_inst|u_mul|fa2b|Cout~0_combout  $ (!\alu_inst|u_mul|fa3c|S~0_combout )))) # (\alu_controller|Y0~combout  & (\alu_inst|u_sub|inst_adder3|Cout~combout )) ) ) )
+// \alu_inst|muxR|m3|m2|g3~0_combout  = ( \spi_inst|data_buffer_reg [3] & ( \alu_controller|Y1~combout  & ( !\alu_controller|Y0~combout  ) ) ) # ( \spi_inst|data_buffer_reg [3] & ( !\alu_controller|Y1~combout  & ( (!\alu_controller|Y0~combout  & 
+// ((!\alu_inst|u_mul|fa2b|Cout~0_combout  $ (!\alu_inst|u_mul|fa3c|S~0_combout )))) # (\alu_controller|Y0~combout  & (!\alu_inst|u_sub|fa2|Cout~combout )) ) ) ) # ( !\spi_inst|data_buffer_reg [3] & ( !\alu_controller|Y1~combout  & ( 
+// (!\alu_controller|Y0~combout  & ((!\alu_inst|u_mul|fa2b|Cout~0_combout  $ (!\alu_inst|u_mul|fa3c|S~0_combout )))) # (\alu_controller|Y0~combout  & (\alu_inst|u_sub|fa2|Cout~combout )) ) ) )
 
-	.dataa(!\alu_inst|u_sub|inst_adder3|Cout~combout ),
+	.dataa(!\alu_inst|u_sub|fa2|Cout~combout ),
 	.datab(!\alu_inst|u_mul|fa2b|Cout~0_combout ),
 	.datac(!\alu_controller|Y0~combout ),
 	.datad(!\alu_inst|u_mul|fa3c|S~0_combout ),
@@ -8230,20 +8230,20 @@ cyclonev_lcell_comb \alu_inst|mux_final|m3|g4~0 (
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\alu_inst|mux_final|m3|g4~0_combout ),
+	.combout(\alu_inst|muxR|m3|m2|g3~0_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \alu_inst|mux_final|m3|g4~0 .extended_lut = "off";
-defparam \alu_inst|mux_final|m3|g4~0 .lut_mask = 64'h35C53ACA0000F0F0;
-defparam \alu_inst|mux_final|m3|g4~0 .shared_arith = "off";
+defparam \alu_inst|muxR|m3|m2|g3~0 .extended_lut = "off";
+defparam \alu_inst|muxR|m3|m2|g3~0 .lut_mask = 64'h35C53ACA0000F0F0;
+defparam \alu_inst|muxR|m3|m2|g3~0 .shared_arith = "off";
 // synopsys translate_on
 
 // Location: FF_X61_Y3_N26
 dffeas \reg_inst|q[3] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\alu_inst|mux_final|m3|g4~0_combout ),
+	.d(\alu_inst|muxR|m3|m2|g3~0_combout ),
 	.asdata(vcc),
 	.clrn(vcc),
 	.aload(gnd),
@@ -8260,9 +8260,9 @@ defparam \reg_inst|q[3] .power_up = "low";
 // synopsys translate_on
 
 // Location: LABCELL_X61_Y4_N21
-cyclonev_lcell_comb \alu_inst|u_sub|inst_adder2|Cout~0 (
+cyclonev_lcell_comb \alu_inst|u_sub|fa1|Cout~0 (
 // Equation(s):
-// \alu_inst|u_sub|inst_adder2|Cout~0_combout  = ( \db_btn3|filtered~q  & ( \db_btn1|filtered~q  & ( (\spi_inst|data_buffer_reg [1]) # (\db_btn2|filtered~q ) ) ) ) # ( !\db_btn3|filtered~q  & ( \db_btn1|filtered~q  & ( (\spi_inst|data_buffer_reg [0] & 
+// \alu_inst|u_sub|fa1|Cout~0_combout  = ( \db_btn3|filtered~q  & ( \db_btn1|filtered~q  & ( (\spi_inst|data_buffer_reg [1]) # (\db_btn2|filtered~q ) ) ) ) # ( !\db_btn3|filtered~q  & ( \db_btn1|filtered~q  & ( (\spi_inst|data_buffer_reg [0] & 
 // \spi_inst|data_buffer_reg [1]) ) ) ) # ( \db_btn3|filtered~q  & ( !\db_btn1|filtered~q  & ( (!\spi_inst|data_buffer_reg [0] & (\db_btn2|filtered~q  & \spi_inst|data_buffer_reg [1])) # (\spi_inst|data_buffer_reg [0] & ((\spi_inst|data_buffer_reg [1]) # 
 // (\db_btn2|filtered~q ))) ) ) ) # ( !\db_btn3|filtered~q  & ( !\db_btn1|filtered~q  & ( (\spi_inst|data_buffer_reg [0] & \spi_inst|data_buffer_reg [1]) ) ) )
 
@@ -8275,14 +8275,14 @@ cyclonev_lcell_comb \alu_inst|u_sub|inst_adder2|Cout~0 (
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\alu_inst|u_sub|inst_adder2|Cout~0_combout ),
+	.combout(\alu_inst|u_sub|fa1|Cout~0_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \alu_inst|u_sub|inst_adder2|Cout~0 .extended_lut = "off";
-defparam \alu_inst|u_sub|inst_adder2|Cout~0 .lut_mask = 64'h0055055F00550FFF;
-defparam \alu_inst|u_sub|inst_adder2|Cout~0 .shared_arith = "off";
+defparam \alu_inst|u_sub|fa1|Cout~0 .extended_lut = "off";
+defparam \alu_inst|u_sub|fa1|Cout~0 .lut_mask = 64'h0055055F00550FFF;
+defparam \alu_inst|u_sub|fa1|Cout~0 .shared_arith = "off";
 // synopsys translate_on
 
 // Location: LABCELL_X61_Y4_N24
@@ -8312,13 +8312,13 @@ defparam \alu_inst|u_mul|fa2b|S .shared_arith = "off";
 // synopsys translate_on
 
 // Location: LABCELL_X61_Y4_N42
-cyclonev_lcell_comb \alu_inst|mux_final|m2|g4~0 (
+cyclonev_lcell_comb \alu_inst|muxR|m2|m2|g3~0 (
 // Equation(s):
-// \alu_inst|mux_final|m2|g4~0_combout  = ( \alu_inst|u_mul|fa2b|S~combout  & ( (!\alu_controller|Y0~combout  & (((!\alu_controller|Y1~combout ) # (\spi_inst|data_buffer_reg [2])))) # (\alu_controller|Y0~combout  & (!\alu_controller|Y1~combout  & 
-// (!\alu_inst|u_sub|inst_adder2|Cout~0_combout  $ (\spi_inst|data_buffer_reg [2])))) ) ) # ( !\alu_inst|u_mul|fa2b|S~combout  & ( (!\alu_controller|Y0~combout  & (((\spi_inst|data_buffer_reg [2] & \alu_controller|Y1~combout )))) # 
-// (\alu_controller|Y0~combout  & (!\alu_controller|Y1~combout  & (!\alu_inst|u_sub|inst_adder2|Cout~0_combout  $ (\spi_inst|data_buffer_reg [2])))) ) )
+// \alu_inst|muxR|m2|m2|g3~0_combout  = ( \alu_inst|u_mul|fa2b|S~combout  & ( (!\alu_controller|Y0~combout  & (((!\alu_controller|Y1~combout ) # (\spi_inst|data_buffer_reg [2])))) # (\alu_controller|Y0~combout  & (!\alu_controller|Y1~combout  & 
+// (!\alu_inst|u_sub|fa1|Cout~0_combout  $ (\spi_inst|data_buffer_reg [2])))) ) ) # ( !\alu_inst|u_mul|fa2b|S~combout  & ( (!\alu_controller|Y0~combout  & (((\spi_inst|data_buffer_reg [2] & \alu_controller|Y1~combout )))) # (\alu_controller|Y0~combout  & 
+// (!\alu_controller|Y1~combout  & (!\alu_inst|u_sub|fa1|Cout~0_combout  $ (\spi_inst|data_buffer_reg [2])))) ) )
 
-	.dataa(!\alu_inst|u_sub|inst_adder2|Cout~0_combout ),
+	.dataa(!\alu_inst|u_sub|fa1|Cout~0_combout ),
 	.datab(!\spi_inst|data_buffer_reg [2]),
 	.datac(!\alu_controller|Y0~combout ),
 	.datad(!\alu_controller|Y1~combout ),
@@ -8327,20 +8327,20 @@ cyclonev_lcell_comb \alu_inst|mux_final|m2|g4~0 (
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\alu_inst|mux_final|m2|g4~0_combout ),
+	.combout(\alu_inst|muxR|m2|m2|g3~0_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \alu_inst|mux_final|m2|g4~0 .extended_lut = "off";
-defparam \alu_inst|mux_final|m2|g4~0 .lut_mask = 64'h09300930F930F930;
-defparam \alu_inst|mux_final|m2|g4~0 .shared_arith = "off";
+defparam \alu_inst|muxR|m2|m2|g3~0 .extended_lut = "off";
+defparam \alu_inst|muxR|m2|m2|g3~0 .lut_mask = 64'h09300930F930F930;
+defparam \alu_inst|muxR|m2|m2|g3~0 .shared_arith = "off";
 // synopsys translate_on
 
 // Location: FF_X61_Y4_N44
 dffeas \reg_inst|q[2] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\alu_inst|mux_final|m2|g4~0_combout ),
+	.d(\alu_inst|muxR|m2|m2|g3~0_combout ),
 	.asdata(vcc),
 	.clrn(vcc),
 	.aload(gnd),
@@ -8376,10 +8376,10 @@ defparam \db_Xor|filtered~DUPLICATE .power_up = "low";
 // synopsys translate_on
 
 // Location: LABCELL_X61_Y4_N15
-cyclonev_lcell_comb \alu_inst|mux_final|m0|g4~0 (
+cyclonev_lcell_comb \alu_inst|muxR|m0|m2|g3~0 (
 // Equation(s):
-// \alu_inst|mux_final|m0|g4~0_combout  = ( \db_btn3|filtered~q  & ( \db_Xor|filtered~DUPLICATE_q  & ( (\spi_inst|data_buffer_reg [0] & !\db_btn1|filtered~q ) ) ) ) # ( !\db_btn3|filtered~q  & ( \db_Xor|filtered~DUPLICATE_q  & ( \spi_inst|data_buffer_reg [0] 
-// ) ) ) # ( \db_btn3|filtered~q  & ( !\db_Xor|filtered~DUPLICATE_q  & ( (!\spi_inst|data_buffer_reg [0] & (!\db_btn1|filtered~q  & (!\db_Sub|filtered~q  $ (!\db_And|filtered~DUPLICATE_q )))) # (\spi_inst|data_buffer_reg [0] & (!\db_btn1|filtered~q  $ 
+// \alu_inst|muxR|m0|m2|g3~0_combout  = ( \db_btn3|filtered~q  & ( \db_Xor|filtered~DUPLICATE_q  & ( (\spi_inst|data_buffer_reg [0] & !\db_btn1|filtered~q ) ) ) ) # ( !\db_btn3|filtered~q  & ( \db_Xor|filtered~DUPLICATE_q  & ( \spi_inst|data_buffer_reg [0] ) 
+// ) ) # ( \db_btn3|filtered~q  & ( !\db_Xor|filtered~DUPLICATE_q  & ( (!\spi_inst|data_buffer_reg [0] & (!\db_btn1|filtered~q  & (!\db_Sub|filtered~q  $ (!\db_And|filtered~DUPLICATE_q )))) # (\spi_inst|data_buffer_reg [0] & (!\db_btn1|filtered~q  $ 
 // (!\db_Sub|filtered~q  $ (!\db_And|filtered~DUPLICATE_q )))) ) ) ) # ( !\db_btn3|filtered~q  & ( !\db_Xor|filtered~DUPLICATE_q  & ( !\spi_inst|data_buffer_reg [0] $ (!\db_Sub|filtered~q  $ (\db_And|filtered~DUPLICATE_q )) ) ) )
 
 	.dataa(!\spi_inst|data_buffer_reg [0]),
@@ -8391,20 +8391,20 @@ cyclonev_lcell_comb \alu_inst|mux_final|m0|g4~0 (
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\alu_inst|mux_final|m0|g4~0_combout ),
+	.combout(\alu_inst|muxR|m0|m2|g3~0_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \alu_inst|mux_final|m0|g4~0 .extended_lut = "off";
-defparam \alu_inst|mux_final|m0|g4~0 .lut_mask = 64'h5AA5499455554444;
-defparam \alu_inst|mux_final|m0|g4~0 .shared_arith = "off";
+defparam \alu_inst|muxR|m0|m2|g3~0 .extended_lut = "off";
+defparam \alu_inst|muxR|m0|m2|g3~0 .lut_mask = 64'h5AA5499455554444;
+defparam \alu_inst|muxR|m0|m2|g3~0 .shared_arith = "off";
 // synopsys translate_on
 
 // Location: FF_X61_Y4_N17
 dffeas \reg_inst|q[0] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\alu_inst|mux_final|m0|g4~0_combout ),
+	.d(\alu_inst|muxR|m0|m2|g3~0_combout ),
 	.asdata(vcc),
 	.clrn(vcc),
 	.aload(gnd),
@@ -8469,9 +8469,9 @@ defparam \decoder_inst|Y1 .shared_arith = "off";
 // synopsys translate_on
 
 // Location: LABCELL_X61_Y4_N36
-cyclonev_lcell_comb \alu_inst|mux_final|m1|g4~0 (
+cyclonev_lcell_comb \alu_inst|muxR|m1|m2|g3~0 (
 // Equation(s):
-// \alu_inst|mux_final|m1|g4~0_combout  = ( \decoder_inst|Y1~combout  & ( \alu_controller|Y0~combout  & ( (!\alu_controller|Y1~combout  & (!\spi_inst|data_buffer_reg [1] $ (((\spi_inst|data_buffer_reg [0]) # (\decoder_inst|Y0~combout ))))) ) ) ) # ( 
+// \alu_inst|muxR|m1|m2|g3~0_combout  = ( \decoder_inst|Y1~combout  & ( \alu_controller|Y0~combout  & ( (!\alu_controller|Y1~combout  & (!\spi_inst|data_buffer_reg [1] $ (((\spi_inst|data_buffer_reg [0]) # (\decoder_inst|Y0~combout ))))) ) ) ) # ( 
 // !\decoder_inst|Y1~combout  & ( \alu_controller|Y0~combout  & ( !\spi_inst|data_buffer_reg [1] $ ((((!\decoder_inst|Y0~combout  & !\spi_inst|data_buffer_reg [0])) # (\alu_controller|Y1~combout ))) ) ) ) # ( \decoder_inst|Y1~combout  & ( 
 // !\alu_controller|Y0~combout  & ( (\spi_inst|data_buffer_reg [1] & ((!\decoder_inst|Y0~combout ) # (\alu_controller|Y1~combout ))) ) ) ) # ( !\decoder_inst|Y1~combout  & ( !\alu_controller|Y0~combout  & ( (!\alu_controller|Y1~combout  & 
 // (!\spi_inst|data_buffer_reg [0] $ (((!\spi_inst|data_buffer_reg [1]) # (\decoder_inst|Y0~combout ))))) # (\alu_controller|Y1~combout  & (!\spi_inst|data_buffer_reg [1])) ) ) )
@@ -8485,20 +8485,20 @@ cyclonev_lcell_comb \alu_inst|mux_final|m1|g4~0 (
 	.datag(gnd),
 	.cin(gnd),
 	.sharein(gnd),
-	.combout(\alu_inst|mux_final|m1|g4~0_combout ),
+	.combout(\alu_inst|muxR|m1|m2|g3~0_combout ),
 	.sumout(),
 	.cout(),
 	.shareout());
 // synopsys translate_off
-defparam \alu_inst|mux_final|m1|g4~0 .extended_lut = "off";
-defparam \alu_inst|mux_final|m1|g4~0 .lut_mask = 64'h4BAA44556A559500;
-defparam \alu_inst|mux_final|m1|g4~0 .shared_arith = "off";
+defparam \alu_inst|muxR|m1|m2|g3~0 .extended_lut = "off";
+defparam \alu_inst|muxR|m1|m2|g3~0 .lut_mask = 64'h4BAA44556A559500;
+defparam \alu_inst|muxR|m1|m2|g3~0 .shared_arith = "off";
 // synopsys translate_on
 
 // Location: FF_X61_Y4_N38
 dffeas \reg_inst|q[1] (
 	.clk(\FPGA_clk~inputCLKENA0_outclk ),
-	.d(\alu_inst|mux_final|m1|g4~0_combout ),
+	.d(\alu_inst|muxR|m1|m2|g3~0_combout ),
 	.asdata(vcc),
 	.clrn(vcc),
 	.aload(gnd),
