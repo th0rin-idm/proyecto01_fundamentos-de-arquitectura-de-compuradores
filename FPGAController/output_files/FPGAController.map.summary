@@ -1,11 +1,11 @@
-Analysis & Synthesis Status : Successful - Sun May 25 19:20:30 2025
-Quartus Prime Version : 22.1std.0 Build 915 10/25/2022 SC Lite Edition
+Analysis & Synthesis Status : Successful - Tue May 27 08:40:45 2025
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : FPGAController
 Top-level Entity Name : FpgaController
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 29
-Total pins : 14
+Total registers : 147
+Total pins : 33
 Total virtual pins : 0
 Total block memory bits : 0
 Total DSP Blocks : 0

@@ -1,6 +1,6 @@
 Analysis & Synthesis report for FPGAController
-Sun May 25 19:20:30 2025
-Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
+Tue May 27 08:40:45 2025
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
 ---------------------
@@ -16,18 +16,38 @@ Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
   8. Registers Removed During Synthesis
   9. Removed Registers Triggering Further Register Optimizations
  10. General Register Statistics
- 11. Post-Synthesis Netlist Statistics for Top Partition
- 12. Elapsed Time Per Partition
- 13. Analysis & Synthesis Messages
+ 11. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 12. Parameter Settings for User Entity Instance: ButtonDebounce:db_btn0
+ 13. Parameter Settings for User Entity Instance: ButtonDebounce:db_btn1
+ 14. Parameter Settings for User Entity Instance: ButtonDebounce:db_btn2
+ 15. Parameter Settings for User Entity Instance: ButtonDebounce:db_btn3
+ 16. Parameter Settings for User Entity Instance: ButtonDebounce:db_Mult
+ 17. Parameter Settings for User Entity Instance: ButtonDebounce:db_Sub
+ 18. Parameter Settings for User Entity Instance: ButtonDebounce:db_And
+ 19. Parameter Settings for User Entity Instance: ButtonDebounce:db_Xor
+ 20. Port Connectivity Checks: "Spi_slave_module:spi_inst"
+ 21. Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa6a"
+ 22. Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa5c"
+ 23. Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa5a"
+ 24. Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa4c"
+ 25. Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa4a"
+ 26. Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa3a"
+ 27. Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa2a"
+ 28. Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa1"
+ 29. Port Connectivity Checks: "alu_structural:alu_inst|resta:u_sub|fulladder:fa0"
+ 30. Port Connectivity Checks: "alu_structural:alu_inst"
+ 31. Post-Synthesis Netlist Statistics for Top Partition
+ 32. Elapsed Time Per Partition
+ 33. Analysis & Synthesis Messages
 
 
 
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2022  Intel Corporation. All rights reserved.
+Copyright (C) 2018  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
-and other software and tools, and any partner logic 
+and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
@@ -37,32 +57,31 @@ the Intel FPGA IP License Agreement, or other applicable license
 agreement, including, without limitation, that your use is for
 the sole purpose of programming logic devices manufactured by
 Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details, at
-https://fpgasoftware.intel.com/eula.
+refer to the applicable agreement for further details.
 
 
 
-+----------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                     ;
-+---------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Sun May 25 19:20:30 2025          ;
-; Quartus Prime Version           ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
-; Revision Name                   ; FPGAController                                 ;
-; Top-level Entity Name           ; FpgaController                                 ;
-; Family                          ; Cyclone V                                      ;
-; Logic utilization (in ALMs)     ; N/A                                            ;
-; Total registers                 ; 29                                             ;
-; Total pins                      ; 14                                             ;
-; Total virtual pins              ; 0                                              ;
-; Total block memory bits         ; 0                                              ;
-; Total DSP Blocks                ; 0                                              ;
-; Total HSSI RX PCSs              ; 0                                              ;
-; Total HSSI PMA RX Deserializers ; 0                                              ;
-; Total HSSI TX PCSs              ; 0                                              ;
-; Total HSSI PMA TX Serializers   ; 0                                              ;
-; Total PLLs                      ; 0                                              ;
-; Total DLLs                      ; 0                                              ;
-+---------------------------------+------------------------------------------------+
++-------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                  ;
++---------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Tue May 27 08:40:45 2025       ;
+; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                   ; FPGAController                              ;
+; Top-level Entity Name           ; FpgaController                              ;
+; Family                          ; Cyclone V                                   ;
+; Logic utilization (in ALMs)     ; N/A                                         ;
+; Total registers                 ; 147                                         ;
+; Total pins                      ; 33                                          ;
+; Total virtual pins              ; 0                                           ;
+; Total block memory bits         ; 0                                           ;
+; Total DSP Blocks                ; 0                                           ;
+; Total HSSI RX PCSs              ; 0                                           ;
+; Total HSSI PMA RX Deserializers ; 0                                           ;
+; Total HSSI TX PCSs              ; 0                                           ;
+; Total HSSI PMA TX Serializers   ; 0                                           ;
+; Total PLLs                      ; 0                                           ;
+; Total DLLs                      ; 0                                           ;
++---------------------------------+---------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
@@ -158,26 +177,39 @@ https://fpgasoftware.intel.com/eula.
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
 ; Number detected on machine ; 16          ;
-; Maximum allowed            ; 16          ;
+; Maximum allowed            ; 12          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 16          ;
+; Maximum used               ; 12          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-16        ;   0.0%      ;
+;     Processors 2-12        ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                           ;
-+----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                       ; Library ;
-+----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
-; Spi_slave_module.sv              ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_module.sv ;         ;
-; FpgaController.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv   ;         ;
-; hex_to_7seg.sv                   ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv      ;         ;
-+----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                        ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                                    ; Library ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
+; mux4_1.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1.sv           ;         ;
+; Register4Bits.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/Register4Bits.sv    ;         ;
+; mux2_1.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux2_1.sv           ;         ;
+; alu_structural.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv   ;         ;
+; Spi_slave_module.sv              ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/Spi_slave_module.sv ;         ;
+; FpgaController.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv   ;         ;
+; hex_to_7seg.sv                   ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/hex_to_7seg.sv      ;         ;
+; and4bits.sv                      ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/and4bits.sv         ;         ;
+; fulladder.sv                     ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/fulladder.sv        ;         ;
+; multi.sv                         ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/multi.sv            ;         ;
+; resta.sv                         ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/resta.sv            ;         ;
+; xor4bits.sv                      ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/xor4bits.sv         ;         ;
+; pwm_controller.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/pwm_controller.sv   ;         ;
+; deco_4_2bits.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/deco_4_2bits.sv     ;         ;
+; ButtonDebounce.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/ButtonDebounce.sv   ;         ;
+; mux4_1_4bits.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1_4bits.sv     ;         ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------+
@@ -185,36 +217,72 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimate of Logic utilization (ALMs needed) ; 17             ;
+; Estimate of Logic utilization (ALMs needed) ; 111            ;
 ;                                             ;                ;
-; Combinational ALUT usage for logic          ; 24             ;
+; Combinational ALUT usage for logic          ; 188            ;
 ;     -- 7 input functions                    ; 0              ;
-;     -- 6 input functions                    ; 8              ;
-;     -- 5 input functions                    ; 9              ;
-;     -- 4 input functions                    ; 4              ;
-;     -- <=3 input functions                  ; 3              ;
+;     -- 6 input functions                    ; 30             ;
+;     -- 5 input functions                    ; 15             ;
+;     -- 4 input functions                    ; 26             ;
+;     -- <=3 input functions                  ; 117            ;
 ;                                             ;                ;
-; Dedicated logic registers                   ; 29             ;
+; Dedicated logic registers                   ; 147            ;
 ;                                             ;                ;
-; I/O pins                                    ; 14             ;
+; I/O pins                                    ; 33             ;
 ;                                             ;                ;
 ; Total DSP Blocks                            ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; FPGA_clk~input ;
-; Maximum fan-out                             ; 29             ;
-; Total fan-out                               ; 211            ;
-; Average fan-out                             ; 2.60           ;
+; Maximum fan-out                             ; 147            ;
+; Total fan-out                               ; 1058           ;
+; Average fan-out                             ; 2.64           ;
 +---------------------------------------------+----------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                   ;
-+--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------+------------------+--------------+
-; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                       ; Entity Name      ; Library Name ;
-+--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------+------------------+--------------+
-; |FpgaController                ; 24 (8)              ; 29 (7)                    ; 0                 ; 0          ; 14   ; 0            ; |FpgaController                           ; FpgaController   ; work         ;
-;    |Spi_slave_module:spi_unit| ; 16 (16)             ; 22 (22)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Spi_slave_module:spi_unit ; Spi_slave_module ; work         ;
-+--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------+------------------+--------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                          ;
++-----------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------------------------------------------+------------------+--------------+
+; Compilation Hierarchy Node        ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                           ; Entity Name      ; Library Name ;
++-----------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------------------------------------------+------------------+--------------+
+; |FpgaController                   ; 188 (1)             ; 147 (0)                   ; 0                 ; 0          ; 33   ; 0            ; |FpgaController                                                               ; FpgaController   ; work         ;
+;    |ButtonDebounce:db_And|        ; 21 (21)             ; 19 (19)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|ButtonDebounce:db_And                                         ; ButtonDebounce   ; work         ;
+;    |ButtonDebounce:db_Sub|        ; 21 (21)             ; 19 (19)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|ButtonDebounce:db_Sub                                         ; ButtonDebounce   ; work         ;
+;    |ButtonDebounce:db_Xor|        ; 21 (21)             ; 19 (19)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|ButtonDebounce:db_Xor                                         ; ButtonDebounce   ; work         ;
+;    |ButtonDebounce:db_btn1|       ; 21 (21)             ; 19 (19)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|ButtonDebounce:db_btn1                                        ; ButtonDebounce   ; work         ;
+;    |ButtonDebounce:db_btn2|       ; 21 (21)             ; 19 (19)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|ButtonDebounce:db_btn2                                        ; ButtonDebounce   ; work         ;
+;    |ButtonDebounce:db_btn3|       ; 21 (21)             ; 19 (19)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|ButtonDebounce:db_btn3                                        ; ButtonDebounce   ; work         ;
+;    |Register4Bits:reg_inst|       ; 0 (0)               ; 4 (4)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Register4Bits:reg_inst                                        ; Register4Bits    ; work         ;
+;    |Spi_slave_module:spi_inst|    ; 15 (15)             ; 21 (21)                   ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|Spi_slave_module:spi_inst                                     ; Spi_slave_module ; work         ;
+;    |alu_structural:alu_inst|      ; 15 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst                                       ; alu_structural   ; work         ;
+;       |and4bits:u_and|            ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|and4bits:u_and                        ; and4bits         ; work         ;
+;       |multi:u_mul|               ; 4 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|multi:u_mul                           ; multi            ; work         ;
+;          |fulladder:fa2b|         ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|multi:u_mul|fulladder:fa2b            ; fulladder        ; work         ;
+;          |fulladder:fa3c|         ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|multi:u_mul|fulladder:fa3c            ; fulladder        ; work         ;
+;       |mux4_1:muxC|               ; 1 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1:muxC                           ; mux4_1           ; work         ;
+;          |mux2_1:m2|              ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1:muxC|mux2_1:m2                 ; mux2_1           ; work         ;
+;       |mux4_1:muxN|               ; 1 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1:muxN                           ; mux4_1           ; work         ;
+;          |mux2_1:m2|              ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1:muxN|mux2_1:m2                 ; mux2_1           ; work         ;
+;       |mux4_1:muxV|               ; 1 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1:muxV                           ; mux4_1           ; work         ;
+;          |mux2_1:m2|              ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1:muxV|mux2_1:m2                 ; mux2_1           ; work         ;
+;       |mux4_1:muxZ|               ; 1 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1:muxZ                           ; mux4_1           ; work         ;
+;          |mux2_1:m2|              ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1:muxZ|mux2_1:m2                 ; mux2_1           ; work         ;
+;       |mux4_1_4bits:muxR|         ; 3 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1_4bits:muxR                     ; mux4_1_4bits     ; work         ;
+;          |mux4_1:m0|              ; 1 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m0           ; mux4_1           ; work         ;
+;             |mux2_1:m2|           ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m0|mux2_1:m2 ; mux2_1           ; work         ;
+;          |mux4_1:m1|              ; 1 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m1           ; mux4_1           ; work         ;
+;             |mux2_1:m2|           ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m1|mux2_1:m2 ; mux2_1           ; work         ;
+;          |mux4_1:m2|              ; 1 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m2           ; mux4_1           ; work         ;
+;             |mux2_1:m2|           ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m2|mux2_1:m2 ; mux2_1           ; work         ;
+;       |resta:u_sub|               ; 2 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|resta:u_sub                           ; resta            ; work         ;
+;          |fulladder:fa1|          ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|resta:u_sub|fulladder:fa1             ; fulladder        ; work         ;
+;          |fulladder:fa2|          ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|resta:u_sub|fulladder:fa2             ; fulladder        ; work         ;
+;       |xor4bits:u_xor|            ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|alu_structural:alu_inst|xor4bits:u_xor                        ; xor4bits         ; work         ;
+;    |deco_4_2bits:alu_controller|  ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|deco_4_2bits:alu_controller                                   ; deco_4_2bits     ; work         ;
+;    |deco_4_2bits:decoder_inst|    ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|deco_4_2bits:decoder_inst                                     ; deco_4_2bits     ; work         ;
+;    |hex_to_7seg:hex7seg_inst|     ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|hex_to_7seg:hex7seg_inst                                      ; hex_to_7seg      ; work         ;
+;    |hex_to_7seg:hex7seg_reg_inst| ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|hex_to_7seg:hex7seg_reg_inst                                  ; hex_to_7seg      ; work         ;
+;    |pwm_controller:pwm_inst|      ; 13 (13)             ; 8 (8)                     ; 0                 ; 0          ; 0    ; 0            ; |FpgaController|pwm_controller:pwm_inst                                       ; pwm_controller   ; work         ;
++-----------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------------------------------------------+------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -223,7 +291,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +------------------------------------------------+----------------------------------------+
 ; Register name                                  ; Reason for Removal                     ;
 +------------------------------------------------+----------------------------------------+
-; Spi_slave_module:spi_unit|shift_reg_miso[0..3] ; Stuck at GND due to stuck port data_in ;
+; Spi_slave_module:spi_inst|shift_reg_miso[0..3] ; Stuck at GND due to stuck port data_in ;
 ; Total Number of Removed Registers = 4          ;                                        ;
 +------------------------------------------------+----------------------------------------+
 
@@ -233,9 +301,9 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------------------+---------------------------+----------------------------------------------+
 ; Register name                               ; Reason for Removal        ; Registers Removed due to This Register       ;
 +---------------------------------------------+---------------------------+----------------------------------------------+
-; Spi_slave_module:spi_unit|shift_reg_miso[0] ; Stuck at GND              ; Spi_slave_module:spi_unit|shift_reg_miso[1], ;
-;                                             ; due to stuck port data_in ; Spi_slave_module:spi_unit|shift_reg_miso[2], ;
-;                                             ;                           ; Spi_slave_module:spi_unit|shift_reg_miso[3]  ;
+; Spi_slave_module:spi_inst|shift_reg_miso[0] ; Stuck at GND              ; Spi_slave_module:spi_inst|shift_reg_miso[1], ;
+;                                             ; due to stuck port data_in ; Spi_slave_module:spi_inst|shift_reg_miso[2], ;
+;                                             ;                           ; Spi_slave_module:spi_inst|shift_reg_miso[3]  ;
 +---------------------------------------------+---------------------------+----------------------------------------------+
 
 
@@ -244,14 +312,204 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 29    ;
-; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
+; Total registers                              ; 147   ;
+; Number of registers using Synchronous Clear  ; 99    ;
+; Number of registers using Synchronous Load   ; 10    ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 15    ;
+; Number of registers using Clock Enable       ; 8     ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------+
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |FpgaController|alu_structural:alu_inst|mux4_1:muxN|mux2_1:m2|g3 ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |FpgaController|alu_structural:alu_inst|mux4_1:muxZ|mux2_1:m2|g3 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ButtonDebounce:db_btn0 ;
++----------------+-------+--------------------------------------------+
+; Parameter Name ; Value ; Type                                       ;
++----------------+-------+--------------------------------------------+
+; N              ; 16    ; Signed Integer                             ;
++----------------+-------+--------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ButtonDebounce:db_btn1 ;
++----------------+-------+--------------------------------------------+
+; Parameter Name ; Value ; Type                                       ;
++----------------+-------+--------------------------------------------+
+; N              ; 16    ; Signed Integer                             ;
++----------------+-------+--------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ButtonDebounce:db_btn2 ;
++----------------+-------+--------------------------------------------+
+; Parameter Name ; Value ; Type                                       ;
++----------------+-------+--------------------------------------------+
+; N              ; 16    ; Signed Integer                             ;
++----------------+-------+--------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ButtonDebounce:db_btn3 ;
++----------------+-------+--------------------------------------------+
+; Parameter Name ; Value ; Type                                       ;
++----------------+-------+--------------------------------------------+
+; N              ; 16    ; Signed Integer                             ;
++----------------+-------+--------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ButtonDebounce:db_Mult ;
++----------------+-------+--------------------------------------------+
+; Parameter Name ; Value ; Type                                       ;
++----------------+-------+--------------------------------------------+
+; N              ; 16    ; Signed Integer                             ;
++----------------+-------+--------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ButtonDebounce:db_Sub ;
++----------------+-------+-------------------------------------------+
+; Parameter Name ; Value ; Type                                      ;
++----------------+-------+-------------------------------------------+
+; N              ; 16    ; Signed Integer                            ;
++----------------+-------+-------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ButtonDebounce:db_And ;
++----------------+-------+-------------------------------------------+
+; Parameter Name ; Value ; Type                                      ;
++----------------+-------+-------------------------------------------+
+; N              ; 16    ; Signed Integer                            ;
++----------------+-------+-------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ButtonDebounce:db_Xor ;
++----------------+-------+-------------------------------------------+
+; Parameter Name ; Value ; Type                                      ;
++----------------+-------+-------------------------------------------+
+; N              ; 16    ; Signed Integer                            ;
++----------------+-------+-------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Spi_slave_module:spi_inst"                                                                        ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port               ; Type   ; Severity ; Details                                                                             ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------+
+; spi_data_valid_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa6a"                                 ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; S    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; Cout ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa5c"                                 ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; S    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa5a" ;
++------+-------+----------+------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                              ;
++------+-------+----------+------------------------------------------------------+
+; Cin  ; Input ; Info     ; Stuck at GND                                         ;
++------+-------+----------+------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa4c"                                 ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; S    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa4a" ;
++------+-------+----------+------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                              ;
++------+-------+----------+------------------------------------------------------+
+; Cin  ; Input ; Info     ; Stuck at GND                                         ;
++------+-------+----------+------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa3a" ;
++------+-------+----------+------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                              ;
++------+-------+----------+------------------------------------------------------+
+; Cin  ; Input ; Info     ; Stuck at GND                                         ;
++------+-------+----------+------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa2a" ;
++------+-------+----------+------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                              ;
++------+-------+----------+------------------------------------------------------+
+; Cin  ; Input ; Info     ; Stuck at GND                                         ;
++------+-------+----------+------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu_structural:alu_inst|multi:u_mul|fulladder:fa1" ;
++------+-------+----------+-----------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                             ;
++------+-------+----------+-----------------------------------------------------+
+; Cin  ; Input ; Info     ; Stuck at GND                                        ;
++------+-------+----------+-----------------------------------------------------+
+
+
++-------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu_structural:alu_inst|resta:u_sub|fulladder:fa0" ;
++------+-------+----------+-----------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                             ;
++------+-------+----------+-----------------------------------------------------+
+; Cin  ; Input ; Info     ; Stuck at VCC                                        ;
++------+-------+----------+-----------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Port Connectivity Checks: "alu_structural:alu_inst" ;
++---------+-------+----------+------------------------+
+; Port    ; Type  ; Severity ; Details                ;
++---------+-------+----------+------------------------+
+; B[3..2] ; Input ; Info     ; Stuck at GND           ;
++---------+-------+----------+------------------------+
 
 
 +-----------------------------------------------------+
@@ -259,21 +517,28 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 29                          ;
-;     ENA               ; 15                          ;
-;     plain             ; 14                          ;
-; arriav_lcell_comb     ; 25                          ;
-;     normal            ; 25                          ;
+; arriav_ff             ; 147                         ;
+;     ENA               ; 7                           ;
+;     ENA SLD           ; 1                           ;
+;     SCLR              ; 99                          ;
+;     SLD               ; 9                           ;
+;     plain             ; 31                          ;
+; arriav_lcell_comb     ; 202                         ;
+;     arith             ; 103                         ;
+;         1 data inputs ; 102                         ;
+;         2 data inputs ; 1                           ;
+;     normal            ; 99                          ;
 ;         0 data inputs ; 1                           ;
-;         2 data inputs ; 2                           ;
+;         1 data inputs ; 15                          ;
+;         2 data inputs ; 11                          ;
 ;         3 data inputs ; 1                           ;
-;         4 data inputs ; 4                           ;
-;         5 data inputs ; 9                           ;
-;         6 data inputs ; 8                           ;
-; boundary_port         ; 14                          ;
+;         4 data inputs ; 26                          ;
+;         5 data inputs ; 15                          ;
+;         6 data inputs ; 30                          ;
+; boundary_port         ; 33                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 2.00                        ;
-; Average LUT depth     ; 1.05                        ;
+; Max LUT depth         ; 3.00                        ;
+; Average LUT depth     ; 1.93                        ;
 +-----------------------+-----------------------------+
 
 
@@ -291,35 +556,91 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Sun May 25 19:20:24 2025
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Processing started: Tue May 27 08:40:35 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
+Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file mux4_1.sv
+    Info (12023): Found entity 1: mux4_1 File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file register4bits.sv
+    Info (12023): Found entity 1: Register4Bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/Register4Bits.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file tb_alu_structural.sv
+    Info (12023): Found entity 1: tb_alu_structural File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_alu_structural.sv Line: 3
+Warning (12019): Can't analyze file -- file mux2_1_4bits.sv is missing
+Info (12021): Found 1 design units, including 1 entities, in source file mux2_1.sv
+    Info (12023): Found entity 1: mux2_1 File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux2_1.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file alu_structural.sv
+    Info (12023): Found entity 1: alu_structural File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_module.sv
-    Info (12023): Found entity 1: Spi_slave_module File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_module.sv Line: 9
+    Info (12023): Found entity 1: Spi_slave_module File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/Spi_slave_module.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file fpgacontroller.sv
-    Info (12023): Found entity 1: FpgaController File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 2
+    Info (12023): Found entity 1: FpgaController File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_tb.sv
-    Info (12023): Found entity 1: Spi_slave_tb File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_tb.sv Line: 3
+    Info (12023): Found entity 1: Spi_slave_tb File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/Spi_slave_tb.sv Line: 3
 Info (12021): Found 1 design units, including 1 entities, in source file hex_to_7seg.sv
-    Info (12023): Found entity 1: hex_to_7seg File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv Line: 5
+    Info (12023): Found entity 1: hex_to_7seg File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/hex_to_7seg.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file and4bits.sv
+    Info (12023): Found entity 1: and4bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/and4bits.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file fulladder.sv
+    Info (12023): Found entity 1: fulladder File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/fulladder.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file multi.sv
+    Info (12023): Found entity 1: multi File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/multi.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file resta.sv
+    Info (12023): Found entity 1: resta File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/resta.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file xor4bits.sv
+    Info (12023): Found entity 1: xor4bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/xor4bits.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file tb_and4bits.sv
+    Info (12023): Found entity 1: tb_and4bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_and4bits.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file tb_fulladder.sv
+    Info (12023): Found entity 1: tb_fulladder File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_fulladder.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file tb_multi.sv
+    Info (12023): Found entity 1: tb_multi File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_multi.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file tb_resta.sv
+    Info (12023): Found entity 1: tb_resta File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_resta.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file tb_xor4bits.sv
+    Info (12023): Found entity 1: tb_xor4bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_xor4bits.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file pwm_controller.sv
+    Info (12023): Found entity 1: pwm_controller File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/pwm_controller.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file flipflop.sv
+    Info (12023): Found entity 1: FlipFlop File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FlipFlop.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file deco_4_2bits.sv
+    Info (12023): Found entity 1: deco_4_2bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/deco_4_2bits.sv Line: 7
+Info (12021): Found 1 design units, including 1 entities, in source file buttondebounce.sv
+    Info (12023): Found entity 1: ButtonDebounce File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/ButtonDebounce.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file mux4_1_4bits.sv
+    Info (12023): Found entity 1: mux4_1_4bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1_4bits.sv Line: 1
 Info (12127): Elaborating entity "FpgaController" for the top level hierarchy
-Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_unit" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 33
-Info (12128): Elaborating entity "hex_to_7seg" for hierarchy "hex_to_7seg:hexdec" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 39
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "motor_pwm_signal" is stuck at GND File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 12
+Info (12128): Elaborating entity "ButtonDebounce" for hierarchy "ButtonDebounce:db_btn0" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 52
+Warning (10230): Verilog HDL assignment warning at ButtonDebounce.sv(28): truncated value with size 32 to match size of target (16) File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/ButtonDebounce.sv Line: 28
+Info (12128): Elaborating entity "deco_4_2bits" for hierarchy "deco_4_2bits:decoder_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 85
+Info (12128): Elaborating entity "alu_structural" for hierarchy "alu_structural:alu_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 108
+Info (12128): Elaborating entity "and4bits" for hierarchy "alu_structural:alu_inst|and4bits:u_and" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 17
+Info (12128): Elaborating entity "xor4bits" for hierarchy "alu_structural:alu_inst|xor4bits:u_xor" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 18
+Info (12128): Elaborating entity "resta" for hierarchy "alu_structural:alu_inst|resta:u_sub" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 19
+Info (12128): Elaborating entity "fulladder" for hierarchy "alu_structural:alu_inst|resta:u_sub|fulladder:fa0" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/resta.sv Line: 18
+Info (12128): Elaborating entity "multi" for hierarchy "alu_structural:alu_inst|multi:u_mul" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 20
+Info (12128): Elaborating entity "mux4_1_4bits" for hierarchy "alu_structural:alu_inst|mux4_1_4bits:muxR" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 23
+Info (12128): Elaborating entity "mux4_1" for hierarchy "alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m0" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1_4bits.sv Line: 6
+Info (12128): Elaborating entity "mux2_1" for hierarchy "alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m0|mux2_1:m0" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1.sv Line: 9
+Info (12128): Elaborating entity "Register4Bits" for hierarchy "Register4Bits:reg_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 116
+Info (12128): Elaborating entity "pwm_controller" for hierarchy "pwm_controller:pwm_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 127
+Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 139
+Info (12128): Elaborating entity "hex_to_7seg" for hierarchy "hex_to_7seg:hex7seg_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 145
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 53 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 5 input pins
-    Info (21059): Implemented 9 output pins
-    Info (21061): Implemented 39 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
-    Info: Peak virtual memory: 4890 megabytes
-    Info: Processing ended: Sun May 25 19:20:30 2025
-    Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:15
+Warning (21074): Design contains 2 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "btn0" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 8
+    Warning (15610): No output dependent on input pin "Mult" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 13
+Info (21057): Implemented 249 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 13 input pins
+    Info (21059): Implemented 20 output pins
+    Info (21061): Implemented 216 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 6 warnings
+    Info: Peak virtual memory: 4888 megabytes
+    Info: Processing ended: Tue May 27 08:40:45 2025
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:20
 
 

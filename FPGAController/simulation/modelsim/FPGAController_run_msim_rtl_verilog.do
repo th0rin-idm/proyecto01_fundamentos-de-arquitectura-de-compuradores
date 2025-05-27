@@ -45,12 +45,25 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
-vlog -sv -work work +incdir+E:/Programacion/Proyecto\ 2\ Funda/Proyecto\ Grupal\ 1\ de\ Funda/FPGAController {E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_module.sv}
-vlog -sv -work work +incdir+E:/Programacion/Proyecto\ 2\ Funda/Proyecto\ Grupal\ 1\ de\ Funda/FPGAController {E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/FpgaController.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Register4Bits.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux2_1_4bits.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux2_1.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_module.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/and4bits.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/fulladder.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/multi.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/resta.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/xor4bits.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/pwm_controller.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/deco_4_2bits.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/ButtonDebounce.sv}
 
-vlog -sv -work work +incdir+E:/Programacion/Proyecto\ 2\ Funda/Proyecto\ Grupal\ 1\ de\ Funda/FPGAController {E:/Programacion/Proyecto 2 Funda/Proyecto Grupal 1 de Funda/FPGAController/Spi_slave_tb.sv}
+vlog -sv -work work +incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController {C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/tb_alu_structural.sv}
 
-vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  Spi_slave_tb
+vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  tb_alu_structural
 
 add wave *
 view structure

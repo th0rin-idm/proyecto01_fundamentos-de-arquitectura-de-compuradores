@@ -1,4 +1,4 @@
-/* Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition */
+/* Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition */
 JedecChain;
 	FileRevision(JESD32A);
 	DefaultMfr(6E);
@@ -6,7 +6,7 @@ JedecChain;
 	P ActionCode(Ign)
 		Device PartName(SOCVHPS) MfrSpec(OpMask(0));
 	P ActionCode(Cfg)
-		Device PartName(5CSXFC6D6F31) Path("C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/output_files/") File("FPGAController.sof") MfrSpec(OpMask(1));
+		Device PartName(5CSXFC6D6F31) Path("C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/output_files/") File("FPGAController.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

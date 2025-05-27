@@ -8,31 +8,79 @@
 					"strict" : false
 				},
 				{
-					"name" : "seven_segment_display[0]",
+					"name" : "led_outputs[0]",
 					"strict" : false
 				},
 				{
-					"name" : "seven_segment_display[1]",
+					"name" : "led_outputs[1]",
 					"strict" : false
 				},
 				{
-					"name" : "seven_segment_display[2]",
+					"name" : "led_outputs[2]",
 					"strict" : false
 				},
 				{
-					"name" : "seven_segment_display[3]",
+					"name" : "led_outputs[3]",
 					"strict" : false
 				},
 				{
-					"name" : "seven_segment_display[4]",
+					"name" : "seven_segment_pins[0]",
 					"strict" : false
 				},
 				{
-					"name" : "seven_segment_display[5]",
+					"name" : "seven_segment_pins[1]",
 					"strict" : false
 				},
 				{
-					"name" : "seven_segment_display[6]",
+					"name" : "seven_segment_pins[2]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins[3]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins[4]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins[5]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins[6]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[0]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[1]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[2]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[3]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[4]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[5]",
+					"strict" : false
+				},
+				{
+					"name" : "seven_segment_pins2[6]",
+					"strict" : false
+				},
+				{
+					"name" : "motor_pwm",
 					"strict" : false
 				},
 				{
@@ -52,7 +100,31 @@
 					"strict" : false
 				},
 				{
+					"name" : "btn2",
+					"strict" : false
+				},
+				{
+					"name" : "btn3",
+					"strict" : false
+				},
+				{
+					"name" : "btn1",
+					"strict" : false
+				},
+				{
 					"name" : "arduino_mosi",
+					"strict" : false
+				},
+				{
+					"name" : "And",
+					"strict" : false
+				},
+				{
+					"name" : "Xor",
+					"strict" : false
+				},
+				{
+					"name" : "Sub",
 					"strict" : false
 				}
 			]

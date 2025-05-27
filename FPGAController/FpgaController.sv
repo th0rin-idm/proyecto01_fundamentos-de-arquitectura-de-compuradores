@@ -1,74 +1,155 @@
-// Nombre del archivo: FpgaController_structural.sv
 module FpgaController (
-    // --- Entradas FÍSICAS a la FPGA ---
-    input  logic        FPGA_clk,           // Reloj principal
-    input  logic        FPGA_reset,         // Reset de la placa (síncrono)
-    input  logic        arduino_sclk,       // SCK del Arduino
-    input  logic        arduino_mosi,       // MOSI del Arduino
-    input  logic        arduino_ss_n,       // SS_n del Arduino
+    input  logic FPGA_clk,
+    input  logic FPGA_reset,
+    input  logic arduino_sclk,
+    input  logic arduino_mosi,
+    input  logic arduino_ss_n,
 
-    // --- Salidas FÍSICAS de la FPGA ---
-    output logic        fpga_physical_miso, // MISO hacia Arduino
-    output logic        motor_pwm_signal,   // PWM para motor (pendiente de tu lógica)
-    output logic [6:0]  seven_segment_display // Display de 7 segmentos
+    input  logic btn0,
+    input  logic btn1,
+    input  logic btn2,
+    input  logic btn3,
+
+    input  logic Mult,
+    input  logic Sub,
+    input  logic And,
+    input  logic Xor,
+
+    output logic fpga_physical_miso,
+    output logic [3:0] led_outputs,         // {Z, C, V, N}
+    output logic [6:0] seven_segment_pins,
+    output logic [6:0] seven_segment_pins2,
+    output logic motor_pwm
 );
 
-    // --- Señales INTERNAS ---
-    wire        data_is_valid;               // Valid pulse desde el SPI
-    wire  [3:0] data_from_spi;               // Nibble recibido por SPI
-    logic [6:0] decoded_pattern;             // Salida del decodificador HEX→7SEG
-    logic [6:0] display_reg;                 // Registro que sujeta el patrón
-    logic [6:0] next_display_reg;            // Valor siguiente para el registro
+    // --- Datos SPI y display ---
+    logic [3:0] data_from_spi_to_fpga;
+    logic       data_is_valid_from_spi;
+    logic [6:0] segments_from_bcd_units;
+    logic [6:0] segments_from_bcd_units_2;
 
-    // --- Instancia del SPI Slave (sin cambios) ---
-    Spi_slave_module spi_unit (
-        .clk                (FPGA_clk),
-        .reset              (FPGA_reset),
-        .sclk_in            (arduino_sclk),
-        .mosi_in            (arduino_mosi),
-        .ss_n_in            (arduino_ss_n),
-        .spi_data_out       (data_from_spi),
-        .spi_data_valid_out (data_is_valid),
-        .miso_out           (fpga_physical_miso)
+    // --- Operando B ---
+    logic [1:0] dec_result;
+    logic [3:0] dec_4bits;
+
+    // --- Selección ALU ---
+    logic [1:0] alu_sel;
+
+    // --- Resultado ALU y flags ---
+    logic [3:0] alu_result;
+    logic       flag_Z, flag_N, flag_C, flag_V;
+
+    // --- Registro del resultado ---
+    logic [3:0] reg_out;
+
+    // --- Señales de botón limpias ---
+    logic btn0_clean, btn1_clean, btn2_clean, btn3_clean;
+    logic Mult_clean, Sub_clean, And_clean, Xor_clean;
+
+    // Debounce para botones operandos
+    ButtonDebounce #(.N(16)) db_btn0 (
+        .clk(FPGA_clk), .rst(FPGA_reset), .btn_in(btn0), .btn_out(btn0_clean)
+    );
+    ButtonDebounce #(.N(16)) db_btn1 (
+        .clk(FPGA_clk), .rst(FPGA_reset), .btn_in(btn1), .btn_out(btn1_clean)
+    );
+    ButtonDebounce #(.N(16)) db_btn2 (
+        .clk(FPGA_clk), .rst(FPGA_reset), .btn_in(btn2), .btn_out(btn2_clean)
+    );
+    ButtonDebounce #(.N(16)) db_btn3 (
+        .clk(FPGA_clk), .rst(FPGA_reset), .btn_in(btn3), .btn_out(btn3_clean)
     );
 
-    // --- Instancia del decodificador HEX→7SEG (sin cambios) ---
-    hex_to_7seg hexdec (
-        .hex (data_from_spi),
-        .seg (decoded_pattern)
+    // Debounce para botones de operación ALU
+    ButtonDebounce #(.N(16)) db_Mult (
+        .clk(FPGA_clk), .rst(FPGA_reset), .btn_in(Mult), .btn_out(Mult_clean)
+    );
+    ButtonDebounce #(.N(16)) db_Sub (
+        .clk(FPGA_clk), .rst(FPGA_reset), .btn_in(Sub), .btn_out(Sub_clean)
+    );
+    ButtonDebounce #(.N(16)) db_And (
+        .clk(FPGA_clk), .rst(FPGA_reset), .btn_in(And), .btn_out(And_clean)
+    );
+    ButtonDebounce #(.N(16)) db_Xor (
+        .clk(FPGA_clk), .rst(FPGA_reset), .btn_in(Xor), .btn_out(Xor_clean)
     );
 
-    // --- Señales de control para el multiplexor estructural ---
-    // rst     = 1 en ciclo de reset
-    // load    = 1 en flanco válido de dato y NO reset
-    // hold    = 1 cuando NO hay dato nuevo y NO reset
-    wire rst_n; 
-    wire load;
-    wire hold;
+    // Decodificador de operandos (botones 0–3)
+    deco_4_2bits decoder_inst (
+        .A(~btn0_clean),
+        .B(~btn1_clean),
+        .C(~btn2_clean),
+        .D(~btn3_clean),
+        .Y1(dec_result[1]),
+        .Y0(dec_result[0])
+    );
+    assign dec_4bits = {2'b00, dec_result};
 
-    assign rst_n = FPGA_reset;
-    assign load  = data_is_valid & ~rst_n;
-    assign hold  = ~data_is_valid & ~rst_n;
+    // Decodificador de operación ALU
+    deco_4_2bits alu_controller (
+        .A(Mult_clean),
+        .B(Sub_clean),
+        .C(And_clean),
+        .D(Xor_clean),
+        .Y1(alu_sel[1]),
+        .Y0(alu_sel[0])
+    );
 
-    // --- Lógica combinacional que elige entre reset, load o hold ---
-    //    next_display_reg[i] = 
-    //       (rst_n     & 1'b1)               |  // patrón de reset = 1
-    //       (load      & decoded_pattern[i]) |
-    //       (hold      & display_reg[i]);
-    assign next_display_reg = 
-          ({7{rst_n}} & 7'b1111111)                 // reset → todos segmentos apagados
-        | ({7{load}}  & decoded_pattern)            // dato válido → nuevo patrón
-        | ({7{hold}}  & display_reg);               // sino → retiene valor previo
+    // Instancia ALU estructural con banderas
+    alu_structural alu_inst (
+        .A(data_from_spi_to_fpga),
+        .B(dec_4bits),
+        .Op(alu_sel),
+        .R(alu_result),
+        .Z(flag_Z),
+        .N(flag_N),
+        .C(flag_C),
+        .V(flag_V)
+    );
 
-    // --- Registro de desplazamiento (flip-flop) para el display (síncrono) ---
-    always_ff @(posedge FPGA_clk) begin
-        display_reg <= next_display_reg;
-    end
+    // Registro de 4 bits para resultado ALU
+    Register4Bits reg_inst (
+        .clk(FPGA_clk),
+        .rst(FPGA_reset),
+        .d(alu_result),
+        .q(reg_out)
+    );
 
-    // --- Conexión final al pin físico del display ---
-    assign seven_segment_display = display_reg;
+    // Mostrar banderas en LEDs: {Z, C, V, N}
+    assign led_outputs = { flag_Z, flag_C, flag_V, flag_N };
 
-    // --- PWM del motor (queda en 0 hasta implementar) ---
-    assign motor_pwm_signal = 1'b0;
+    // PWM usando resultado de ALU
+    pwm_controller pwm_inst (
+        .clk(FPGA_clk),
+        .rst(FPGA_reset),
+        .hex_in(reg_out),
+        .motor_pwm(motor_pwm)
+    );
+
+    // Módulo SPI Slave
+    Spi_slave_module spi_inst (
+        .clk(FPGA_clk),
+        .reset(FPGA_reset),
+        .sclk_in(arduino_sclk),
+        .mosi_in(arduino_mosi),
+        .ss_n_in(arduino_ss_n),
+        .spi_data_out(data_from_spi_to_fpga),
+        .spi_data_valid_out(data_is_valid_from_spi),
+        .miso_out(fpga_physical_miso)
+    );
+
+    // Decodificadores 7 segmentos para dato SPI y resultado ALU
+    hex_to_7seg hex7seg_inst (
+        .hex(data_from_spi_to_fpga),
+        .seg(segments_from_bcd_units)
+    );
+    hex_to_7seg hex7seg_reg_inst (
+        .hex(reg_out),
+        .seg(segments_from_bcd_units_2)
+    );
+
+    // Salidas a displays (anodo común: activo bajo)
+    assign seven_segment_pins  = ~segments_from_bcd_units;
+    assign seven_segment_pins2 = ~segments_from_bcd_units_2;
 
 endmodule
