@@ -4,8 +4,19 @@ FPGA_reset => FPGA_reset.IN1
 arduino_sclk => arduino_sclk.IN1
 arduino_mosi => arduino_mosi.IN1
 arduino_ss_n => arduino_ss_n.IN1
+sw_and => comb.IN0
+sw_xor => comb.IN0
+sw_xor => comb.IN1
+sw_sub => comb.IN0
+sw_sub => comb.IN1
+sw_mul => comb.IN1
+sw_mul => comb.IN1
+sw_mul => op_valid.IN1
+btn0 => A_ext[0].IN1
+btn1 => A_ext[1].IN1
+btn2 => B_ext[0].IN1
+btn3 => B_ext[1].IN1
 fpga_physical_miso << Spi_slave_module:spi_unit.miso_out
-motor_pwm_signal << <GND>
 seven_segment_display[0] << display_reg[0].DB_MAX_OUTPUT_PORT_TYPE
 seven_segment_display[1] << display_reg[1].DB_MAX_OUTPUT_PORT_TYPE
 seven_segment_display[2] << display_reg[2].DB_MAX_OUTPUT_PORT_TYPE
@@ -62,6 +73,489 @@ spi_data_out[2] <= data_buffer_reg[2].DB_MAX_OUTPUT_PORT_TYPE
 spi_data_out[3] <= data_buffer_reg[3].DB_MAX_OUTPUT_PORT_TYPE
 spi_data_valid_out <= data_valid_pulse_reg.DB_MAX_OUTPUT_PORT_TYPE
 miso_out <= shift_reg_miso[7].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu
+A[0] => A[0].IN4
+A[1] => A[1].IN4
+A[2] => A[2].IN4
+A[3] => A[3].IN4
+B[0] => B[0].IN4
+B[1] => B[1].IN4
+B[2] => B[2].IN4
+B[3] => B[3].IN4
+Op[0] => Op[0].IN2
+Op[1] => Op[1].IN1
+R[0] <= mux2_1_4bits:mux_final.Y
+R[1] <= mux2_1_4bits:mux_final.Y
+R[2] <= mux2_1_4bits:mux_final.Y
+R[3] <= mux2_1_4bits:mux_final.Y
+
+
+|FpgaController|alu_structural:u_alu|and4bits:u_and
+A[0] => and0.IN0
+A[1] => and1.IN0
+A[2] => and2.IN0
+A[3] => and3.IN0
+B[0] => and0.IN1
+B[1] => and1.IN1
+B[2] => and2.IN1
+B[3] => and3.IN1
+R[0] <= and0.DB_MAX_OUTPUT_PORT_TYPE
+R[1] <= and1.DB_MAX_OUTPUT_PORT_TYPE
+R[2] <= and2.DB_MAX_OUTPUT_PORT_TYPE
+R[3] <= and3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|xor4bits:u_xor
+A[0] => xor0.IN0
+A[1] => xor1.IN0
+A[2] => xor2.IN0
+A[3] => xor3.IN0
+B[0] => xor0.IN1
+B[1] => xor1.IN1
+B[2] => xor2.IN1
+B[3] => xor3.IN1
+R[0] <= xor0.DB_MAX_OUTPUT_PORT_TYPE
+R[1] <= xor1.DB_MAX_OUTPUT_PORT_TYPE
+R[2] <= xor2.DB_MAX_OUTPUT_PORT_TYPE
+R[3] <= xor3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|resta:u_sub
+A[0] => A[0].IN1
+A[1] => A[1].IN1
+A[2] => A[2].IN1
+A[3] => A[3].IN1
+B[0] => Bcomp[0].IN1
+B[1] => Bcomp[1].IN1
+B[2] => Bcomp[2].IN1
+B[3] => Bcomp[3].IN1
+S[0] <= fulladder:inst_adder1.S
+S[1] <= fulladder:inst_adder2.S
+S[2] <= fulladder:inst_adder3.S
+S[3] <= fulladder:inst_adder4.S
+
+
+|FpgaController|alu_structural:u_alu|resta:u_sub|fulladder:inst_adder1
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|resta:u_sub|fulladder:inst_adder2
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|resta:u_sub|fulladder:inst_adder3
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|resta:u_sub|fulladder:inst_adder4
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul
+a[0] => and00.IN0
+a[0] => and10.IN0
+a[0] => and20.IN0
+a[0] => and30.IN0
+a[1] => and01.IN0
+a[1] => and11.IN0
+a[1] => and21.IN0
+a[1] => and31.IN0
+a[2] => and02.IN0
+a[2] => and12.IN0
+a[2] => and22.IN0
+a[2] => and32.IN0
+a[3] => and03.IN0
+a[3] => and13.IN0
+a[3] => and23.IN0
+a[3] => and33.IN0
+b[0] => and00.IN1
+b[0] => and01.IN1
+b[0] => and02.IN1
+b[0] => and03.IN1
+b[1] => and10.IN1
+b[1] => and11.IN1
+b[1] => and12.IN1
+b[1] => and13.IN1
+b[2] => and20.IN1
+b[2] => and21.IN1
+b[2] => and22.IN1
+b[2] => and23.IN1
+b[3] => and30.IN1
+b[3] => and31.IN1
+b[3] => and32.IN1
+b[3] => and33.IN1
+Pcirc[0] <= and00.DB_MAX_OUTPUT_PORT_TYPE
+Pcirc[1] <= fulladder:fa1.S
+Pcirc[2] <= fulladder:fa2b.S
+Pcirc[3] <= fulladder:fa3c.S
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa1
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa2a
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa2b
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa3a
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa3b
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa3c
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa4a
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa4b
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa4c
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa5a
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa5b
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa5c
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|multi:u_mul|fulladder:fa6a
+A => S.IN0
+A => Cout.IN0
+A => Cout.IN0
+B => S.IN1
+B => Cout.IN1
+B => Cout.IN0
+Cin => S.IN1
+Cin => Cout.IN1
+Cin => Cout.IN1
+Cout <= Cout.DB_MAX_OUTPUT_PORT_TYPE
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux0
+sel => sel.IN4
+A[0] => A[0].IN1
+A[1] => A[1].IN1
+A[2] => A[2].IN1
+A[3] => A[3].IN1
+B[0] => B[0].IN1
+B[1] => B[1].IN1
+B[2] => B[2].IN1
+B[3] => B[3].IN1
+Y[0] <= mux2_1:m0.Y
+Y[1] <= mux2_1:m1.Y
+Y[2] <= mux2_1:m2.Y
+Y[3] <= mux2_1:m3.Y
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux0|mux2_1:m0
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux0|mux2_1:m1
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux0|mux2_1:m2
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux0|mux2_1:m3
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux1
+sel => sel.IN4
+A[0] => A[0].IN1
+A[1] => A[1].IN1
+A[2] => A[2].IN1
+A[3] => A[3].IN1
+B[0] => B[0].IN1
+B[1] => B[1].IN1
+B[2] => B[2].IN1
+B[3] => B[3].IN1
+Y[0] <= mux2_1:m0.Y
+Y[1] <= mux2_1:m1.Y
+Y[2] <= mux2_1:m2.Y
+Y[3] <= mux2_1:m3.Y
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux1|mux2_1:m0
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux1|mux2_1:m1
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux1|mux2_1:m2
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux1|mux2_1:m3
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux_final
+sel => sel.IN4
+A[0] => A[0].IN1
+A[1] => A[1].IN1
+A[2] => A[2].IN1
+A[3] => A[3].IN1
+B[0] => B[0].IN1
+B[1] => B[1].IN1
+B[2] => B[2].IN1
+B[3] => B[3].IN1
+Y[0] <= mux2_1:m0.Y
+Y[1] <= mux2_1:m1.Y
+Y[2] <= mux2_1:m2.Y
+Y[3] <= mux2_1:m3.Y
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux_final|mux2_1:m0
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux_final|mux2_1:m1
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux_final|mux2_1:m2
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|FpgaController|alu_structural:u_alu|mux2_1_4bits:mux_final|mux2_1:m3
+sel => g3.IN0
+sel => g2.IN0
+A => g2.IN1
+B => g3.IN1
+Y <= g4.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |FpgaController|hex_to_7seg:hexdec

@@ -37,4 +37,3 @@ module tb_resta;
   end
 
 endmodule
-ç

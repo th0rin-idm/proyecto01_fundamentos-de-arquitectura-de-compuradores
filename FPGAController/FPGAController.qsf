@@ -52,8 +52,6 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
-set_global_assignment -name SYSTEMVERILOG_FILE Spi_slave_module.sv
-set_global_assignment -name SYSTEMVERILOG_FILE FpgaController.sv
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
@@ -62,7 +60,7 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_location_assignment PIN_AF14 -to FPGA_clk
-set_location_assignment PIN_AB30 -to FPGA_reset
+set_location_assignment PIN_AA30 -to FPGA_reset
 set_location_assignment PIN_AD7 -to arduino_mosi
 set_location_assignment PIN_AE7 -to arduino_sclk
 set_location_assignment PIN_AD10 -to arduino_ss_n
@@ -75,15 +73,16 @@ set_location_assignment PIN_AH17 -to seven_segment_display[4]
 set_location_assignment PIN_AG18 -to seven_segment_display[5]
 set_location_assignment PIN_AH18 -to seven_segment_display[6]
 set_location_assignment PIN_AE11 -to fpga_physical_miso
-set_global_assignment -name SYSTEMVERILOG_FILE Spi_slave_tb.sv
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
-set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH Spi_slave_tb -section_id eda_simulation
-set_global_assignment -name EDA_TEST_BENCH_NAME Spi_slave_tb -section_id eda_simulation
-set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id Spi_slave_tb
-set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME Spi_slave_tb -section_id Spi_slave_tb
-set_global_assignment -name EDA_TEST_BENCH_FILE Spi_slave_tb.sv -section_id Spi_slave_tb
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH tb_alu_structural -section_id eda_simulation
+set_global_assignment -name SYSTEMVERILOG_FILE tb_alu_structural.sv
+set_global_assignment -name SYSTEMVERILOG_FILE mux2_1_4bits.sv
+set_global_assignment -name SYSTEMVERILOG_FILE mux2_1.sv
+set_global_assignment -name SYSTEMVERILOG_FILE alu_structural.sv
+set_global_assignment -name SYSTEMVERILOG_FILE Spi_slave_module.sv
+set_global_assignment -name SYSTEMVERILOG_FILE FpgaController.sv
+set_global_assignment -name SYSTEMVERILOG_FILE Spi_slave_tb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hex_to_7seg.sv
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name SYSTEMVERILOG_FILE and4bits.sv
 set_global_assignment -name SYSTEMVERILOG_FILE fulladder.sv
 set_global_assignment -name SYSTEMVERILOG_FILE multi.sv
@@ -94,3 +93,17 @@ set_global_assignment -name SYSTEMVERILOG_FILE tb_fulladder.sv
 set_global_assignment -name SYSTEMVERILOG_FILE tb_multi.sv
 set_global_assignment -name SYSTEMVERILOG_FILE tb_resta.sv
 set_global_assignment -name SYSTEMVERILOG_FILE tb_xor4bits.sv
+set_global_assignment -name SYSTEMVERILOG_FILE pwm_controller.sv
+set_location_assignment PIN_AB30 -to sw_and
+set_location_assignment PIN_Y27 -to sw_mul
+set_location_assignment PIN_AB28 -to sw_sub
+set_location_assignment PIN_AC30 -to sw_xor
+set_location_assignment PIN_AJ4 -to btn0
+set_location_assignment PIN_AK4 -to btn1
+set_location_assignment PIN_AA14 -to btn2
+set_location_assignment PIN_AA15 -to btn3
+set_global_assignment -name EDA_TEST_BENCH_NAME tb_alu_structural -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id tb_alu_structural
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME tb_alu_structural -section_id tb_alu_structural
+set_global_assignment -name EDA_TEST_BENCH_FILE tb_alu_structural.sv -section_id tb_alu_structural
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

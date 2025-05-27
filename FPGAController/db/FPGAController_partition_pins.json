@@ -44,15 +44,43 @@
 					"strict" : false
 				},
 				{
+					"name" : "sw_and",
+					"strict" : false
+				},
+				{
+					"name" : "sw_sub",
+					"strict" : false
+				},
+				{
+					"name" : "sw_xor",
+					"strict" : false
+				},
+				{
+					"name" : "sw_mul",
+					"strict" : false
+				},
+				{
+					"name" : "btn2",
+					"strict" : false
+				},
+				{
+					"name" : "btn0",
+					"strict" : false
+				},
+				{
+					"name" : "btn3",
+					"strict" : false
+				},
+				{
+					"name" : "btn1",
+					"strict" : false
+				},
+				{
 					"name" : "arduino_ss_n",
 					"strict" : false
 				},
 				{
 					"name" : "arduino_sclk",
-					"strict" : false
-				},
-				{
-					"name" : "arduino_mosi",
 					"strict" : false
 				}
 			]

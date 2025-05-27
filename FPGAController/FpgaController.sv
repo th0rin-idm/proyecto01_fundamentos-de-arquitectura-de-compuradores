@@ -1,26 +1,38 @@
-// Nombre del archivo: FpgaController_structural.sv
-module FpgaController (
-    // --- Entradas FÍSICAS a la FPGA ---
-    input  logic        FPGA_clk,           // Reloj principal
-    input  logic        FPGA_reset,         // Reset de la placa (síncrono)
-    input  logic        arduino_sclk,       // SCK del Arduino
-    input  logic        arduino_mosi,       // MOSI del Arduino
-    input  logic        arduino_ss_n,       // SS_n del Arduino
+`timescale 1ns / 1ps
 
-    // --- Salidas FÍSICAS de la FPGA ---
-    output logic        fpga_physical_miso, // MISO hacia Arduino
-    output logic        motor_pwm_signal,   // PWM para motor (pendiente de tu lógica)
-    output logic [6:0]  seven_segment_display // Display de 7 segmentos
+module FpgaController (
+    // Entradas de reloj y reset
+    input  logic        FPGA_clk,
+    input  logic        FPGA_reset,
+
+    // SPI (se deja aunque no se use para la ALU ahora)
+    input  logic        arduino_sclk,
+    input  logic        arduino_mosi,
+    input  logic        arduino_ss_n,
+
+    // Switches (one-hot) para elegir operación
+    input  logic        sw_and,    // cuando vale 1 → AND
+    input  logic        sw_xor,    // cuando vale 1 → XOR
+    input  logic        sw_sub,    // cuando vale 1 → SUB
+    input  logic        sw_mul,    // cuando vale 1 → MUL
+
+    // Botones para los operandos de 1 bit
+    // btn0→A[0], btn1→A[1], btn2→B[0], btn3→B[1]
+    input  logic        btn0,
+    input  logic        btn1,
+    input  logic        btn2,
+    input  logic        btn3,
+
+    // Salidas
+    output logic        fpga_physical_miso,
+    output logic [6:0]  seven_segment_display
 );
 
-    // --- Señales INTERNAS ---
-    wire        data_is_valid;               // Valid pulse desde el SPI
-    wire  [3:0] data_from_spi;               // Nibble recibido por SPI
-    logic [6:0] decoded_pattern;             // Salida del decodificador HEX→7SEG
-    logic [6:0] display_reg;                 // Registro que sujeta el patrón
-    logic [6:0] next_display_reg;            // Valor siguiente para el registro
-
-    // --- Instancia del SPI Slave (sin cambios) ---
+    // -------------------------------------------------------------
+    // 1) Instancia del SPI Slave (mantenido pero no usado luego)
+    // -------------------------------------------------------------
+    wire        data_is_valid;
+    wire [3:0]  data_from_spi;
     Spi_slave_module spi_unit (
         .clk                (FPGA_clk),
         .reset              (FPGA_reset),
@@ -32,43 +44,72 @@ module FpgaController (
         .miso_out           (fpga_physical_miso)
     );
 
-    // --- Instancia del decodificador HEX→7SEG (sin cambios) ---
-    hex_to_7seg hexdec (
-        .hex (data_from_spi),
-        .seg (decoded_pattern)
+    // -------------------------------------------------------------
+    // 2) Formar operandos A_ext y B_ext de 4 bits a partir de botones
+    //    Cada botón vale 0 o 1:
+    //      A_ext = {2’b00, btn1, btn0}
+    //      B_ext = {2’b00, btn3, btn2}
+    // -------------------------------------------------------------
+    wire [3:0] A_ext = {2'b00, btn1, btn0};
+    wire [3:0] B_ext = {2'b00, btn3, btn2};
+
+    // -------------------------------------------------------------
+    // 3) Decodificar los switches en un código Op[1:0]:
+    //       Op = {Op1, Op0}
+    //       Op0 = sw_xor OR sw_mul
+    //       Op1 = sw_sub OR sw_mul
+    //    Mapea one-hot de 4 switches a un bus de 2 bits
+    //       00 → AND
+    //       01 → XOR
+    //       10 → SUB
+    //       11 → MUL
+    // -------------------------------------------------------------
+    wire Op0 = sw_xor | sw_mul;
+    wire Op1 = sw_sub | sw_mul;
+    wire [1:0] Op = {Op1, Op0};
+
+    // -------------------------------------------------------------
+    // 4) Llamar a la ALU estructural
+    // -------------------------------------------------------------
+    wire [3:0] alu_result;
+    alu_structural u_alu (
+        .A   (A_ext),
+        .B   (B_ext),
+        .Op  (Op),
+        .R   (alu_result)
     );
 
-    // --- Señales de control para el multiplexor estructural ---
-    // rst     = 1 en ciclo de reset
-    // load    = 1 en flanco válido de dato y NO reset
-    // hold    = 1 cuando NO hay dato nuevo y NO reset
-    wire rst_n; 
-    wire load;
-    wire hold;
+    // -------------------------------------------------------------
+    // 5) Lógica de display
+    //
+    //    - Mientras no haya ningún switch activo (op_valid=0), mostramos “0”
+    //    - Cuando al menos un switch está en 1 (op_valid=1), mostramos alu_result
+    //    - El valor se codifica a 7-segmentos y luego se registra síncronamente
+    // -------------------------------------------------------------
+    wire        op_valid      = sw_and | sw_xor | sw_sub | sw_mul;
+    wire [6:0]  zero_pattern  = 7'b1000000; // forma “0” en display
+    wire [6:0]  decoded_result;
 
-    assign rst_n = FPGA_reset;
-    assign load  = data_is_valid & ~rst_n;
-    assign hold  = ~data_is_valid & ~rst_n;
+    // Decoder hex→7seg estructural
+    hex_to_7seg hexdec (
+        .hex (alu_result),
+        .seg (decoded_result)
+    );
 
-    // --- Lógica combinacional que elige entre reset, load o hold ---
-    //    next_display_reg[i] = 
-    //       (rst_n     & 1'b1)               |  // patrón de reset = 1
-    //       (load      & decoded_pattern[i]) |
-    //       (hold      & display_reg[i]);
-    assign next_display_reg = 
-          ({7{rst_n}} & 7'b1111111)                 // reset → todos segmentos apagados
-        | ({7{load}}  & decoded_pattern)            // dato válido → nuevo patrón
-        | ({7{hold}}  & display_reg);               // sino → retiene valor previo
+    // MUX combinacional puro (sin if, sin case, sin ?:)
+    wire [6:0] display_comb = 
+          ({7{op_valid   }} & decoded_result)
+        | ({7{~op_valid  }} & zero_pattern);
 
-    // --- Registro de desplazamiento (flip-flop) para el display (síncrono) ---
-    always_ff @(posedge FPGA_clk) begin
-        display_reg <= next_display_reg;
+    // Registro síncrono con reset asíncrono para fijar el patrón
+    logic [6:0] display_reg;
+    always_ff @(posedge FPGA_clk or posedge FPGA_reset) begin
+        if (FPGA_reset)
+            display_reg <= zero_pattern;   // al reset, “0”
+        else
+            display_reg <= display_comb;   // al reloj, carga el valor combinado
     end
 
-    // --- Conexión final al pin físico del display ---
     assign seven_segment_display = display_reg;
-
-    // --- PWM del motor (queda en 0 hasta implementar) ---
-    assign motor_pwm_signal = 1'b0;
 
 endmodule
