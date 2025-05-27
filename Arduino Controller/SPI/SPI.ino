@@ -1,16 +1,15 @@
 #include <SPI.h>
 
 const int   ssPin        = 10;
-const byte  ACK_EXPECTED = 0x10;
-const unsigned long TIMEOUT_MS = 3000;
+const byte  ACK_EXPECTED = 0x10;         // ACK esperado
+const unsigned long TIMEOUT_MS = 3000;   // Timeout 3 segundos
 
 SPISettings spiSettings(62500, MSBFIRST, SPI_MODE0);
 
 enum State { STATE_HANDSHAKE, STATE_RUNNING };
 State commState = STATE_HANDSHAKE;
 
-// El nibble que vamos a enviar en cada comando:
-byte nextNibble = 0;
+byte nextNibble = 0;  // Nibble que enviaremos (0..15)
 
 void setup() {
   Serial.begin(9600);
@@ -18,9 +17,10 @@ void setup() {
   pinMode(ssPin, OUTPUT);
   digitalWrite(ssPin, HIGH);
   SPI.begin();
+  Serial.println("Arduino listo.");
 }
 
-// Envía y verifica ACK. Retorna true si coincide, false si no.
+// Envía dato y verifica si retorna ACK esperado
 bool sendAndVerify(byte dato) {
   SPI.beginTransaction(spiSettings);
   digitalWrite(ssPin, LOW);
@@ -28,8 +28,7 @@ bool sendAndVerify(byte dato) {
   digitalWrite(ssPin, HIGH);
   SPI.endTransaction();
 
-  if (ack == ACK_EXPECTED) return true;
-  else                    return false;
+  return (ack == ACK_EXPECTED);
 }
 
 void loop() {
@@ -39,10 +38,9 @@ void loop() {
   switch (commState) {
     case STATE_HANDSHAKE:
       Serial.println("=== Handshake inicial ===");
-      // Mandamos 0x0 como “ping” hasta recibir ACK
       startTime = millis();
       do {
-        ok = sendAndVerify(0x00);
+        ok = sendAndVerify(0x00);  // Ping con 0x00
         if (ok) break;
       } while (millis() - startTime < TIMEOUT_MS);
 
@@ -57,12 +55,10 @@ void loop() {
 
     case STATE_RUNNING:
       {
-        // Preparamos el dato real (nibble en MSBs)
-        byte dato = (nextNibble & 0x0F) << 4;
+        byte dato = (nextNibble & 0x0F) << 4;  // Paquete nibble en MSBs
         Serial.print("Enviando dato 0x");
         Serial.println(nextNibble, HEX);
 
-        // Mandamos y reintentamos hasta timeout
         startTime = millis();
         do {
           ok = sendAndVerify(dato);
@@ -72,9 +68,7 @@ void loop() {
         if (ok) {
           Serial.print("Eco OK: 0x");
           Serial.println(nextNibble, HEX);
-          // Avanzamos al siguiente nibble
-          nextNibble = (nextNibble + 1) & 0x0F;
-          // Esperamos “un comando nuevo” (aquí un delay, o sustituye por trigger)
+          nextNibble = (nextNibble + 1) & 0x0F;  // Incrementa nibble circular 0..15
           delay(1500);
         } else {
           Serial.println("No llegó ACK en 3 s, reinicio handshake");

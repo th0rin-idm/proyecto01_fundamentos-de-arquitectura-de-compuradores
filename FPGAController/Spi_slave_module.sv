@@ -1,11 +1,3 @@
-//-----------------------------------------------------------------------------
-// Modulo Spi_slave_module (CORRECCIÓN FINAL con FLAG para CARGA ÚNICA)
-//
-// Descripcion:
-//   Modulo esclavo SPI estructural para recibir 4 bits de datos (MOSI)
-//   y enviar un byte de acknowledgement (MISO). Evita la sobrescritura
-//   del buffer de datos MOSI.
-//-----------------------------------------------------------------------------
 module Spi_slave_module (
     input  logic clk,
     input  logic reset,

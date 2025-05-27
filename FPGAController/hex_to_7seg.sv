@@ -1,52 +1,101 @@
-// Nombre del archivo: hex_to_7seg_structural.sv
-// Decodificador de 4-bit hex a 7-segmentos totalmente estructural,
-// sin case, if o operador ternario.
-
 module hex_to_7seg (
-    input  logic [3:0] hex,  // valor 0–15
-    output logic [6:0] seg   // {g,f,e,d,c,b,a}, activo bajo
+    input  logic [3:0] hex,      // Entrada de 4 bits (0-F)
+    output logic [6:0] seg       // Salida para 7 segmentos {a,b,c,d,e,f,g}
+                                // seg[0] = a, ..., seg[6] = g
 );
 
-    // --- Patrones constantes para cada hex ---
-    localparam logic [6:0] PAT0 = 7'b1000000;
-    localparam logic [6:0] PAT1 = 7'b1111001;
-    localparam logic [6:0] PAT2 = 7'b0100100;
-    localparam logic [6:0] PAT3 = 7'b0110000;
-    localparam logic [6:0] PAT4 = 7'b0011001;
-    localparam logic [6:0] PAT5 = 7'b0010010;
-    localparam logic [6:0] PAT6 = 7'b0000010;
-    localparam logic [6:0] PAT7 = 7'b1111000;
-    localparam logic [6:0] PAT8 = 7'b0000000;
-    localparam logic [6:0] PAT9 = 7'b0010000;
-    localparam logic [6:0] PATA = 7'b0001000;
-    localparam logic [6:0] PATB = 7'b0000011;
-    localparam logic [6:0] PATC = 7'b1000110;
-    localparam logic [6:0] PATD = 7'b0100001;
-    localparam logic [6:0] PATE = 7'b0000110;
-    localparam logic [6:0] PATF = 7'b0001110;
+    // Asignar bits de entrada para claridad
+    logic s3, s2, s1, s0;
+    always_comb begin
+        s3 = hex[3];
+        s2 = hex[2];
+        s1 = hex[1];
+        s0 = hex[0];
+    end
 
-    // --- Decodificador one-hot ---  
-    // Genera un vector de 16 bits con un único '1' en la posición 'hex'
-    wire logic [15:0] one_hot;
-    assign one_hot = 16'b1 << hex;
+    // Definición booleana de cada segmento (1 = encendido, activo alto)
+    assign seg[0] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                    (~s3 & ~s2 &  s1 & ~s0) | // 2
+                    (~s3 & ~s2 &  s1 &  s0) | // 3
+                    (~s3 &  s2 & ~s1 &  s0) | // 5
+                    (~s3 &  s2 &  s1 & ~s0) | // 6
+                    (~s3 &  s2 &  s1 &  s0) | // 7
+                    ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                    ( s3 & ~s2 & ~s1 &  s0) | // 9
+                    ( s3 & ~s2 &  s1 & ~s0) | // A
+                    ( s3 &  s2 & ~s1 & ~s0) | // C
+                    ( s3 &  s2 &  s1 & ~s0) | // E
+                    ( s3 &  s2 &  s1 &  s0);  // F
 
-    // --- Multiplexor estructural usando AND/OR/NOT ---
-    assign seg =
-          ({7{one_hot[ 0]}} & PAT0) 
-        | ({7{one_hot[ 1]}} & PAT1)
-        | ({7{one_hot[ 2]}} & PAT2)
-        | ({7{one_hot[ 3]}} & PAT3)
-        | ({7{one_hot[ 4]}} & PAT4)
-        | ({7{one_hot[ 5]}} & PAT5)
-        | ({7{one_hot[ 6]}} & PAT6)
-        | ({7{one_hot[ 7]}} & PAT7)
-        | ({7{one_hot[ 8]}} & PAT8)
-        | ({7{one_hot[ 9]}} & PAT9)
-        | ({7{one_hot[10]}} & PATA)
-        | ({7{one_hot[11]}} & PATB)
-        | ({7{one_hot[12]}} & PATC)
-        | ({7{one_hot[13]}} & PATD)
-        | ({7{one_hot[14]}} & PATE)
-        | ({7{one_hot[15]}} & PATF);
+    assign seg[1] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                    (~s3 & ~s2 & ~s1 &  s0) | // 1
+                    (~s3 & ~s2 &  s1 & ~s0) | // 2
+                    (~s3 & ~s2 &  s1 &  s0) | // 3
+                    (~s3 &  s2 & ~s1 & ~s0) | // 4
+                    (~s3 &  s2 &  s1 &  s0) | // 7
+                    ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                    ( s3 & ~s2 & ~s1 &  s0) | // 9
+                    ( s3 & ~s2 &  s1 & ~s0) | // A
+                    ( s3 &  s2 & ~s1 &  s0);  // D
+
+    assign seg[2] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                    (~s3 & ~s2 & ~s1 &  s0) | // 1
+                    (~s3 & ~s2 &  s1 &  s0) | // 3
+                    (~s3 &  s2 & ~s1 & ~s0) | // 4
+                    (~s3 &  s2 & ~s1 &  s0) | // 5
+                    (~s3 &  s2 &  s1 & ~s0) | // 6
+                    (~s3 &  s2 &  s1 &  s0) | // 7
+                    ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                    ( s3 & ~s2 & ~s1 &  s0) | // 9
+                    ( s3 & ~s2 &  s1 & ~s0) | // A
+                    ( s3 & ~s2 &  s1 &  s0) | // B
+                    ( s3 &  s2 & ~s1 &  s0);  // D
+
+    assign seg[3] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                    (~s3 & ~s2 &  s1 & ~s0) | // 2
+                    (~s3 & ~s2 &  s1 &  s0) | // 3
+                    (~s3 &  s2 & ~s1 &  s0) | // 5
+                    (~s3 &  s2 &  s1 & ~s0) | // 6
+                    ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                    ( s3 & ~s2 &  s1 &  s0) | // B
+                    ( s3 &  s2 & ~s1 & ~s0) | // C
+                    ( s3 &  s2 & ~s1 &  s0) | // D
+                    ( s3 &  s2 &  s1 & ~s0);  // E
+
+    assign seg[4] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                    (~s3 & ~s2 &  s1 & ~s0) | // 2
+                    (~s3 &  s2 &  s1 & ~s0) | // 6
+                    ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                    ( s3 & ~s2 &  s1 & ~s0) | // A
+                    ( s3 & ~s2 &  s1 &  s0) | // B
+                    ( s3 &  s2 & ~s1 & ~s0) | // C
+                    ( s3 &  s2 & ~s1 &  s0) | // D
+                    ( s3 &  s2 &  s1 & ~s0) | // E
+                    ( s3 &  s2 &  s1 &  s0);  // F
+
+    assign seg[5] = (~s3 & ~s2 & ~s1 & ~s0) | // 0
+                    (~s3 &  s2 & ~s1 & ~s0) | // 4
+                    (~s3 &  s2 & ~s1 &  s0) | // 5
+                    (~s3 &  s2 &  s1 & ~s0) | // 6
+                    ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                    ( s3 & ~s2 & ~s1 &  s0) | // 9
+                    ( s3 & ~s2 &  s1 & ~s0) | // A
+                    ( s3 & ~s2 &  s1 &  s0) | // B
+                    ( s3 &  s2 & ~s1 & ~s0) | // C
+                    ( s3 &  s2 &  s1 & ~s0) | // E
+                    ( s3 &  s2 &  s1 &  s0);  // F
+
+    assign seg[6] = (~s3 & ~s2 &  s1 & ~s0) | // 2
+                    (~s3 & ~s2 &  s1 &  s0) | // 3
+                    (~s3 &  s2 & ~s1 & ~s0) | // 4
+                    (~s3 &  s2 & ~s1 &  s0) | // 5
+                    (~s3 &  s2 &  s1 & ~s0) | // 6
+                    ( s3 & ~s2 & ~s1 & ~s0) | // 8
+                    ( s3 & ~s2 & ~s1 &  s0) | // 9
+                    ( s3 & ~s2 &  s1 & ~s0) | // A
+                    ( s3 & ~s2 &  s1 &  s0) | // B
+                    ( s3 &  s2 & ~s1 &  s0) | // D
+                    ( s3 &  s2 &  s1 & ~s0) | // E
+                    ( s3 &  s2 &  s1 &  s0);  // F
 
 endmodule

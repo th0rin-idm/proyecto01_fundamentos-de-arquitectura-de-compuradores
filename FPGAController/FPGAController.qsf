@@ -64,17 +64,41 @@ set_location_assignment PIN_AA30 -to FPGA_reset
 set_location_assignment PIN_AD7 -to arduino_mosi
 set_location_assignment PIN_AE7 -to arduino_sclk
 set_location_assignment PIN_AD10 -to arduino_ss_n
-set_location_assignment PIN_AK2 -to motor_pwm_signal
-set_location_assignment PIN_W17 -to seven_segment_display[0]
-set_location_assignment PIN_V18 -to seven_segment_display[1]
-set_location_assignment PIN_AG17 -to seven_segment_display[2]
-set_location_assignment PIN_AG16 -to seven_segment_display[3]
-set_location_assignment PIN_AH17 -to seven_segment_display[4]
-set_location_assignment PIN_AG18 -to seven_segment_display[5]
-set_location_assignment PIN_AH18 -to seven_segment_display[6]
 set_location_assignment PIN_AE11 -to fpga_physical_miso
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
 set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH tb_alu_structural -section_id eda_simulation
+set_location_assignment PIN_AK4 -to btn1
+set_location_assignment PIN_AA14 -to btn2
+set_location_assignment PIN_AA15 -to btn3
+set_global_assignment -name EDA_TEST_BENCH_NAME tb_alu_structural -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id tb_alu_structural
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME tb_alu_structural -section_id tb_alu_structural
+set_global_assignment -name EDA_TEST_BENCH_FILE tb_alu_structural.sv -section_id tb_alu_structural
+set_location_assignment PIN_AB30 -to Mult
+set_location_assignment PIN_AJ4 -to btn0
+set_location_assignment PIN_Y27 -to Sub
+set_location_assignment PIN_AB28 -to And
+set_location_assignment PIN_AC30 -to Xor
+set_location_assignment PIN_AA24 -to led_outputs[3]
+set_location_assignment PIN_AB23 -to led_outputs[2]
+set_location_assignment PIN_AC23 -to led_outputs[1]
+set_location_assignment PIN_AD24 -to led_outputs[0]
+set_location_assignment PIN_AA21 -to seven_segment_pins[0]
+set_location_assignment PIN_AB17 -to seven_segment_pins[1]
+set_location_assignment PIN_AA18 -to seven_segment_pins[2]
+set_location_assignment PIN_Y17 -to seven_segment_pins[3]
+set_location_assignment PIN_Y18 -to seven_segment_pins[4]
+set_location_assignment PIN_AF18 -to seven_segment_pins[5]
+set_location_assignment PIN_W16 -to seven_segment_pins[6]
+set_location_assignment PIN_W17 -to seven_segment_pins2[0]
+set_location_assignment PIN_V18 -to seven_segment_pins2[1]
+set_location_assignment PIN_AG17 -to seven_segment_pins2[2]
+set_location_assignment PIN_AG16 -to seven_segment_pins2[3]
+set_location_assignment PIN_AH17 -to seven_segment_pins2[4]
+set_location_assignment PIN_AG18 -to seven_segment_pins2[5]
+set_location_assignment PIN_AH18 -to seven_segment_pins2[6]
+set_location_assignment PIN_AA12 -to motor_pwm
+set_global_assignment -name SYSTEMVERILOG_FILE Register4Bits.sv
 set_global_assignment -name SYSTEMVERILOG_FILE tb_alu_structural.sv
 set_global_assignment -name SYSTEMVERILOG_FILE mux2_1_4bits.sv
 set_global_assignment -name SYSTEMVERILOG_FILE mux2_1.sv
@@ -94,16 +118,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE tb_multi.sv
 set_global_assignment -name SYSTEMVERILOG_FILE tb_resta.sv
 set_global_assignment -name SYSTEMVERILOG_FILE tb_xor4bits.sv
 set_global_assignment -name SYSTEMVERILOG_FILE pwm_controller.sv
-set_location_assignment PIN_AB30 -to sw_and
-set_location_assignment PIN_Y27 -to sw_mul
-set_location_assignment PIN_AB28 -to sw_sub
-set_location_assignment PIN_AC30 -to sw_xor
-set_location_assignment PIN_AJ4 -to btn0
-set_location_assignment PIN_AK4 -to btn1
-set_location_assignment PIN_AA14 -to btn2
-set_location_assignment PIN_AA15 -to btn3
-set_global_assignment -name EDA_TEST_BENCH_NAME tb_alu_structural -section_id eda_simulation
-set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id tb_alu_structural
-set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME tb_alu_structural -section_id tb_alu_structural
-set_global_assignment -name EDA_TEST_BENCH_FILE tb_alu_structural.sv -section_id tb_alu_structural
+set_global_assignment -name SYSTEMVERILOG_FILE FlipFlop.sv
+set_global_assignment -name SYSTEMVERILOG_FILE deco_4_2bits.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ButtonDebounce.sv
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

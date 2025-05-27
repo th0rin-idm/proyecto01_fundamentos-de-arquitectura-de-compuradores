@@ -11,7 +11,7 @@ cModel Technology
 Z0 dC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/simulation/modelsim
 valu_structural
 Z1 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
-Z2 !s110 1748323437
+Z2 !s110 1748350330
 !i10b 1
 !s100 YOWV0C7;@]YHb2CZS^>IW1
 Z3 !s11b Dg1SIo80bB@j0V0VzS_@n1
@@ -22,13 +22,13 @@ R0
 w1748297576
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv
-!i122 2
+!i122 3
 L0 1 62
 Z5 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z6 !s108 1748323437.000000
+Z6 !s108 1748350330.000000
 !s107 C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv|
 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController|C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv|
 !i113 1
@@ -48,7 +48,7 @@ R0
 w1748308819
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/and4bits.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/and4bits.sv
-!i122 6
+!i122 7
 Z10 L0 1 13
 R5
 r1
@@ -61,21 +61,74 @@ R6
 R7
 R8
 R9
+vButtonDebounce
+R1
+Z11 !s110 1748350331
+!i10b 1
+!s100 lRl^TJI@HBY?TkIE`zBO70
+R3
+IN3Wm48i`2mFLUbA=9[0LY1
+R4
+S1
+R0
+w1748346777
+8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/ButtonDebounce.sv
+FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/ButtonDebounce.sv
+!i122 14
+L0 1 38
+R5
+r1
+!s85 0
+31
+Z12 !s108 1748350331.000000
+!s107 C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/ButtonDebounce.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController|C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/ButtonDebounce.sv|
+!i113 1
+R7
+R8
+R9
+n@button@debounce
+vdeco_4_2bits
+R1
+R11
+!i10b 1
+!s100 0N3W2=L=nH?RaKhMC9^[]2
+R3
+I[52kO]g3UO_QLB]0JgSE]0
+R4
+S1
+R0
+w1748342928
+8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/deco_4_2bits.sv
+FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/deco_4_2bits.sv
+!i122 13
+L0 7 10
+R5
+r1
+!s85 0
+31
+R12
+!s107 C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/deco_4_2bits.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController|C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/deco_4_2bits.sv|
+!i113 1
+R7
+R8
+R9
 vFpgaController
 R1
 R2
 !i10b 1
-!s100 jXFDOb]Nlf9z^G4?dV?7<3
+!s100 jHZ1X@XcDKAkYeQCH=TIU0
 R3
-IJcW=VYQXo8Y5Vj=dOZ5N40
+Il<i4@c6U`GB@FP7[4mIi]2
 R4
 S1
 R0
-w1748323096
+w1748346874
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv
-!i122 4
-L0 3 113
+!i122 5
+L0 1 172
 R5
 r1
 !s85 0
@@ -90,7 +143,7 @@ R9
 n@fpga@controller
 vfulladder
 R1
-Z11 !s110 1748323438
+R11
 !i10b 1
 !s100 I=Lc^4Kh>URjSE8_b_>Sf2
 R3
@@ -101,13 +154,13 @@ R0
 w1748308862
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/fulladder.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/fulladder.sv
-!i122 7
+!i122 8
 R10
 R5
 r1
 !s85 0
 31
-Z12 !s108 1748323438.000000
+R6
 !s107 C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/fulladder.sv|
 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController|C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/fulladder.sv|
 !i113 1
@@ -118,17 +171,17 @@ vhex_to_7seg
 R1
 R2
 !i10b 1
-!s100 RWc>`d][Vg>T^i83V1c?72
+!s100 eCaceEHc2m6UT;QXGOa6T0
 R3
-IFV2]=31fH@:b<n?_:WNHI0
+I3`Wj6k3Ph2oQL@]`_7G242
 R4
 S1
 R0
-w1748222424
+w1748346372
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv
-!i122 5
-L0 5 48
+!i122 6
+L0 1 101
 R5
 r1
 !s85 0
@@ -153,7 +206,7 @@ R0
 w1748308893
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/multi.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/multi.sv
-!i122 8
+!i122 9
 L0 1 97
 R5
 r1
@@ -179,7 +232,7 @@ R0
 w1748298262
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux2_1.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux2_1.sv
-!i122 1
+!i122 2
 L0 1 14
 R5
 r1
@@ -205,19 +258,72 @@ R0
 w1748297962
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux2_1_4bits.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux2_1_4bits.sv
-!i122 0
+!i122 1
 L0 1 12
 R5
 r1
 !s85 0
 31
-R6
+Z13 !s108 1748350329.000000
 !s107 C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux2_1_4bits.sv|
 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController|C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux2_1_4bits.sv|
 !i113 1
 R7
 R8
 R9
+vpwm_controller
+R1
+R11
+!i10b 1
+!s100 ERZII]h<@z7<Lmb4@Jb[E0
+R3
+I94=46<8F0h4N2MG87Yn7U2
+R4
+S1
+R0
+w1748342269
+8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/pwm_controller.sv
+FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/pwm_controller.sv
+!i122 12
+L0 1 22
+R5
+r1
+!s85 0
+31
+R12
+!s107 C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/pwm_controller.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController|C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/pwm_controller.sv|
+!i113 1
+R7
+R8
+R9
+vRegister4Bits
+R1
+!s110 1748350329
+!i10b 1
+!s100 ^fM3ZL9Y1CT1]c`oVcH2R3
+R3
+IKY<?PU^N>U17F@?cVlOdL2
+R4
+S1
+R0
+w1748342357
+8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Register4Bits.sv
+FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Register4Bits.sv
+!i122 0
+L0 1 15
+R5
+r1
+!s85 0
+31
+R13
+!s107 C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Register4Bits.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController|C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Register4Bits.sv|
+!i113 1
+R7
+R8
+R9
+n@register4@bits
 vresta
 R1
 R11
@@ -231,7 +337,7 @@ R0
 w1748308935
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/resta.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/resta.sv
-!i122 9
+!i122 10
 L0 1 47
 R5
 r1
@@ -248,17 +354,17 @@ vSpi_slave_module
 R1
 R2
 !i10b 1
-!s100 ES<04_9A=JFbOi2G3hN8S3
+!s100 4EhE>`A_4k5?EiNko_IbM1
 R3
-I452M`A88PPL;aUC1=@WQD0
+ICPW[meGV_2Zh?h<ZMaARX0
 R4
 S1
 R0
-w1747905866
+w1748341315
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_module.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_module.sv
-!i122 3
-L0 9 179
+!i122 4
+L0 1 179
 R5
 r1
 !s85 0
@@ -284,7 +390,7 @@ R0
 w1748298586
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/tb_alu_structural.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/tb_alu_structural.sv
-!i122 11
+!i122 15
 L0 3 43
 R5
 r1
@@ -310,7 +416,7 @@ R0
 w1748308997
 8C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/xor4bits.sv
 FC:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/xor4bits.sv
-!i122 10
+!i122 11
 R10
 R5
 r1
