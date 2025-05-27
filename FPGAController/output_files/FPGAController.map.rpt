@@ -1,6 +1,6 @@
 Analysis & Synthesis report for FPGAController
-Tue May 27 08:29:35 2025
-Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
+Tue May 27 08:40:45 2025
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
 ---------------------
@@ -45,9 +45,9 @@ Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2022  Intel Corporation. All rights reserved.
+Copyright (C) 2018  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
-and other software and tools, and any partner logic 
+and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
@@ -57,32 +57,31 @@ the Intel FPGA IP License Agreement, or other applicable license
 agreement, including, without limitation, that your use is for
 the sole purpose of programming logic devices manufactured by
 Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details, at
-https://fpgasoftware.intel.com/eula.
+refer to the applicable agreement for further details.
 
 
 
-+----------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                     ;
-+---------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Tue May 27 08:29:35 2025          ;
-; Quartus Prime Version           ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
-; Revision Name                   ; FPGAController                                 ;
-; Top-level Entity Name           ; FpgaController                                 ;
-; Family                          ; Cyclone V                                      ;
-; Logic utilization (in ALMs)     ; N/A                                            ;
-; Total registers                 ; 147                                            ;
-; Total pins                      ; 33                                             ;
-; Total virtual pins              ; 0                                              ;
-; Total block memory bits         ; 0                                              ;
-; Total DSP Blocks                ; 0                                              ;
-; Total HSSI RX PCSs              ; 0                                              ;
-; Total HSSI PMA RX Deserializers ; 0                                              ;
-; Total HSSI TX PCSs              ; 0                                              ;
-; Total HSSI PMA TX Serializers   ; 0                                              ;
-; Total PLLs                      ; 0                                              ;
-; Total DLLs                      ; 0                                              ;
-+---------------------------------+------------------------------------------------+
++-------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                  ;
++---------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Tue May 27 08:40:45 2025       ;
+; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                   ; FPGAController                              ;
+; Top-level Entity Name           ; FpgaController                              ;
+; Family                          ; Cyclone V                                   ;
+; Logic utilization (in ALMs)     ; N/A                                         ;
+; Total registers                 ; 147                                         ;
+; Total pins                      ; 33                                          ;
+; Total virtual pins              ; 0                                           ;
+; Total block memory bits         ; 0                                           ;
+; Total DSP Blocks                ; 0                                           ;
+; Total HSSI RX PCSs              ; 0                                           ;
+; Total HSSI PMA RX Deserializers ; 0                                           ;
+; Total HSSI TX PCSs              ; 0                                           ;
+; Total HSSI PMA TX Serializers   ; 0                                           ;
+; Total PLLs                      ; 0                                           ;
+; Total DLLs                      ; 0                                           ;
++---------------------------------+---------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
@@ -178,39 +177,39 @@ https://fpgasoftware.intel.com/eula.
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
 ; Number detected on machine ; 16          ;
-; Maximum allowed            ; 16          ;
+; Maximum allowed            ; 12          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 16          ;
+; Maximum used               ; 12          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-16        ;   0.0%      ;
+;     Processors 2-12        ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                           ;
-+----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                       ; Library ;
-+----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
-; mux4_1.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux4_1.sv           ;         ;
-; Register4Bits.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Register4Bits.sv    ;         ;
-; mux2_1.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux2_1.sv           ;         ;
-; alu_structural.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv   ;         ;
-; Spi_slave_module.sv              ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_module.sv ;         ;
-; FpgaController.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv   ;         ;
-; hex_to_7seg.sv                   ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv      ;         ;
-; and4bits.sv                      ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/and4bits.sv         ;         ;
-; fulladder.sv                     ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/fulladder.sv        ;         ;
-; multi.sv                         ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/multi.sv            ;         ;
-; resta.sv                         ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/resta.sv            ;         ;
-; xor4bits.sv                      ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/xor4bits.sv         ;         ;
-; pwm_controller.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/pwm_controller.sv   ;         ;
-; deco_4_2bits.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/deco_4_2bits.sv     ;         ;
-; ButtonDebounce.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/ButtonDebounce.sv   ;         ;
-; mux4_1_4bits.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux4_1_4bits.sv     ;         ;
-+----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                        ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                                    ; Library ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
+; mux4_1.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1.sv           ;         ;
+; Register4Bits.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/Register4Bits.sv    ;         ;
+; mux2_1.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux2_1.sv           ;         ;
+; alu_structural.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv   ;         ;
+; Spi_slave_module.sv              ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/Spi_slave_module.sv ;         ;
+; FpgaController.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv   ;         ;
+; hex_to_7seg.sv                   ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/hex_to_7seg.sv      ;         ;
+; and4bits.sv                      ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/and4bits.sv         ;         ;
+; fulladder.sv                     ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/fulladder.sv        ;         ;
+; multi.sv                         ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/multi.sv            ;         ;
+; resta.sv                         ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/resta.sv            ;         ;
+; xor4bits.sv                      ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/xor4bits.sv         ;         ;
+; pwm_controller.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/pwm_controller.sv   ;         ;
+; deco_4_2bits.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/deco_4_2bits.sv     ;         ;
+; ButtonDebounce.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/ButtonDebounce.sv   ;         ;
+; mux4_1_4bits.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1_4bits.sv     ;         ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------+
@@ -557,91 +556,91 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Tue May 27 08:29:29 2025
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Processing started: Tue May 27 08:40:35 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FPGAController -c FPGAController
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
+Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file mux4_1.sv
-    Info (12023): Found entity 1: mux4_1 File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux4_1.sv Line: 1
+    Info (12023): Found entity 1: mux4_1 File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file register4bits.sv
-    Info (12023): Found entity 1: Register4Bits File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Register4Bits.sv Line: 1
+    Info (12023): Found entity 1: Register4Bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/Register4Bits.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file tb_alu_structural.sv
-    Info (12023): Found entity 1: tb_alu_structural File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/tb_alu_structural.sv Line: 3
+    Info (12023): Found entity 1: tb_alu_structural File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_alu_structural.sv Line: 3
 Warning (12019): Can't analyze file -- file mux2_1_4bits.sv is missing
 Info (12021): Found 1 design units, including 1 entities, in source file mux2_1.sv
-    Info (12023): Found entity 1: mux2_1 File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux2_1.sv Line: 1
+    Info (12023): Found entity 1: mux2_1 File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux2_1.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file alu_structural.sv
-    Info (12023): Found entity 1: alu_structural File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv Line: 1
+    Info (12023): Found entity 1: alu_structural File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_module.sv
-    Info (12023): Found entity 1: Spi_slave_module File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_module.sv Line: 1
+    Info (12023): Found entity 1: Spi_slave_module File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/Spi_slave_module.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file fpgacontroller.sv
-    Info (12023): Found entity 1: FpgaController File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 1
+    Info (12023): Found entity 1: FpgaController File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file spi_slave_tb.sv
-    Info (12023): Found entity 1: Spi_slave_tb File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/Spi_slave_tb.sv Line: 3
+    Info (12023): Found entity 1: Spi_slave_tb File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/Spi_slave_tb.sv Line: 3
 Info (12021): Found 1 design units, including 1 entities, in source file hex_to_7seg.sv
-    Info (12023): Found entity 1: hex_to_7seg File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/hex_to_7seg.sv Line: 1
+    Info (12023): Found entity 1: hex_to_7seg File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/hex_to_7seg.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file and4bits.sv
-    Info (12023): Found entity 1: and4bits File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/and4bits.sv Line: 1
+    Info (12023): Found entity 1: and4bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/and4bits.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file fulladder.sv
-    Info (12023): Found entity 1: fulladder File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/fulladder.sv Line: 1
+    Info (12023): Found entity 1: fulladder File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/fulladder.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file multi.sv
-    Info (12023): Found entity 1: multi File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/multi.sv Line: 1
+    Info (12023): Found entity 1: multi File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/multi.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file resta.sv
-    Info (12023): Found entity 1: resta File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/resta.sv Line: 1
+    Info (12023): Found entity 1: resta File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/resta.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file xor4bits.sv
-    Info (12023): Found entity 1: xor4bits File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/xor4bits.sv Line: 1
+    Info (12023): Found entity 1: xor4bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/xor4bits.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file tb_and4bits.sv
-    Info (12023): Found entity 1: tb_and4bits File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/tb_and4bits.sv Line: 3
+    Info (12023): Found entity 1: tb_and4bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_and4bits.sv Line: 3
 Info (12021): Found 1 design units, including 1 entities, in source file tb_fulladder.sv
-    Info (12023): Found entity 1: tb_fulladder File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/tb_fulladder.sv Line: 1
+    Info (12023): Found entity 1: tb_fulladder File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_fulladder.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file tb_multi.sv
-    Info (12023): Found entity 1: tb_multi File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/tb_multi.sv Line: 1
+    Info (12023): Found entity 1: tb_multi File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_multi.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file tb_resta.sv
-    Info (12023): Found entity 1: tb_resta File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/tb_resta.sv Line: 1
+    Info (12023): Found entity 1: tb_resta File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_resta.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file tb_xor4bits.sv
-    Info (12023): Found entity 1: tb_xor4bits File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/tb_xor4bits.sv Line: 3
+    Info (12023): Found entity 1: tb_xor4bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/tb_xor4bits.sv Line: 3
 Info (12021): Found 1 design units, including 1 entities, in source file pwm_controller.sv
-    Info (12023): Found entity 1: pwm_controller File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/pwm_controller.sv Line: 1
+    Info (12023): Found entity 1: pwm_controller File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/pwm_controller.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file flipflop.sv
-    Info (12023): Found entity 1: FlipFlop File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FlipFlop.sv Line: 1
+    Info (12023): Found entity 1: FlipFlop File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FlipFlop.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file deco_4_2bits.sv
-    Info (12023): Found entity 1: deco_4_2bits File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/deco_4_2bits.sv Line: 7
+    Info (12023): Found entity 1: deco_4_2bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/deco_4_2bits.sv Line: 7
 Info (12021): Found 1 design units, including 1 entities, in source file buttondebounce.sv
-    Info (12023): Found entity 1: ButtonDebounce File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/ButtonDebounce.sv Line: 1
+    Info (12023): Found entity 1: ButtonDebounce File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/ButtonDebounce.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file mux4_1_4bits.sv
-    Info (12023): Found entity 1: mux4_1_4bits File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux4_1_4bits.sv Line: 1
+    Info (12023): Found entity 1: mux4_1_4bits File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1_4bits.sv Line: 1
 Info (12127): Elaborating entity "FpgaController" for the top level hierarchy
-Info (12128): Elaborating entity "ButtonDebounce" for hierarchy "ButtonDebounce:db_btn0" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 52
-Warning (10230): Verilog HDL assignment warning at ButtonDebounce.sv(28): truncated value with size 32 to match size of target (16) File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/ButtonDebounce.sv Line: 28
-Info (12128): Elaborating entity "deco_4_2bits" for hierarchy "deco_4_2bits:decoder_inst" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 85
-Info (12128): Elaborating entity "alu_structural" for hierarchy "alu_structural:alu_inst" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 108
-Info (12128): Elaborating entity "and4bits" for hierarchy "alu_structural:alu_inst|and4bits:u_and" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv Line: 17
-Info (12128): Elaborating entity "xor4bits" for hierarchy "alu_structural:alu_inst|xor4bits:u_xor" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv Line: 18
-Info (12128): Elaborating entity "resta" for hierarchy "alu_structural:alu_inst|resta:u_sub" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv Line: 19
-Info (12128): Elaborating entity "fulladder" for hierarchy "alu_structural:alu_inst|resta:u_sub|fulladder:fa0" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/resta.sv Line: 18
-Info (12128): Elaborating entity "multi" for hierarchy "alu_structural:alu_inst|multi:u_mul" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv Line: 20
-Info (12128): Elaborating entity "mux4_1_4bits" for hierarchy "alu_structural:alu_inst|mux4_1_4bits:muxR" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/alu_structural.sv Line: 23
-Info (12128): Elaborating entity "mux4_1" for hierarchy "alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m0" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux4_1_4bits.sv Line: 6
-Info (12128): Elaborating entity "mux2_1" for hierarchy "alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m0|mux2_1:m0" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/mux4_1.sv Line: 9
-Info (12128): Elaborating entity "Register4Bits" for hierarchy "Register4Bits:reg_inst" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 116
-Info (12128): Elaborating entity "pwm_controller" for hierarchy "pwm_controller:pwm_inst" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 127
-Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_inst" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 139
-Info (12128): Elaborating entity "hex_to_7seg" for hierarchy "hex_to_7seg:hex7seg_inst" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 145
+Info (12128): Elaborating entity "ButtonDebounce" for hierarchy "ButtonDebounce:db_btn0" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 52
+Warning (10230): Verilog HDL assignment warning at ButtonDebounce.sv(28): truncated value with size 32 to match size of target (16) File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/ButtonDebounce.sv Line: 28
+Info (12128): Elaborating entity "deco_4_2bits" for hierarchy "deco_4_2bits:decoder_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 85
+Info (12128): Elaborating entity "alu_structural" for hierarchy "alu_structural:alu_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 108
+Info (12128): Elaborating entity "and4bits" for hierarchy "alu_structural:alu_inst|and4bits:u_and" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 17
+Info (12128): Elaborating entity "xor4bits" for hierarchy "alu_structural:alu_inst|xor4bits:u_xor" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 18
+Info (12128): Elaborating entity "resta" for hierarchy "alu_structural:alu_inst|resta:u_sub" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 19
+Info (12128): Elaborating entity "fulladder" for hierarchy "alu_structural:alu_inst|resta:u_sub|fulladder:fa0" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/resta.sv Line: 18
+Info (12128): Elaborating entity "multi" for hierarchy "alu_structural:alu_inst|multi:u_mul" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 20
+Info (12128): Elaborating entity "mux4_1_4bits" for hierarchy "alu_structural:alu_inst|mux4_1_4bits:muxR" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/alu_structural.sv Line: 23
+Info (12128): Elaborating entity "mux4_1" for hierarchy "alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m0" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1_4bits.sv Line: 6
+Info (12128): Elaborating entity "mux2_1" for hierarchy "alu_structural:alu_inst|mux4_1_4bits:muxR|mux4_1:m0|mux2_1:m0" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/mux4_1.sv Line: 9
+Info (12128): Elaborating entity "Register4Bits" for hierarchy "Register4Bits:reg_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 116
+Info (12128): Elaborating entity "pwm_controller" for hierarchy "pwm_controller:pwm_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 127
+Info (12128): Elaborating entity "Spi_slave_module" for hierarchy "Spi_slave_module:spi_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 139
+Info (12128): Elaborating entity "hex_to_7seg" for hierarchy "hex_to_7seg:hex7seg_inst" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 145
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 2 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "btn0" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 8
-    Warning (15610): No output dependent on input pin "Mult" File: C:/Users/Xpc/Documents/GitHub/Funda_Top/Proyecto01/taller_funda/FPGAController/FpgaController.sv Line: 13
+    Warning (15610): No output dependent on input pin "btn0" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 8
+    Warning (15610): No output dependent on input pin "Mult" File: C:/Users/fmoreno/Documents/GitHub/Funda/-jrivera-_compu_archi_found_1G1_2025/FPGAController/FpgaController.sv Line: 13
 Info (21057): Implemented 249 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 13 input pins
     Info (21059): Implemented 20 output pins
     Info (21061): Implemented 216 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 6 warnings
-    Info: Peak virtual memory: 4890 megabytes
-    Info: Processing ended: Tue May 27 08:29:35 2025
-    Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:15
+    Info: Peak virtual memory: 4888 megabytes
+    Info: Processing ended: Tue May 27 08:40:45 2025
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:20
 
 
