@@ -84,3 +84,13 @@ set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME Spi_slave_tb -section_id 
 set_global_assignment -name EDA_TEST_BENCH_FILE Spi_slave_tb.sv -section_id Spi_slave_tb
 set_global_assignment -name SYSTEMVERILOG_FILE hex_to_7seg.sv
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SYSTEMVERILOG_FILE and4bits.sv
+set_global_assignment -name SYSTEMVERILOG_FILE fulladder.sv
+set_global_assignment -name SYSTEMVERILOG_FILE multi.sv
+set_global_assignment -name SYSTEMVERILOG_FILE resta.sv
+set_global_assignment -name SYSTEMVERILOG_FILE xor4bits.sv
+set_global_assignment -name SYSTEMVERILOG_FILE tb_and4bits.sv
+set_global_assignment -name SYSTEMVERILOG_FILE tb_fulladder.sv
+set_global_assignment -name SYSTEMVERILOG_FILE tb_multi.sv
+set_global_assignment -name SYSTEMVERILOG_FILE tb_resta.sv
+set_global_assignment -name SYSTEMVERILOG_FILE tb_xor4bits.sv
