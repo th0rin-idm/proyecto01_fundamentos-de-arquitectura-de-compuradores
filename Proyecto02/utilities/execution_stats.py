@@ -23,3 +23,11 @@ class ExecutionStats:
         :return: Lista de estadísticas
         """
         return self.stats
+
+    def display_stats(self):
+        """
+        Muestra las estadísticas de ejecución de forma formateada.
+        """
+        print("Cycles | Instructions | CPI | Time (ns)")
+        for stat in self.stats:
+            print(f"{stat['cycles']} | {stat['instructions']} | {stat['cpi']} | {stat['time']}")
